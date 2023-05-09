@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "testproject"
+rootProject.name = "K20230509"
 include ':app'
+include ':testandroid'
