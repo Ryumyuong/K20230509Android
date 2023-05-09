@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "K20230509"
 include ':app'
 include ':testandroid'
+include ':test2'
