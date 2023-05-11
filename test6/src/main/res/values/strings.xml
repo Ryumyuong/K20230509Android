@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Test6</string>
+    <string name="longtext">배달의민족 주아체는 붓으로 직접 그려서 만든 손글씨 간판을 모티브로 만들었습니다. 붓으로 그려 획의 굵기가 일정하지 않고 동글동글한 느낌을 주는 서체로 옛날 간판의 푸근함과 정겨움이 묻어나는 것이 특징입니다.
+</string>
+    <string name="pass">회원님의 소중한 정보 보호를 위해, 카카오계정의 현재 비밀번호를 확인해 주세요.</string>
+
+</resources>

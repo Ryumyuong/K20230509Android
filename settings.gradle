@@ -12,7 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "K20230509"
+rootProject.name = "testproject"
 include ':app'
-include ':testandroid'
-include ':test2'
+include ':test6'
+include ':test7'

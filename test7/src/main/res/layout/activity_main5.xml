@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity5">
+
+    <TextView
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="+연락처에 추가"
+        android:textSize="20sp"
+        android:textColor="#3E9E1C"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.577">
+
+
+        <TextView
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="15dp"
+            android:text="1"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_marginRight="80dp"
+            android:text="2"
+            android:textSize="40sp"
+
+            />
+
+        <TextView
+            android:text="3"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_marginBottom="15dp"
+            android:text="4"
+            android:textSize="40sp"
+
+            />
+
+        <TextView
+            android:text="5"
+            android:textSize="40sp" />
+
+        <TextView
+            android:text="6"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_marginBottom="15dp"
+            android:text="7"
+            android:textSize="40sp"
+
+            />
+
+        <TextView
+            android:text="8"
+            android:textSize="40sp" />
+
+        <TextView
+            android:text="9"
+            android:textSize="40sp" />
+
+        <TextView
+            android:text="*"
+            android:textSize="40sp"
+
+            />
+
+        <TextView
+            android:text="0"
+            android:textSize="40sp" />
+
+        <TextView
+            android:text="#"
+            android:textSize="40sp" />
+
+
+    </GridLayout>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:src="@drawable/video"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="557dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02-120"
+        android:textSize="50sp"
+        android:textColor="#6A6A6A"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.932" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
