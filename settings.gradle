@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "testproject"
 include ':app'
 include ':test6'
+include ':test7'
