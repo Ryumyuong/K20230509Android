@@ -10,7 +10,7 @@
         android:theme="@style/Theme.Testproject">
         <activity
             android:name=".MainActivity5"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity4"
             android:exported="false" />
