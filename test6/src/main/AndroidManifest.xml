@@ -9,6 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
         <activity
+            android:name=".MainActivity2"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -16,6 +21,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
