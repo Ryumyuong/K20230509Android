@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //values의 strings.xml에서 가져오기
-        binding.textView1.text = getString(R.string.test)
+//        binding.textView1.text = getString(R.string.test)
     }
 }

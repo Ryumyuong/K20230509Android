@@ -8,10 +8,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="버튼 컬러 상태 확인"
+        android:textSize="30sp"
+        android:fontFamily="@font/bmjua"
+        android:textColor="@color/colors"
+        />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/button"
+        android:src="@android:drawable/ic_dialog_alert"
+
         />
 
     <TextView
@@ -19,7 +29,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/test"
-        android:textSize="20sp"
+        android:textSize="@dimen/basicSize"
+
+        android:textColor="@color/mainColor"
+        />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스타일 상속 사용"
+        style="@style/MySubStyle"
         />
 
 </LinearLayout>
