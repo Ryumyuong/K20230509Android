@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">테스트9</string>
+    <string name="appDesc">설명</string>
+    <string name="test">반복적으로 사용되는 문자열을 재사용합니다</string>
+    <string name="desc">Messenger에서 휴대폰 연락처에 있는 사람들을 찾아보세요</string>
+    <string name="descMessage">연락처를 계속 업로드하면 facebook 및 Messenger에서 연결 된 연락처를 추천하고 회원님과 다른 사람들에게 더욱 관련성 높은 광고를 표시하며 더 나은 서비스를 제공하는 데 도움이 됩니다.</string>
+    <string name="setting">설정</string>
+    <string name="later">나중에 하기</string>
+</resources>

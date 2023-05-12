@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">test9</string>
-    <string name="test">반복적으로 사용되는 문자열을 재사용합니다.</string>
+    <string name="appDesc">desc</string>
+    <string name="test">Reuse repeatedly used strings</string>
+    <string name="desc">Find your phone contacts on Messenger</string>
+    <string name="descMessage">Continuously uploading your contacts helps Facebook and Messenger suggest connections and provide and improve ads for you and others, and offer a better service.</string>
+    <string name="setting">TRUN ON</string>
+    <string name="later">NOT NOW</string>
 </resources>
