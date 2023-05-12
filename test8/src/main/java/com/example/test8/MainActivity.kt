@@ -6,8 +6,31 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintSet.Motion
 import com.example.test8.databinding.ActivityMainBinding
+
+/*class MainActivity : AppCompatActivity(),CompoundButton.OnCheckedChangeListener {
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        Log.d("lmj", "체크박스 클릭")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.check1.setOnCheckedChangeListener(this)
+
+    }*/
+
+class MyEventHandler : CompoundButton.OnCheckedChangeListener {
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        Log.d("lmj", "클래스로 구현 체크박스 클릭")
+    }
+
+}
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +38,17 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//      binding.check1.setOnCheckedChangeListener(MyEventHandler())
 
+        //제일 쉽다
+        binding.check1.setOnCheckedChangeListener{
+            a, b -> Log.d("lmj", "방법 3 SAM 기법 구현 : 체크박스 클릭")
+        }
+
+        binding.btn1.setOnLongClickListener{
+            Log.d("lmj", "방법 3 SAM 기법 구현 : 롱클릭")
+            true
+        }
     }
     override fun onTouchEvent(event: MotionEvent?):Boolean {
         when(event?.action) {
