@@ -66,6 +66,10 @@ class MainActivity2 : AppCompatActivity() {
             builder.setContentTitle("임시제목")
             builder.setContentText("전달할 임시 메세지 내용")
 
+            builder.setAutoCancel(false)
+
+            builder.setOngoing(true)
+
 //            intent -> 시스템에 메세지를 전달하는 도구, 화면간의 전환, 데이터 전달
             val intent = Intent(this@MainActivity2, DetailActivity::class.java)
 
@@ -77,4 +81,6 @@ class MainActivity2 : AppCompatActivity() {
             manager.notify(11,builder.build())
         }
     }
+
+
 }
