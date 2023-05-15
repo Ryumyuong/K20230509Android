@@ -9,6 +9,20 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btnTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시간 버튼"
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/btnDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="날짜 다이얼로그 버튼"
+        android:textSize="30sp"/>
+
+    <Button
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
