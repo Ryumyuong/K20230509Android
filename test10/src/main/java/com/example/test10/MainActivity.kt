@@ -6,12 +6,16 @@ import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.DialogInterface.OnClickListener
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.widget.DatePicker
+import android.widget.MediaController
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
@@ -85,6 +89,24 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch("android.permission.ACCESS_FINE_LOCATION")
         }*/
 
+        binding.btnVideo.setOnClickListener {
+            val videoFile:Uri = Uri.parse("android.resource://$packageName/raw/testvideo")
+            /*val player : MediaPlayer = MediaPlayer.create(this, R.raw.testvideo)
+            player.start()*/
+
+            val mc = MediaController(this)
+
+            binding.videoView.setMediaController(mc)
+            binding.videoView.setVideoPath(videoFile.toString())
+            binding.videoView.start()
+        }
+
+        binding.btnSound.setOnClickListener {
+            val notification : Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val ringtone = RingtoneManager.getRingtone(applicationContext, notification)
+            ringtone.play()
+        }
+
         binding.btnCheck.setOnClickListener {
             val items = arrayOf<String>("두루치기", "된장찌개", "밀면", "칼국수")
             AlertDialog.Builder(this@MainActivity).run {
@@ -110,8 +132,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 )
                 setPositiveButton("닫기", null)
+                setCancelable(true)
                 show()
-            }
+            }.setCanceledOnTouchOutside(true)
         }
 
         binding.btnMenu.setOnClickListener {
