@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+
 import android.content.Intent
 import android.graphics.Color
 import android.media.AudioAttributes
@@ -13,6 +14,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
+import androidx.core.app.RemoteInput
 import com.example.test10.databinding.ActivityMain2Binding
 
 class MainActivity2 : AppCompatActivity() {
@@ -63,7 +65,7 @@ class MainActivity2 : AppCompatActivity() {
             builder.setSmallIcon(android.R.drawable.ic_notification_overlay)
             builder.setWhen(System.currentTimeMillis())
 
-            builder.setContentTitle("임시제목")
+            builder.setContentTitle("임시제목 2")
             builder.setContentText("전달할 임시 메세지 내용")
 
             builder.setAutoCancel(false)
@@ -76,7 +78,30 @@ class MainActivity2 : AppCompatActivity() {
             // 요청번호 10번 옵션, 깃발을 이용해서 상태 표기
             val pendingIntent = PendingIntent.getActivity(this@MainActivity2, 10,intent, PendingIntent.FLAG_IMMUTABLE)
 
-            builder.setContentIntent(pendingIntent)
+            val actionIntent = Intent(this@MainActivity2, OneReceiver::class.java)
+            val actionPendingIntent = PendingIntent.getBroadcast(this@MainActivity2, 20,actionIntent,PendingIntent.FLAG_IMMUTABLE)
+            builder.addAction(
+                NotificationCompat.Action.Builder(
+                    android.R.drawable.stat_notify_more, "Action 제목입니다.", actionPendingIntent
+                ).build()
+            )
+
+            val KEY_TEXT_REPLY = "key_text_reply"
+            var replyLabel: String = "답장 테스트"
+            var remoteInput : RemoteInput = RemoteInput.Builder(KEY_TEXT_REPLY).run {
+                setLabel(replyLabel)
+                build()
+            }
+
+            val replyIntent = Intent(this@MainActivity2, ReplyReceiver::class.java)
+            val replyPendingIntent = PendingIntent.getBroadcast(this@MainActivity2, 30, replyIntent, PendingIntent.FLAG_MUTABLE)
+            builder.addAction(
+                NotificationCompat.Action.Builder(
+                    android.R.drawable.arrow_down_float,"답장 테스트", replyPendingIntent
+                ).addRemoteInput(remoteInput).build()
+            )
+
+//            builder.setContentIntent(pendingIntent)
             builder.setAutoCancel(true)
             manager.notify(11,builder.build())
         }
