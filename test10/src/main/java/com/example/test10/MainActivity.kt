@@ -1,7 +1,10 @@
 package com.example.test10
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +23,18 @@ import com.example.test10.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
+    val eventHandler = object : DialogInterface.OnClickListener {
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            if(which == DialogInterface.BUTTON_POSITIVE) {
+                Toast.makeText(this@MainActivity, "확인시 토스트 띄우기", Toast.LENGTH_SHORT).show()
+            } else {
+                if(which == DialogInterface.BUTTON_NEGATIVE) {
+                    Toast.makeText(this@MainActivity, "취소시 토스트 띄우기", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -69,6 +84,66 @@ class MainActivity : AppCompatActivity() {
         } else {
             requestPermissionLauncher.launch("android.permission.ACCESS_FINE_LOCATION")
         }*/
+
+        binding.btnCheck.setOnClickListener {
+            val items = arrayOf<String>("두루치기", "된장찌개", "밀면", "칼국수")
+            AlertDialog.Builder(this@MainActivity).run {
+                setTitle("checkbox alert 다이얼로그")
+                setIcon(android.R.drawable.ic_dialog_info)
+                setMultiChoiceItems(
+                    items,
+                    booleanArrayOf(true, false, false, false),
+                    object : DialogInterface.OnMultiChoiceClickListener {
+                        override fun onClick(
+                            dialog: DialogInterface?,
+                            which: Int,
+                            isChecked: Boolean
+                        ) {
+                            Log.d(
+                                "lmj",
+                                "선택한 점심메뉴 : ${items[which]}이 ${
+                                    if (isChecked) "선택됨"
+                                    else "선택해제됨"
+                                }"
+                            )
+                        }
+                    }
+                )
+                setPositiveButton("닫기", null)
+                show()
+            }
+        }
+
+        binding.btnMenu.setOnClickListener {
+            val items = arrayOf<String>("두루치기", "된장찌개", "밀면", "칼국수")
+
+            AlertDialog.Builder(this@MainActivity).run {
+                setTitle("메뉴 alert 다이얼로그")
+                setIcon(android.R.drawable.ic_dialog_info)
+                setItems(
+                    items,
+                    object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            Log.d("lmj", "선택한 점심메뉴 : ${items[which]}")
+                        }
+                    }
+                )
+                setPositiveButton("닫기", null)
+                show()
+            }
+        }
+
+        binding.btnAlert.setOnClickListener {
+            AlertDialog.Builder(this@MainActivity).run {
+                setTitle("테스트 제목")
+                setIcon(android.R.drawable.ic_dialog_info)
+                setMessage("토스트 메세지 띄울까요?")
+                setPositiveButton("확인",eventHandler)
+                setNegativeButton("취소", eventHandler)
+                show()
+            }
+        }
+
         binding.btnTime.setOnClickListener { 
             TimePickerDialog(this,
                 { _, hourOfDay, minute ->
@@ -93,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
             Toast.makeText(this, "토스트 출력 방법2", Toast.LENGTH_SHORT).show()
         }*/
-        showTest()
+        /*showTest()*/
 
             }
 
