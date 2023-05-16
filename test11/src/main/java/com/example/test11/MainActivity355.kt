@@ -34,7 +34,7 @@ class MainActivity355 : AppCompatActivity() {
         val fragments: List<Fragment>
         init {
             fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment())
-            Log.d("kkang" ,"fragments size : ${fragments.size}")
+            Log.d("lmj" ,"fragments size : ${fragments.size}")
         }
         override fun getItemCount(): Int = fragments.size
 
