@@ -9,6 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
         <activity
+            android:name=".MainActivity443"
+            android:exported="true" />
+        <activity
+            android:name=".KeyboardActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".BundleActivity"
             android:exported="true" />
         <activity

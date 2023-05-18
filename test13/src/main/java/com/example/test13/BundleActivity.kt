@@ -25,15 +25,17 @@ class BundleActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         Log.d("lmj","onSaveInstanceState..........")
         outState.putString("data1", "hello")
-        outState.putInt("data2", 10)
+        outState.putInt("data2", 20)
+        outState.putInt("data3", 10)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-
+        Log.d("lmj","onRestoreInstanceState..........")
         val data1 = savedInstanceState.getString("data1")
         val data2 = savedInstanceState.getInt("data2")
+        val data3 = savedInstanceState.getInt("data3")
 
-        binding.countResultView.text="$data1 - $data2"
+        binding.countResultView.text="$data2 - $data3"
     }
 }
