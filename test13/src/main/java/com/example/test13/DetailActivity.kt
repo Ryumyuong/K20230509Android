@@ -17,6 +17,7 @@ class DetailActivity : AppCompatActivity() {
 
         binding.btn2.setOnClickListener {
             intent.putExtra("result", "후처리 데이터 값")
+            intent.putExtra("result2", "후처리 방법 2 데이터 값")
             setResult(RESULT_OK, intent)
             finish()
         }

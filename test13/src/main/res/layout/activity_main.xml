@@ -22,11 +22,34 @@
         android:text=""
         android:scrollbarSize="30sp"
         />
+    <TextView
+        android:id="@+id/result2MainViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:scrollbarSize="30sp"
+        />
     <Button
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="화면 이동"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="후처리 방법 2"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="인텐트 속성 확인"
         android:textSize="30sp"
         />
 
