@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.btn4.setOnClickListener {
             val intent = Intent()
-            intent.action = "Intent.ACTION_VIEW"
-            intent.data = Uri.parse("http://google.com")
+//            intent.action = Intent.ACTION_VIEW
+            intent.action = "ACTION_EDIT"
+//            intent.data = Uri.parse("http://google.com")
             startActivity(intent)
             // 구글 지도 보는 속성
             /*val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:37.7749,127.4194"))
