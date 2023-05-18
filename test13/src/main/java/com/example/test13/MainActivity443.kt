@@ -28,7 +28,7 @@ class MainActivity443 : AppCompatActivity() {
 //            Log.d("lmj","time : $time")
 //            binding.resultView.text = "sum : $sum"
 
-//            핸들러 스레드로 비동기처리
+//            핸들러 스레드로 비동기처리 많이 파지 마세요
 //            val handler=object: Handler(){
 //                override fun handleMessage(msg: Message) {
 //                    super.handleMessage(msg)
@@ -51,7 +51,7 @@ class MainActivity443 : AppCompatActivity() {
 
 //            코루틴으로 비동기 처리
             val channel = Channel<Int>()
-
+//            Scope는 같은 성격의 코루틴을 묶는 역할
             val backgroundScope = CoroutineScope(Dispatchers.Default + Job())
             backgroundScope.launch {
                 var sum = 0L
