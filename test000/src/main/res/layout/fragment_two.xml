@@ -22,7 +22,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginLeft="50dp"
         />
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
+        android:id="@+id/email"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="190dp"
@@ -36,7 +37,8 @@
         android:layout_marginTop="250dp"
         android:layout_marginLeft="35dp"
         />
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
+        android:id="@+id/pw"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"

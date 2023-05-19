@@ -71,10 +71,12 @@ class MainActivity : AppCompatActivity() {
                 ) !== PackageManager.PERMISSION_GRANTED
             ) {
                 requestPermissionLauncher.launch(arrayOf("android.permission.READ_CONTACTS"))
+                Log.d("lmj","허락 완료")
             } else {
                 val intent =
                     Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
                 requestContactsLauncher.launch(intent)
+                Log.d("lmj","데이터 받기")
             }
         }
     }

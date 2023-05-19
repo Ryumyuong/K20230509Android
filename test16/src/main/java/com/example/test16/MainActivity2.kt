@@ -91,10 +91,11 @@ class MainActivity2 : AppCompatActivity() {
                 ".jpg",
                 storageDir
             )
+            //실제 물리 경로 storage/emulated/0/Android/data/files/Pictures
             filePath = file.absolutePath
             val photoURI: Uri = FileProvider.getUriForFile(
                 this,
-                "com.example.ch16_provider.fileprovider",
+                "com.example.test16.fileprovider",
                 file
             )
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
