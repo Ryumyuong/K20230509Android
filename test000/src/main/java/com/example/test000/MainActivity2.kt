@@ -153,10 +153,11 @@ class MainActivity2 : AppCompatActivity() {
             while (res.moveToNext()) {
                 count = count + 1
                 intent.putExtra("memberList${count}",
-                    """${res.getString(0)}
-                        ${res.getString(1)}
-                        ${res.getString(2)}
-                        ${res.getString(3)}
+                    """
+${res.getString(0)}
+${res.getString(1)}
+${res.getString(2)}
+${res.getString(3)}
                 """.trimIndent())
                 intent.putExtra("count","${count}")
                 Log.d("lmj","${count}")
