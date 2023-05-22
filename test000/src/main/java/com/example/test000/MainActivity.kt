@@ -4,16 +4,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test000.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var binding: ActivityMainBinding
+    var datas: MutableList<String>? = null
+    lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
@@ -24,11 +30,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val requestLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+            it.data!!.getStringExtra("result")?.let {
+                datas?.add(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
         binding.login.setOnClickListener {
 
             val intent = Intent(this@MainActivity,MainActivity2::class.java)
-            startActivity(intent)
+            requestLauncher.launch(intent)
         }
+
+        datas= mutableListOf<String>()
+
+        //add......................
+
+        val db = DatabaseHelper(this).readableDatabase
+        val cursor = db.rawQuery("select * from TODO_TB", null)
+        cursor.run {
+            while(moveToNext()){
+                datas?.add(cursor.getString(1))
+            }
+        }
+        db.close()
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.mainRecyclerView.layoutManager=layoutManager
+        adapter=MyAdapter(datas)
+        binding.mainRecyclerView.adapter=adapter
+        binding.mainRecyclerView.addItemDecoration(
+            DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        )
 
     }
 

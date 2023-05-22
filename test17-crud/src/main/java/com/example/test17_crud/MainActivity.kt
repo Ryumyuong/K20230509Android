@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        setContentView(R.layout.activity_main)
         myDB = DatabaseHelper(this)
+        // findViewById 대신 binding 사용
         editTextName = binding.editTextName
         editTextPhone = binding.editTextPhone
         editTextAddress = binding.editTextAddress
@@ -35,8 +36,9 @@ class MainActivity : AppCompatActivity() {
         buttonInsert = binding.buttonInsert
         buttonView = binding.buttonView
         buttonUpdate = binding.buttonUpdate
-        buttonDelete = findViewById(R.id.buttonDelete)
+//        buttonDelete = findViewById(R.id.buttonDelete)
         buttonDelete = binding.buttonDelete
+        // 최초 1회 실행시 만든 함수 호출
         AddData()
         viewAll()
         UpdateData()
@@ -64,9 +66,12 @@ class MainActivity : AppCompatActivity() {
                 ShowMessage("실패", "데이터를 찾을 수 없습니다.")
                 return@OnClickListener
             }
+            //StringBuffer - 하나의 객체에 해당 문자영르 추가만 하는 형태여서 주소를 새로 생성안함
             val buffer = StringBuffer()
+            //res 형 -> Cursor, 0행부터 시작
             while (res.moveToNext()) {
                 buffer.append(
+                    //trimIndent - 공백제거
                     """
     ID: ${res.getString(0)}
     
