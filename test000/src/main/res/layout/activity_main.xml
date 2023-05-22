@@ -29,15 +29,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </LinearLayout>
 
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginBottom="40dp"
             android:text="플로팅 액션바 작업중"
             app:icon="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,15 +48,14 @@
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="40dp"
             android:text="회원가입"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toEndOf="@+id/fbtn"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.522" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

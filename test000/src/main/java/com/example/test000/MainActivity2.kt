@@ -1,5 +1,6 @@
 package com.example.test000
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -9,8 +10,13 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -25,32 +31,41 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class MainActivity2 : AppCompatActivity() {
+    var myDB: DatabaseHelper? = null
     lateinit var binding: ActivityMain2Binding
     var datas: MutableList<String>? = null
     lateinit var filePath: String
+
+    var editTextName: EditText? = null
+    var editTextPassword: EditText? = null
+    var editTextEmail: EditText? = null
+    var editTextID: EditText? = null
+    var buttonInsert: Button? = null
+    var buttonView: Button? = null
+    var buttonUpdate: Button? = null
+    var buttonDelete: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
-        val bindingOne = FragmentOneBinding.inflate(layoutInflater)
-        val bindingThree = FragmentThreeBinding.inflate(layoutInflater)
-        setContentView(bindingOne.root)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        bindingOne.addLogin.setOnClickListener {
-            Log.d("lmj", "시작합니다")
-        }
-
-
-        val tabLayout = binding.tabs
-
-        val viewPager = binding.viewpager
-
-        viewPager.adapter= MyFragmentPagerAdapter(this)
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = "Tab${(position + 1)}"
-        }.attach()
+        myDB = DatabaseHelper(this)
+        // findViewById 대신 binding 사용
+        editTextName = binding.editTextName
+        editTextPassword = binding.editTextPassword
+        editTextEmail = binding.editTextEmail
+        editTextID = binding.editTextID
+        buttonInsert = binding.buttonInsert
+        buttonView = binding.buttonView
+        buttonUpdate = binding.buttonUpdate
+//        buttonDelete = findViewById(R.id.buttonDelete)
+        buttonDelete = binding.buttonDelete
+        // 최초 1회 실행시 만든 함수 호출
+        AddData()
+        viewAll()
+        UpdateData()
+        DeleteData()
 
         val requestGalleryLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
@@ -128,7 +143,45 @@ class MainActivity2 : AppCompatActivity() {
 
         }
 
+        binding.memberList.setOnClickListener {
+            val intent = intent
 
+            val res = myDB!!.allData
+            val buffer = StringBuffer()
+            //res 형 -> Cursor, 0행부터 시작
+            while (res.moveToNext()) {
+                buffer.append(
+                    //trimIndent - 공백제거
+                    """
+    ID: ${res.getString(0)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    이름: ${res.getString(1)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    비밀번호: ${res.getString(2)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    이메일: ${res.getString(3)}
+    
+    
+    """.trimIndent()
+                )
+            }
+            intent.putExtra("id", "${buffer.toString()}")
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+
+        }
 
     }
 
@@ -140,15 +193,6 @@ class MainActivity2 : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    class MyFragmentPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity){
-        val fragments: List<Fragment>
-        init {
-            fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment())
-        }
-        override fun getItemCount(): Int = fragments.size
-
-        override fun createFragment(position: Int): Fragment = fragments[position]
-    }
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {
         // options = 사진 관련 옵션을 정한다.
         val options = BitmapFactory.Options()
@@ -180,5 +224,93 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
         return inSampleSize
+    }
+
+    fun AddData() {
+        buttonInsert!!.setOnClickListener {
+            val isInserted = myDB!!.insertData(
+                editTextName!!.text.toString(),
+                editTextPassword!!.text.toString(),
+                editTextEmail!!.text.toString()
+            )
+            if (isInserted == true) Toast.makeText(this@MainActivity2, "데이터추가 성공", Toast.LENGTH_LONG)
+                .show() else Toast.makeText(this@MainActivity2, "데이터추가 실패", Toast.LENGTH_LONG).show()
+
+    }
+
+    fun viewAll() {
+        buttonView!!.setOnClickListener(View.OnClickListener {
+            val res = myDB!!.allData
+            if (res.count == 0) {
+                ShowMessage("실패", "데이터를 찾을 수 없습니다.")
+                return@OnClickListener
+            }
+            //StringBuffer - 하나의 객체에 해당 문자열을 추가만 하는 형태여서 주소를 새로 생성안함
+            val buffer = StringBuffer()
+            //res 형 -> Cursor, 0행부터 시작
+            while (res.moveToNext()) {
+                buffer.append(
+                    //trimIndent - 공백제거
+                    """
+    ID: ${res.getString(0)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    이름: ${res.getString(1)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    비밀번호: ${res.getString(2)}
+    
+    """.trimIndent()
+                )
+                buffer.append(
+                    """
+    이메일: ${res.getString(3)}
+    
+    
+    """.trimIndent()
+                )
+            }
+            ShowMessage("데이터", buffer.toString())
+        })
+    }
+
+
+    //데이터베이스 수정하기
+    fun UpdateData() {
+        buttonUpdate!!.setOnClickListener {
+            val isUpdated = myDB!!.updateData(
+                editTextID!!.text.toString(),
+                editTextName!!.text.toString(),
+                editTextPassword!!.text.toString(),
+                editTextEmail!!.text.toString()
+            )
+            if (isUpdated == true) Toast.makeText(this@MainActivity2, "데이터 수정 성공", Toast.LENGTH_LONG)
+                .show() else Toast.makeText(this@MainActivity2, "데이터 수정 실패", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    // 데이터베이스 삭제하기
+    fun DeleteData() {
+        buttonDelete!!.setOnClickListener {
+            val deleteRows = myDB!!.deleteData(editTextID!!.text.toString())
+            if (deleteRows > 0) Toast.makeText(this@MainActivity2, "데이터 삭제 성공", Toast.LENGTH_LONG)
+                .show() else Toast.makeText(this@MainActivity2, "데이터 삭제 실패", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    fun ShowMessage(title: String?, Message: String?) {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setTitle(title)
+        builder.setMessage(Message)
+        builder.show()
     }
 }

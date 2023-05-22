@@ -4,8 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test000.databinding.ActivityMainBinding
@@ -23,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        toggle = ActionBarDrawerToggle(this, binding.drawer, R.string.drawer_opened, R.string.drawer_closed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle.syncState()
+
         binding.fbtn.setOnClickListener{
             when(binding.fbtn.isExtended) {
                 true -> binding.fbtn.shrink()
@@ -30,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val requestLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult())
-        {
-            it.data!!.getStringExtra("result")?.let {
+        val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+            it.data!!.getStringExtra("id")?.let {
                 datas?.add(it)
                 adapter.notifyDataSetChanged()
             }
+
         }
 
         binding.login.setOnClickListener {
@@ -45,18 +54,13 @@ class MainActivity : AppCompatActivity() {
             requestLauncher.launch(intent)
         }
 
-        datas= mutableListOf<String>()
+        datas = savedInstanceState?.let {
+            it.getStringArrayList("datas")?.toMutableList()
+        } ?: let {
+            mutableListOf<String>()
+        }
 
         //add......................
-
-        val db = DatabaseHelper(this).readableDatabase
-        val cursor = db.rawQuery("select * from TODO_TB", null)
-        cursor.run {
-            while(moveToNext()){
-                datas?.add(cursor.getString(1))
-            }
-        }
-        db.close()
 
         val layoutManager = LinearLayoutManager(this)
         binding.mainRecyclerView.layoutManager=layoutManager
@@ -68,13 +72,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_main, menu)
-
-
-        return super.onCreateOptionsMenu(menu)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //이벤트가 toggle 버튼에서 제공된거라면..
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArrayList("datas", ArrayList(datas))
+    }
 
 }

@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity() {
             mutableListOf<String>()
         }
 
-
-
         val layoutManager = LinearLayoutManager(this)
         binding.mainRecyclerView.layoutManager=layoutManager
         adapter=MyAdapter(datas)
