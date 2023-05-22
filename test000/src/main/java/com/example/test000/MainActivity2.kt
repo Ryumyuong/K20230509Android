@@ -148,36 +148,20 @@ class MainActivity2 : AppCompatActivity() {
 
             val res = myDB!!.allData
             val buffer = StringBuffer()
+            var count = 0
             //res 형 -> Cursor, 0행부터 시작
             while (res.moveToNext()) {
-                buffer.append(
-                    //trimIndent - 공백제거
-                    """
-    ID: ${res.getString(0)}
-    
-    """.trimIndent()
-                )
-                buffer.append(
-                    """
-    이름: ${res.getString(1)}
-    
-    """.trimIndent()
-                )
-                buffer.append(
-                    """
-    비밀번호: ${res.getString(2)}
-    
-    """.trimIndent()
-                )
-                buffer.append(
-                    """
-    이메일: ${res.getString(3)}
-    
-    
-    """.trimIndent()
-                )
+                count = count + 1
+                intent.putExtra("memberList${count}",
+                    """${res.getString(0)}
+                        ${res.getString(1)}
+                        ${res.getString(2)}
+                        ${res.getString(3)}
+                """.trimIndent())
+                intent.putExtra("count","${count}")
+                Log.d("lmj","${count}")
             }
-            intent.putExtra("id", "${buffer.toString()}")
+
             setResult(Activity.RESULT_OK, intent)
             finish()
 
@@ -233,9 +217,14 @@ class MainActivity2 : AppCompatActivity() {
                 editTextPassword!!.text.toString(),
                 editTextEmail!!.text.toString()
             )
-            if (isInserted == true) Toast.makeText(this@MainActivity2, "데이터추가 성공", Toast.LENGTH_LONG)
-                .show() else Toast.makeText(this@MainActivity2, "데이터추가 실패", Toast.LENGTH_LONG).show()
-
+            if (isInserted == true) Toast.makeText(
+                this@MainActivity2,
+                "데이터추가 성공",
+                Toast.LENGTH_LONG
+            )
+                .show() else Toast.makeText(this@MainActivity2, "데이터추가 실패", Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     fun viewAll() {

@@ -3,6 +3,8 @@ package com.example.test000
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -38,17 +40,22 @@ class MainActivity : AppCompatActivity() {
                 false -> binding.fbtn.extend()
             }
         }
-
+        var count = 1
         val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){
-            it.data!!.getStringExtra("id")?.let {
-                datas?.add(it)
-                adapter.notifyDataSetChanged()
-            }
+            Log.d("lmj","갯수 : ${it.data!!.getStringExtra("memberList3")}")
+            while(it.data!!.getStringExtra("memberList${count}") != null) {
 
+
+                it.data!!.getStringExtra("memberList${count}")?.let {
+                    datas?.add(it)
+                    adapter.notifyDataSetChanged()
+                    count = count + 1
+                }
+            }
         }
 
-        binding.login.setOnClickListener {
+        binding.addmember.setOnClickListener {
 
             val intent = Intent(this@MainActivity,MainActivity2::class.java)
             requestLauncher.launch(intent)

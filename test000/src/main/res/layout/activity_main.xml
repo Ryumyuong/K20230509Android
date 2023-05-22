@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/addmember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원가입"
@@ -55,7 +55,7 @@
             app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toEndOf="@+id/fbtn"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.522" />
+            app:layout_constraintVertical_bias="0.402" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
