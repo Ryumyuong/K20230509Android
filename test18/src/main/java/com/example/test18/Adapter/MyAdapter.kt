@@ -30,6 +30,7 @@ class MyAdapter(val context: Context, val datas: List<UserModel>?): RecyclerView
         binding.id.text=user?.id
         binding.firstNameView.text=user?.firstName
         binding.lastNameView.text=user?.lastName
+        binding.emailView.text=user?.email
 
         user?.avatar?.let {
             val avatarImageCall = (context.applicationContext as MyApplication).networkService.getAvatarImage(it)

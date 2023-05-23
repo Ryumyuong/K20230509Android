@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 //            openFileInput("test.txt").bufferedReader().forEachLine {
-//                Log.d("kkang", "$it")
+//                Log.d("lmj", "$it")
 //            }
         }
     }

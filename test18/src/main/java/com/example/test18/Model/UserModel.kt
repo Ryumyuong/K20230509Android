@@ -7,8 +7,9 @@ data class UserModel(
         var id: String,
         @SerializedName("first_name")
         var firstName: String,
-        // @SerializedName("last_name")
+        @SerializedName("last_name")
         var lastName: String,
         var avatar: String,
-        var avatarBitmap: Bitmap
+        var avatarBitmap: Bitmap,
+        var email: String
 )
