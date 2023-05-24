@@ -1,15 +1,12 @@
-package com.example.test18_pdtest
+package com.example.test_pdtest
 
 import android.app.Application
-import com.example.test18_pdtest.retrofit.INetworkService
+import com.example.test_pdtest.retrofit.NetworkService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
-class MyApplication :Application () {
-
-
-    var networkService: INetworkService
+class MyApplication : Application() {
+    var networkService: NetworkService
 
     val retrofit: Retrofit
         get() = Retrofit.Builder()
@@ -18,6 +15,6 @@ class MyApplication :Application () {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     init {
-        networkService = retrofit.create(INetworkService::class.java)
+        networkService = retrofit.create(NetworkService::class.java)
     }
 }

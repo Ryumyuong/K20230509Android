@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
                 //.......................................
 
-                binding.recyclerView.adapter = MyAdapter(this@MainActivity, userList?.item)
+                binding.recyclerView.adapter = MyAdapter(this@MainActivity, userList?.getFoodKr?.item)
                 binding.recyclerView.addItemDecoration(
                     DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
                 )
