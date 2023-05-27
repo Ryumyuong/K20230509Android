@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_search"
+        android:title="search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu1"
+        android:title="Tab1"
+        />
+    <item
+        android:id="@+id/menu2"
+        android:title="Tab2"
+        />
+    <item
+        android:id="@+id/menu3"
+        android:title="Tab3"
+        />
+
+</menu>
