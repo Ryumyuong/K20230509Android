@@ -1,122 +1,82 @@
 package com.example.test_pdtest
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.ImageButton
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.test_pdtest.Adapter.MyAdapter
-import com.example.test_pdtest.Model.UserListModel
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.test_pdtest.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.test_pdtest.fragment.OneFragment
+import com.example.test_pdtest.fragment.ThreeFragment
+import com.example.test_pdtest.fragment.TwoFragment
+import com.google.android.material.tabs.TabLayoutMediator
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val serviceKey = "GWKc8ei//v5E4r5nUQ/8w2nKYXGrpkpylgECo0l5n6Zpxi0M2E+uPssZksZpDrkZm1q3o0YCJSfA8XXcaarhFQ=="
-        val resultType = "json"
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val networkService = (applicationContext as MyApplication).networkService
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.title = "루나몰"
 
 
-        var userListCall = networkService.getList(serviceKey,10,1,resultType)
+        val tabLayout = binding.Tabs
 
-        Log.d("lmj", "url:" + userListCall.request().url().toString())
+        val viewPager = binding.Viewpager
 
-        userListCall.enqueue(object : Callback<UserListModel> {
-            override fun onResponse(call: Call<UserListModel>, response: Response<UserListModel>) {
+        viewPager.adapter= PagerAdapter(this)
 
-                val userList = response.body()
-
-                //.......................................
-
-                binding.recyclerView.adapter = MyAdapter(this@MainActivity, userList?.getFestivalKr?.item)
-                binding.recyclerView.addItemDecoration(
-                    DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
-                )
-
-//                binding.pageView.text = userList?.page
-//                binding.totalView.text = userList?.total
-            }
-
-            override fun onFailure(call: Call<UserListModel>, t: Throwable) {
-                call.cancel()
-            }
-        })
-        var count = 1
-        binding.fbtnBefore.visibility = View.INVISIBLE
-
-        binding.fbtnBefore.setOnClickListener{
-            binding.fbtnAfter.visibility = View.VISIBLE
-
-                userListCall = networkService.getList(serviceKey, 10, count - 1, resultType)
-
-                userListCall.enqueue(object : Callback<UserListModel> {
-                    override fun onResponse(
-                        call: Call<UserListModel>,
-                        response: Response<UserListModel>
-                    ) {
-                        val userList = response.body()
-
-                        //.......................................
-
-                        binding.recyclerView.adapter =
-                            MyAdapter(this@MainActivity, userList?.getFestivalKr?.item)
-                        binding.recyclerView.addItemDecoration(
-                            DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
-                        )
-                    }
-
-                    override fun onFailure(call: Call<UserListModel>, t: Throwable) {
-                        call.cancel()
-                    }
-                })
-                count -= 1
-            if(count == 1)
-                binding.fbtnBefore.visibility = View.INVISIBLE
-            else
-                binding.fbtnBefore.visibility = View.VISIBLE
-        }
-
-        binding.fbtnAfter.setOnClickListener{
-            binding.fbtnBefore.visibility = View.VISIBLE
-
-            userListCall = networkService.getList(serviceKey,10,count+1,resultType)
-
-             userListCall.enqueue(object : Callback<UserListModel> {
-                override fun onResponse(call: Call<UserListModel>, response: Response<UserListModel>) {
-
-                    val userList = response.body()
-
-                    //.......................................
-
-                    binding.recyclerView.adapter = MyAdapter(this@MainActivity, userList?.getFestivalKr?.item)
-                    binding.recyclerView.addItemDecoration(
-                        DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
-                    )
-
-                    count += 1
-                    if(userList?.getFestivalKr?.item?.size != 10)
-                        binding.fbtnAfter.visibility = View.INVISIBLE
-
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "방문예정"
                 }
 
-                override fun onFailure(call: Call<UserListModel>, t: Throwable) {
-                    call.cancel()
+                1 -> {
+                    tab.text = "방문완료"
                 }
-            })
+
+                2 -> {
+                    tab.text = "취소/노쇼"
+                }
+            }
+        }.attach()
 
 
-
-
+        binding.bottommenu.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.first_tab -> {
+                    val intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.second_tab -> {
+                    Toast.makeText(this@MainActivity, "미구현", Toast.LENGTH_SHORT).show()
+                }
+                R.id.third_tab -> {
+                    Toast.makeText(this@MainActivity, "미구현", Toast.LENGTH_SHORT).show()
+                }
+                R.id.fourth_tab -> {
+                    Toast.makeText(this@MainActivity, "미구현", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
         }
+    }
+
+    class PagerAdapter(activity: MainActivity): FragmentStateAdapter(activity){
+        val fragments: List<Fragment>
+        init {
+            fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment())
+        }
+        override fun getItemCount(): Int = fragments.size
+
+        override fun createFragment(position: Int): Fragment = fragments[position]
+
     }
 }
