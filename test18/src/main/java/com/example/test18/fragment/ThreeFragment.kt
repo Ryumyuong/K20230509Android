@@ -44,7 +44,7 @@ class ThreeFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(this@ThreeFragment,item,username, networkService)
+                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
 
 
                 binding.threeRecyclerView.adapter = adapter

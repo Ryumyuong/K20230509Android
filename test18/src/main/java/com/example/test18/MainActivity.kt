@@ -11,6 +11,7 @@ import com.example.test18.databinding.ActivityMainBinding
 import com.example.test18.fragment.EightFragment
 import com.example.test18.fragment.FiveFragment
 import com.example.test18.fragment.FourFragment
+import com.example.test18.fragment.NineFragment
 import com.example.test18.fragment.OneFragment
 import com.example.test18.fragment.SevenFragment
 import com.example.test18.fragment.SixFragment
@@ -26,7 +27,6 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +77,10 @@ class MainActivity : AppCompatActivity() {
                 7 -> {
                     tab.text = "VVIP"
                 }
+
+                8 -> {
+                    tab.text = "웰컴키트"
+                }
             }
         }.attach()
 
@@ -114,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, LunaActivity::class.java)
+                        val intent = Intent(this, OrderActivity::class.java)
                         startActivity(intent)
                     }
                 }
@@ -122,7 +126,10 @@ class MainActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, LoginAdmin::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, LoginDetail::class.java)
                         startActivity(intent)
                     }
@@ -135,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     class PagerAdapter(activity: MainActivity): FragmentStateAdapter(activity){
         val fragments: List<Fragment>
         init {
-            fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment(), FourFragment(), FiveFragment(), SixFragment(), SevenFragment(), EightFragment())
+            fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment(), FourFragment(), FiveFragment(), SixFragment(), SevenFragment(), EightFragment(), NineFragment())
         }
         override fun getItemCount(): Int = fragments.size
 

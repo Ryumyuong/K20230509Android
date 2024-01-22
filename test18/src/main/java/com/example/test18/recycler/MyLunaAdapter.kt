@@ -19,16 +19,10 @@ class MyLunaAdapter(datas: MutableList<Order>?): RecyclerView.Adapter<RecyclerVi
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyLunaViewHolder).binding
         val luna = lunaData?.get(position)
-
-        binding.orderTime.text = luna?.order_menu.toString()
-        binding.username.text = luna?.userId.toString()
-        binding.phone.text = luna?.phone.toString()
-        binding.address.text = luna?.address.toString()
+        binding.orderTime.text = luna?.order_time.toString()
+        binding.name.text = luna?.userId.toString()
         binding.orderMenu.text = luna?.order_menu.toString()
-        binding.price.text = luna?.order_price.toString()
-        binding.total.text = luna?.total.toString()
-
-
+        binding.price.text = luna?.order_price.toString() + "루나"
     }
 
     override fun getItemCount(): Int {

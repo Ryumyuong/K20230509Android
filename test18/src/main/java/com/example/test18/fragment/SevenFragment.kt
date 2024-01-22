@@ -45,7 +45,7 @@ class SevenFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(this@SevenFragment,item,username, networkService)
+                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
 
 
                 binding.sevenRecyclerView.adapter = adapter

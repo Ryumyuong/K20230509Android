@@ -1,10 +1,12 @@
 package com.example.test18
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.test18.Model.CsrfToken
 import com.example.test18.Model.UserList
 import com.example.test18.databinding.ActivityLoginBinding
 import com.example.test18.recycler.MyUserAdapter
@@ -35,23 +37,47 @@ class Login : AppCompatActivity() {
 
             Log.d("lmj", "username = $username, password : $password")
 
-            // 간단한 로그인 체크 (실제로는 서버와 통신하여 확인)
-            if (username == "admin" && password == "1234") {
-                Log.d("lmj", "로그인 성공")
-                val preferences = getSharedPreferences("login", MODE_PRIVATE)
-                val editor = preferences.edit()
-                editor.putString("username", username)
-                editor.apply()
-                Log.d("lmj", "로그인 저장")
-                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, LoginDetail::class.java)
-                startActivity(intent)
-                Log.d("lmj", "이동")
+            val networkService = (applicationContext as MyApplication).networkService
+            val userCall = networkService.getUser(username)
 
-            } else {
-                Log.d("lmj", "로그인 실패")
-                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
-            }
+            userCall.enqueue(object : Callback<UserList> {
+                override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                    val item = response.body()?.items
+                    if (item!!.isNotEmpty()) {
+                            if(username == "admin") {
+                                if(password == "1234") {
+                                    val preferences = getSharedPreferences("login", MODE_PRIVATE)
+                                    val editor = preferences.edit()
+                                    editor.putString("username", username)
+                                    editor.apply()
+                                    Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@Login, LoginAdmin::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                if(password == "0000") {
+                                    val preferences = getSharedPreferences("login", MODE_PRIVATE)
+                                    val editor = preferences.edit()
+                                    editor.putString("username", username)
+                                    editor.apply()
+                                    Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@Login, LoginDetail::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                    } else {
+                            Toast.makeText(this@Login, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                }
+
+                override fun onFailure(call: Call<UserList>, t: Throwable) {
+                }
+            })
         }
 
 

@@ -28,7 +28,7 @@ class MyCartAdapter(datas: MutableList<Cart>?): RecyclerView.Adapter<RecyclerVie
         binding.itemname.text = cart?.s_name.toString()
         binding.count.text = cart?.count.toString() + " 개"
         binding.price.text = cart?.s_price.toString() + " 루나"
-        binding.total.text = cart?.cost.toString() + " 루나"
+        binding.total.text = "총 " + cart?.cost.toString() + " 루나"
 
         val urlImg = cart?.fileName
 

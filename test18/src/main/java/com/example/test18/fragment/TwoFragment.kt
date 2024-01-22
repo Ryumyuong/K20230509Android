@@ -43,7 +43,7 @@ class TwoFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(this@TwoFragment,item,username, networkService)
+                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
 
 
                 binding.twoRecyclerView.adapter = adapter

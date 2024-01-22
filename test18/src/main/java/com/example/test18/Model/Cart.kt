@@ -7,5 +7,6 @@ data class Cart (
     var s_description: String?,
     var fileName: String?,
     var count: Int?,
-    var cost: Int?
+    var cost: Int?,
+    var total: Int?
 )

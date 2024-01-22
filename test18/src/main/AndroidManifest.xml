@@ -17,6 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
+        <activity
+            android:name=".LunaAdd"
+            android:exported="false" />
+        <activity
+            android:name=".InsertProduct"
+            android:exported="false" />
+        <activity
+            android:name=".InsertUser"
+            android:exported="false" />
+        <activity
+            android:name=".OrderMenu"
+            android:exported="false" />
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:enabled="true"
@@ -40,18 +53,23 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".UpdateActivity"
+            android:exported="true" />
+        <activity
             android:name=".LunaActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".OrderActivity"
+            android:exported="true" />
         <activity
             android:name=".CartActivity"
             android:exported="true" />
         <activity
             android:name=".LoginDetail"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
+        <activity
+            android:name=".LoginAdmin"
+            android:exported="true" />
         <activity
             android:name=".Login"
             android:exported="true" />

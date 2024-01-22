@@ -44,7 +44,6 @@ class CartActivity : AppCompatActivity() {
                 Log.d("lmj", "성공 내용 : ${response.code()}")
                 adapter = MyCartAdapter(item)
                 binding.cartRecyclerView.adapter = adapter
-                adapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<CartList>, t: Throwable) {
@@ -53,6 +52,11 @@ class CartActivity : AppCompatActivity() {
             }
 
         })
+
+        binding.order.setOnClickListener {
+            val intent = Intent(this, OrderMenu::class.java)
+            startActivity(intent)
+        }
 
         binding.bottommenu.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -81,7 +85,7 @@ class CartActivity : AppCompatActivity() {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, LunaActivity::class.java)
+                        val intent = Intent(this, OrderActivity::class.java)
                         startActivity(intent)
                     }
                 }

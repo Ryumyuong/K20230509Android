@@ -46,8 +46,7 @@ class OneFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(this@OneFragment,item,username, networkService)
-
+                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
 
                 binding.oneRecyclerView.adapter = adapter
                 binding.oneRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

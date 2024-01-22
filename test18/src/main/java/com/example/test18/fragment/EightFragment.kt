@@ -46,7 +46,7 @@ class EightFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(this@EightFragment,item,username, networkService)
+                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
 
 
                 binding.eightRecyclerView.adapter = adapter

@@ -6,5 +6,7 @@ data class User (
     var username: String?,
     var phone: String?,
     var address: String?,
-    var money: Int?
+    var money: Int?,
+    var vip: String?,
+    var kit: String?
 )

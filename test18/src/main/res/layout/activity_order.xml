@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartActivity"
+    tools:context=".OrderActivity"
     android:orientation="horizontal">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,23 +18,14 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartRecyclerView"
+        android:id="@+id/OrderRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/order"
-        android:layout_margin="10dp"/>
-    <TextView
-        android:id="@+id/order"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/일반회원"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:text="주문하기"
-        android:layout_above="@id/bottommenu"/>
+        android:layout_above="@+id/bottommenu"
+        android:layout_margin="10dp"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottommenu"

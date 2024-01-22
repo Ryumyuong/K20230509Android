@@ -11,28 +11,31 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.test18.Model.ItemDataList
 import com.example.test18.MyApplication
-import com.example.test18.databinding.FragmentSixBinding
+import com.example.test18.databinding.FragmentEightBinding
+import com.example.test18.databinding.FragmentNineBinding
+import com.example.test18.databinding.FragmentSevenBinding
 import com.example.test18.databinding.FragmentThreeBinding
 import com.example.test18.databinding.FragmentTwoBinding
 import com.example.test18.recycler.MyWaitingAdapter
+import com.example.test18.recycler.MyWaitingsAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SixFragment : Fragment() {
-    lateinit var binding: FragmentSixBinding
-    lateinit var adapter: MyWaitingAdapter
+class NineFragment : Fragment() {
+    lateinit var binding: FragmentNineBinding
+    lateinit var adapter: MyWaitingsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSixBinding.inflate(inflater, container, false)
+        binding = FragmentNineBinding.inflate(inflater, container, false)
 
         val networkService = (context?.applicationContext as MyApplication).networkService
 
-        val reserveListCall = networkService.getMyProduct("여행")
+        val reserveListCall = networkService.getMyProduct("웰컴키트")
 
         var userId = ""
         val preferences = requireActivity().getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
@@ -45,11 +48,11 @@ class SixFragment : Fragment() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
+                adapter = MyWaitingsAdapter(requireContext(),item,username, networkService)
 
 
-                binding.sixRecyclerView.adapter = adapter
-                binding.sixRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                binding.nineRecyclerView.adapter = adapter
+                binding.nineRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                 adapter.notifyDataSetChanged()
             }
 

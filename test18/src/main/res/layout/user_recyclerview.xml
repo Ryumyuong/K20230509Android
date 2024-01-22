@@ -3,19 +3,31 @@
     android:id="@+id/item_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_margin="10dp"
     android:background="#E8E8E8"
     >
+    <TextView
+        android:id="@+id/vip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginLeft="24dp"
+        android:textColor="@color/white" />
     <LinearLayout
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:gravity="left">
+
         <TextView
             android:id="@+id/userId"
             android:layout_width="wrap_content"
@@ -33,6 +45,7 @@
             android:textStyle="bold"
             android:textColor="@color/gray"
             android:textSize="16sp"
+            android:textColorHighlight="@color/blue"
             />
 
     </LinearLayout>

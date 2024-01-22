@@ -8,4 +8,6 @@
     <color name="purple">#800080</color>
     <color name="blue">#0000FF</color>
     <color name="gray">#808080</color>
+    <color name="일반회원">#198754</color>
+    <color name="vip">#DC3545</color>
 </resources>

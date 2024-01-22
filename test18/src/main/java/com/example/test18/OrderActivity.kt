@@ -4,28 +4,27 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.test18.Model.CartList
 import com.example.test18.Model.OrderList
 import com.example.test18.databinding.ActivityLunaBinding
-import com.example.test18.databinding.ActivityMainBinding
-import com.example.test18.recycler.MyCartAdapter
+import com.example.test18.databinding.ActivityOrderBinding
 import com.example.test18.recycler.MyLunaAdapter
+import com.example.test18.recycler.MyOrderAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LunaActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLunaBinding
-    lateinit var adapter: MyLunaAdapter
+class OrderActivity : AppCompatActivity() {
+    lateinit var binding: ActivityOrderBinding
+    lateinit var adapter: MyOrderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLunaBinding.inflate(layoutInflater)
+        binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "루나 변동 내역"
+        binding.toolbar.title = "주문 목록"
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -34,19 +33,19 @@ class LunaActivity : AppCompatActivity() {
         val networkService = (applicationContext as MyApplication).networkService
 
         var pageNumber = 1
-        var pageSize = 10000
+        var pageSize = 10
 
-        val cartCall = networkService.runaList(username, pageNumber, pageSize)
+        val orderCall = networkService.orderList(username, pageNumber, pageSize)
 
-        cartCall.enqueue(object : Callback<OrderList> {
+        orderCall.enqueue(object : Callback<OrderList> {
             override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                 var item = response.body()?.items
                 Log.d("lmj", "-------")
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "성공 내용 : ${response.code()}")
-                adapter = MyLunaAdapter(item)
-                binding.lunaRecyclerView.adapter = adapter
+                adapter = MyOrderAdapter(item)
+                binding.OrderRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 

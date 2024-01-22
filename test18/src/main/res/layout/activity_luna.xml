@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/bottommenu" />
+        android:layout_above="@+id/bottommenu"
+        android:layout_margin="10dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottommenu"

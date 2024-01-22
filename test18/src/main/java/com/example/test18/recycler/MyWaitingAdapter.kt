@@ -1,5 +1,6 @@
 package com.example.test18.recycler
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -10,14 +11,21 @@ import android.view.LayoutInflater
 import com.example.test18.retrofit.INetworkService
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test18.Login
 import com.example.test18.Model.InCart
 import com.example.test18.Model.CsrfToken
 import com.example.test18.Model.Product
+import com.example.test18.Model.User
+import com.example.test18.Model.UserList
 import com.example.test18.R
 import com.example.test18.databinding.ItemRecyclerviewBinding
+import kotlinx.coroutines.currentCoroutineContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +35,7 @@ class MyWaitingViewHolder(val binding: ItemRecyclerviewBinding): RecyclerView.Vi
     val button: Button = itemView.findViewById(R.id.orderbutton)
 }
 
-class MyWaitingAdapter(val context:Fragment, datas: MutableList<Product>?,val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?,val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     var listDataFilter: MutableList<Product>? = datas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -43,34 +51,40 @@ class MyWaitingAdapter(val context:Fragment, datas: MutableList<Product>?,val us
         binding.itemprice.text = waiting?.s_price.toString() + " 루나"
 
         holder.button.setOnClickListener {
-            Log.d("lmj", "버튼 선택")
-            val csrfCall = networkService.getCsrfToken()
+            if(username.equals("")) {
+                Toast.makeText(context, "로그인을 먼저 하세요.", Toast.LENGTH_LONG).show()
+            } else {
+                val csrfCall = networkService.getCsrfToken()
 
-            csrfCall.enqueue(object : Callback<CsrfToken> {
-                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                    val csrfToken = response.body()?.token
-                    Log.d("lmj", "토큰 : $csrfToken")
-                    Log.d("lmj", "username : $username")
-                    // userId의 값이 하드코딩이라 전달이 안됨 동적으로 변경하기
-                    val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
-                    Log.d("lmj", "데이터 : ${waiting?.s_price}")
-                    val insertCall = networkService.insertCart(csrfToken, cart)
+                csrfCall.enqueue(object : Callback<CsrfToken> {
+                    override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                        val csrfToken = response.body()?.token
+                        Log.d("lmj", "토큰 : $csrfToken")
+                        Log.d("lmj", "username : $username")
+                        // userId의 값이 하드코딩이라 전달이 안됨 동적으로 변경하기
+                        val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
+                        Log.d("lmj", "데이터 : ${waiting?.s_price}")
+                        Log.d("lmj", "토큰 : $csrfToken")
+                        Log.d("lmj", "incart : $cart")
+                        val insertCall = networkService.insertCart(csrfToken, cart)
 
-                    insertCall.enqueue(object : Callback<InCart> {
-                        override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
-                            Log.d("lmj", "성공 ${waiting?.s_name}, ${waiting?.s_price}, ${response.code()}")
-                        }
+                        insertCall.enqueue(object : Callback<InCart> {
+                            override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
+                                Log.d("lmj", "성공 ${waiting?.s_name}, ${waiting?.s_price}, ${response.code()}")
+                                Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
 
-                        override fun onFailure(call: Call<InCart>, t: Throwable) {
-                            Log.d("lmj", "실패데이터 : ${t.message}")
-                        }
-                    })
-                }
+                            override fun onFailure(call: Call<InCart>, t: Throwable) {
+                                Log.d("lmj", "실패데이터 : ${t.message}")
+                            }
+                        })
+                    }
 
-                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
-                }
-            })
+                    override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
+                        Log.d("lmj", "실패토큰 : ${t.message}")
+                    }
+                })
+            }
 
 
         }
