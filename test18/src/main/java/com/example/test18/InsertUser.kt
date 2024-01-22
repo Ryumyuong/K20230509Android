@@ -29,43 +29,47 @@ class InsertUser : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "회원 등록"
-        val id = binding.id.text.toString()
-        val password = binding.password.text.toString()
-        val name = binding.name.text.toString()
-        val phone = binding.phone.text.toString()
-        val address = binding.address.text.toString()
-        val money = 0
-        val kit = "X"
-        val vip = binding.vip.text.toString()
 
-        val networkService = (applicationContext as MyApplication).networkService
+        binding.insertProduct.setOnClickListener {
+            val id = binding.id.text.toString()
+            val password = binding.password.text.toString()
+            val name = binding.name.text.toString()
+            val phone = binding.phone.text.toString()
+            val address = binding.address.text.toString()
+            val money = 0
+            val kit = "X"
+            val vip = binding.vip.text.toString()
 
-        val user = User(id,password, name, phone, address, money, vip, kit)
-        val csrfCall = networkService.getCsrfToken()
+            val networkService = (applicationContext as MyApplication).networkService
 
-        csrfCall.enqueue(object : Callback<CsrfToken> {
-            override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                val csrfToken = response.body()?.token
-                val userCall = networkService.newLogin(csrfToken, user)
+            val user = User(id,password, name, phone, address, money, vip, kit)
+            val csrfCall = networkService.getCsrfToken()
 
-                userCall.enqueue(object : Callback<User> {
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
+            csrfCall.enqueue(object : Callback<CsrfToken> {
+                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                    val csrfToken = response.body()?.token
+                    val userCall = networkService.newLogin(csrfToken, user)
 
-                    }
+                    userCall.enqueue(object : Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
 
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
-                        call.cancel()
-                    }
+                        }
 
-                })
-            }
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Log.d("lmj", "실패 내용 : ${t.message}")
+                            call.cancel()
+                        }
 
-            override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
-                call.cancel()
-            }
-        })
+                    })
+                }
+
+                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
+                    Log.d("lmj", "실패 내용 : ${t.message}")
+                    call.cancel()
+                }
+            })
+        }
+
 
 
 
@@ -87,6 +91,8 @@ class InsertUser : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
+
+
 
     }
 }
