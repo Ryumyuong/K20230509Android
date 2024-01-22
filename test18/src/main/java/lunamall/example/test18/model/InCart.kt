@@ -1,0 +1,9 @@
+package lunamall.example.test18.model
+
+data class InCart (
+    var userId: String?,
+    var s_name: String?,
+    var s_price: Int?,
+    var s_description: String?,
+    var fileName: String?,
+)

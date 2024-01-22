@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.test18'
+    namespace 'lunamall.example.test18'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.test18"
+        applicationId "lunamall.example.test18"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -52,7 +52,6 @@ dependencies {
 
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-// json 변환하기 위한 또라이브러리, gson 예시.
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
