@@ -26,65 +26,69 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="이름 : "/>
             <TextView
                 android:id="@+id/name"
-                android:padding="5dp"
+                android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="전화번호 : "/>
             <EditText
                 android:id="@+id/tel"
-                android:padding="5dp"
+                android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="주소 : "/>
             <EditText
                 android:id="@+id/add"
-                android:padding="3dp"
+                android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="문의사항 : "/>
             <EditText
                 android:id="@+id/inquire"
-                android:padding="3dp"
+                android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:background="@drawable/actions"/>
         </LinearLayout>
 
@@ -94,12 +98,15 @@
             android:layout_height="160dp"
             android:background="@drawable/actions"
             android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="right">
             <TextView
                 android:id="@+id/total1"
@@ -129,6 +136,7 @@
             android:layout_height="50dp"
             android:text="주문완료"
             android:gravity="center"
+            android:textColor="@color/black"
             android:background="#FF9800"/>
 
     </LinearLayout>

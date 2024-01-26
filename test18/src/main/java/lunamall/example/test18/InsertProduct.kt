@@ -43,9 +43,14 @@ class InsertProduct : AppCompatActivity() {
         binding.insertProduct.setOnClickListener {
             val category = binding.category.text.toString()
             val name = binding.name.text.toString()
-            val price = binding.price.text.toString().toInt()
+            val priceStr = binding.price.text.toString()
+            val price = if (priceStr.isNotEmpty()) {
+                priceStr.toInt()
+            } else {
+                0
+            }
             val description = binding.description.text.toString()
-            val fileName = ""
+            val fileName = " "
             val product = Product(category,name, price, description, fileName)
 
             val networkService = (applicationContext as MyApplication).networkService

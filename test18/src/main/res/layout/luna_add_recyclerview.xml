@@ -6,32 +6,32 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
+    android:layout_gravity=""
     android:background="@drawable/actions"
     >
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/phone"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"/>
-
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +44,8 @@
                 android:id="@+id/addLuna"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/actions"/>
+                android:background="@drawable/actions"
+                android:layout_marginRight="10dp"/>
             <TextView
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
@@ -61,7 +62,8 @@
                 android:id="@+id/minLuna"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/actions"/>
+                android:background="@drawable/actions"
+                android:layout_marginRight="10dp"/>
             <TextView
                 android:id="@+id/min"
                 android:layout_width="wrap_content"

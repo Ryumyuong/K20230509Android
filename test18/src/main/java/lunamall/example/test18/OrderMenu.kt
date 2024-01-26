@@ -133,7 +133,7 @@ class OrderMenu : AppCompatActivity() {
                                                     Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
                                                 }
 
-                                                // FCM 토큰
+
                                                 val token = task.result
                                                 val myToken: String = getString(R.string.myToken)
                                                 val networkService = (applicationContext as MyApplication).networkService

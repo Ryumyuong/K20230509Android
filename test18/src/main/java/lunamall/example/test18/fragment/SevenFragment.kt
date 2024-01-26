@@ -37,22 +37,25 @@ class SevenFragment : Fragment() {
 
         reserveListCall.enqueue(object : Callback<ItemDataList> {
             override fun onResponse(call: Call<ItemDataList>, response: Response<ItemDataList>) {
-                var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
-                Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyWaitingAdapter(requireContext(),item,username, networkService)
+                if (isAdded) {
+                    var item = response.body()?.items
+                    Log.d("lmj", "-------")
+                    Log.d("lmj", "One item : $item")
+                    Log.d("lmj", "===========")
+                    Log.d("lmj", "실패 내용 : ${response.code()}")
+                    adapter = MyWaitingAdapter(requireContext(), item, username, networkService)
 
-
-                binding.sevenRecyclerView.adapter = adapter
-                binding.sevenRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-                adapter.notifyDataSetChanged()
+                    binding.sevenRecyclerView.adapter = adapter
+                    binding.sevenRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                    adapter.notifyDataSetChanged()
+                }
             }
 
             override fun onFailure(call: Call<ItemDataList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
-                call.cancel()
+                if (isAdded) {
+                    Log.d("lmj", "실패 내용 : ${t.message}")
+                    call.cancel()
+                }
             }
 
         })
