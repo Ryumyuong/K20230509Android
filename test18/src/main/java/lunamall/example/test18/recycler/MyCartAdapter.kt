@@ -6,17 +6,13 @@ import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.R
 import lunamall.example.test18.databinding.CartRecyclerviewBinding
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CsrfToken
-import lunamall.example.test18.model.InCart
 import lunamall.example.test18.retrofit.INetworkService
-import okio.ByteString.decodeBase64
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,7 +74,6 @@ class MyCartAdapter(val username:String?, datas: MutableList<Cart>?, val network
                 }
                 notifyDataSetChanged()
             }
-
         }
 
         holder.cancle.setOnClickListener {
