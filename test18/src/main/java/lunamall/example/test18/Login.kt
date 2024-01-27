@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import lunamall.example.test18.databinding.ActivityLoginBinding
+import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.recycler.MyUserAdapter
 import retrofit2.Call
@@ -58,6 +61,39 @@ class Login : AppCompatActivity() {
                                     val editor = preferences.edit()
                                     editor.putString("username", username)
                                     editor.apply()
+
+                                    val csrfCall = networkService.getCsrfToken()
+
+                                    csrfCall.enqueue(object : Callback<CsrfToken> {
+                                        override fun onResponse(call: Call<CsrfToken>,response: Response<CsrfToken>) {
+                                            val csrfToken = response.body()?.token
+                                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                                                OnCompleteListener { task ->
+                                                    if (!task.isSuccessful) {
+                                                        return@OnCompleteListener
+                                                        Log.d("lmj","tast 성공 : ${task.isSuccessful}")
+                                                    }
+
+                                                    val token = task.result
+
+                                                    val updateCall = networkService.updateUser(csrfToken, username, token)
+
+                                                    updateCall.enqueue(object : Callback<Unit> {
+                                                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                                                        }
+
+                                                        override fun onFailure(call: Call<Unit>,t: Throwable) {
+
+                                                        }
+                                                    })
+
+                                                })
+                                        }
+
+                                        override fun onFailure(call: Call<CsrfToken>,t: Throwable) {
+                                        }
+                                    })
                                     Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
                                     val intent = Intent(this@Login, LoginDetail::class.java)
                                     startActivity(intent)
