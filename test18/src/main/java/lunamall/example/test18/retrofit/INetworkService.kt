@@ -33,8 +33,8 @@ interface INetworkService {
     @GET("luna/main/user")
     fun getUser(@Query("userId") userId: String?): Call<UserList>
 
-    @POST("luna/main/updateUser")
-    fun updateUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?, @Query("code") code: String?): Call<Unit>
+    @POST("luna/main/insertCode")
+    fun insertCode(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?, @Query("code") code: String?): Call<Unit>
 
     @GET("luna/main/getCart")
     fun getCart(@Query("userId") userId: String?): Call<CartList>

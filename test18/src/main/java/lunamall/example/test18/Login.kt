@@ -76,7 +76,7 @@ class Login : AppCompatActivity() {
 
                                                     val token = task.result
 
-                                                    val updateCall = networkService.updateUser(csrfToken, username, token)
+                                                    val updateCall = networkService.insertCode(csrfToken, username, token)
 
                                                     updateCall.enqueue(object : Callback<Unit> {
                                                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
