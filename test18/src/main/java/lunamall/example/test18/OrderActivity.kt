@@ -42,7 +42,7 @@ class OrderActivity : AppCompatActivity() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "성공 내용 : ${response.code()}")
-                adapter = MyOrderAdapter(item)
+                adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
                 binding.OrderRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }

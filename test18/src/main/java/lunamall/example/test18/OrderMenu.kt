@@ -143,11 +143,11 @@ class OrderMenu : AppCompatActivity() {
                                                     override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                                                         val csrfToken = response.body()?.token
 
-                                                        val notiTokenCall = networkService.notiToken(csrfToken, myToken)
+                                                        val notiTokenCall = networkService.notiToken(csrfToken, token, myToken)
 
                                                         notiTokenCall.enqueue(object : Callback<Unit> {
                                                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                                                Log.d("lmj", "성공 : $token , 토큰 : $csrfToken")
+
                                                             }
 
                                                             override fun onFailure(call: Call<Unit>, t: Throwable) {

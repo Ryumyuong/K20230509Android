@@ -63,7 +63,8 @@ interface INetworkService {
     @POST("luna/main/notificationToken")
     fun notiToken(
         @Header("X-CSRF-TOKEN") csrfToken: String?,
-        @Query("notiToken") notiToken: String?
+        @Query("token") token: String?,
+        @Query("notiToken") mytoken: String?
     ): Call<Unit>
 
     @POST("luna/main/notificationLunaToken")
@@ -96,5 +97,11 @@ interface INetworkService {
 
     @POST("luna/main/newLogin")
     fun newLogin(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body user: User?): Call<User>
+
+    @POST("luna/main/alarm")
+    fun alarm(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?): Call<Unit>
+
+    @POST("luna/main/deliver")
+    fun deliver(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("deliver") deliver: String?): Call<Unit>
 
 }
