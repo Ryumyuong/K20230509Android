@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import lunamall.example.test18.databinding.ActivityInsertUserBinding
 import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.User
@@ -16,14 +18,14 @@ import retrofit2.Response
 class InsertUser : AppCompatActivity() {
     lateinit var binding: ActivityInsertUserBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityInsertUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            binding = ActivityInsertUserBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "회원 등록"
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            binding.toolbar.title = "회원 등록"
 
         binding.insertProduct.setOnClickListener {
             val id = binding.id.text.toString()
@@ -37,34 +39,43 @@ class InsertUser : AppCompatActivity() {
 
             val networkService = (applicationContext as MyApplication).networkService
 
-            val user = User(id,password, name, phone, address, money, vip, kit)
-            val csrfCall = networkService.getCsrfToken()
-
-            csrfCall.enqueue(object : Callback<CsrfToken> {
-                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                    val csrfToken = response.body()?.token
-                    val userCall = networkService.newLogin(csrfToken, user)
-
-                    userCall.enqueue(object : Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
-                            val intent = Intent(this@InsertUser, LoginAdmin::class.java)
-                            startActivity(intent)
-                            Toast.makeText(this@InsertUser,"회원이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
-
-                        }
-
-                        override fun onFailure(call: Call<User>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
-                            call.cancel()
-                        }
-
-                    })
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                    Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
                 }
 
-                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
-                    call.cancel()
-                }
+                val token = task.result
+
+                val user = User(id,password, name, phone, address, money, vip, kit, token)
+                val csrfCall = networkService.getCsrfToken()
+
+                csrfCall.enqueue(object : Callback<CsrfToken> {
+                    override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                        val csrfToken = response.body()?.token
+                        val userCall = networkService.newLogin(csrfToken, user)
+
+                        userCall.enqueue(object : Callback<User> {
+                            override fun onResponse(call: Call<User>, response: Response<User>) {
+                                val intent = Intent(this@InsertUser, LoginAdmin::class.java)
+                                startActivity(intent)
+                                Toast.makeText(this@InsertUser,"회원이 등록 되었습니다.", Toast.LENGTH_SHORT).show()
+
+                            }
+
+                            override fun onFailure(call: Call<User>, t: Throwable) {
+                                Log.d("lmj", "실패 내용 : ${t.message}")
+                                call.cancel()
+                            }
+
+                        })
+                    }
+
+                    override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
+                        Log.d("lmj", "실패 내용 : ${t.message}")
+                        call.cancel()
+                    }
+                })
             })
         }
 

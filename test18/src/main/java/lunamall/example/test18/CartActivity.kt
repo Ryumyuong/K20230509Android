@@ -30,7 +30,7 @@ class CartActivity : AppCompatActivity() {
         val username = preferences.getString("username", userId)
         Log.d("lmj", "===username===$username===")
 
-        val networkService = (applicationContext as lunamall.example.test18.MyApplication).networkService
+        val networkService = (applicationContext as MyApplication).networkService
 
         val cartCall = networkService.getCart(username)
 
@@ -53,7 +53,7 @@ class CartActivity : AppCompatActivity() {
         })
 
         binding.order.setOnClickListener {
-            val intent = Intent(this, lunamall.example.test18.OrderMenu::class.java)
+            val intent = Intent(this, OrderMenu::class.java)
             startActivity(intent)
         }
 
@@ -61,10 +61,10 @@ class CartActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.first_tab -> {
                     if(username.equals("")) {
-                        val intent = Intent(this, lunamall.example.test18.Login::class.java)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, lunamall.example.test18.MainActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
 
@@ -72,28 +72,28 @@ class CartActivity : AppCompatActivity() {
                 R.id.second_tab -> {
                     Log.d("lmj", "username==$username==")
                     if(username.equals("")) {
-                        val intent = Intent(this, lunamall.example.test18.Login::class.java)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, lunamall.example.test18.CartActivity::class.java)
+                        val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                     }
                 }
                 R.id.third_tab -> {
                     if(username.equals("")) {
-                        val intent = Intent(this, lunamall.example.test18.Login::class.java)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, lunamall.example.test18.OrderActivity::class.java)
+                        val intent = Intent(this, OrderActivity::class.java)
                         startActivity(intent)
                     }
                 }
                 R.id.fourth_tab -> {
                     if(username.equals("")) {
-                        val intent = Intent(this, lunamall.example.test18.Login::class.java)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                     }else {
-                        val intent = Intent(this, lunamall.example.test18.LoginDetail::class.java)
+                        val intent = Intent(this, LoginDetail::class.java)
                         startActivity(intent)
                     }
                 }

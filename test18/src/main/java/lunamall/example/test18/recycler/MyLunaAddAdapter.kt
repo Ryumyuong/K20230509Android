@@ -50,6 +50,7 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
 
                         addLunaCall.enqueue(object : Callback<Unit> {
                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
                                 Toast.makeText(context, "루나가 추가되었습니다.", Toast.LENGTH_LONG).show()
                                 notifyDataSetChanged()
                             }

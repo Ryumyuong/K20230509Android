@@ -58,7 +58,7 @@ class UpdateActivity : AppCompatActivity() {
                         startActivity(intent)
                 }
                 R.id.second_tab -> {
-                        val intent = Intent(this, lunamall.example.test18.CartActivity::class.java)
+                        val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                 }
                 R.id.third_tab -> {

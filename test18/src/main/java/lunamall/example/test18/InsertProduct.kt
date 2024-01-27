@@ -8,8 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import lunamall.example.test18.databinding.ActivityInsertProductBinding
 import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.Product
-import lunamall.example.test18.model.UserList
-import lunamall.example.test18.recycler.MyUserAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

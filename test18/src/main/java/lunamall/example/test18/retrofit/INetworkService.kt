@@ -1,6 +1,5 @@
 package lunamall.example.test18.retrofit
 
-
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.model.CsrfToken
@@ -34,6 +33,9 @@ interface INetworkService {
     @GET("luna/main/user")
     fun getUser(@Query("userId") userId: String?): Call<UserList>
 
+    @POST("luna/main/updateUser")
+    fun updateUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?, @Query("code") code: String?): Call<Unit>
+
     @GET("luna/main/getCart")
     fun getCart(@Query("userId") userId: String?): Call<CartList>
 
@@ -62,6 +64,13 @@ interface INetworkService {
     fun notiToken(
         @Header("X-CSRF-TOKEN") csrfToken: String?,
         @Query("notiToken") notiToken: String?
+    ): Call<Unit>
+
+    @POST("luna/main/notificationLunaToken")
+    fun notiLunaToken(
+        @Header("X-CSRF-TOKEN") csrfToken: String?,
+        @Query("notiToken") notiToken: String?,
+        @Query("luna") luna: Int,
     ): Call<Unit>
 
     @POST("luna/main/insertProduct")

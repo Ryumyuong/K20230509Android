@@ -8,5 +8,6 @@ data class User (
     var address: String?,
     var money: Int?,
     var vip: String?,
-    var kit: String?
+    var kit: String?,
+    var code: String?
 )

@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                             val intent = Intent(this, Login::class.java)
                             startActivity(intent)
                     }else {
-                        val intent = Intent(this, lunamall.example.test18.CartActivity::class.java)
+                        val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                     }
                 }

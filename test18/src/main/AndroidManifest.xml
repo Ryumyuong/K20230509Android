@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
         <activity
+            android:name=".LunaUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".LunaAdd"
             android:exported="false" />
         <activity
