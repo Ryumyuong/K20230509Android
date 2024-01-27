@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
         <activity
-            android:name=".BuyActivity"
-            android:exported="false" />
-        <activity
             android:name=".RentalActivity"
             android:exported="false" />
         <activity

@@ -1,6 +1,7 @@
 package com.first.rental
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.first.rental.databinding.ActivityPlaceBinding
@@ -12,10 +13,6 @@ class PlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "로고"
 
         binding.tour.setOnClickListener {
             val intent = Intent(this, TourActivity::class.java)
@@ -35,6 +32,27 @@ class PlaceActivity : AppCompatActivity() {
         binding.position.setOnClickListener {
             val intent = Intent(this, PositionActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.logo.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rental.setOnClickListener {
+            val intent = Intent(this, RentalActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.buy.setOnClickListener {
+            val url = "http://www.lunamall.co.kr"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+            }
         }
     }
 }

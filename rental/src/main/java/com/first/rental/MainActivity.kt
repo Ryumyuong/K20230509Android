@@ -1,6 +1,7 @@
 package com.first.rental
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.first.rental.databinding.ActivityMainBinding
@@ -32,6 +33,27 @@ class MainActivity : AppCompatActivity() {
         binding.position.setOnClickListener {
             val intent = Intent(this, PositionActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.logo.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rental.setOnClickListener {
+            val intent = Intent(this, RentalActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.buy.setOnClickListener {
+            val url = "http://www.lunamall.co.kr"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+            }
         }
 
     }
