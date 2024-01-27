@@ -43,64 +43,93 @@ class Login : AppCompatActivity() {
                 override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                     val item = response.body()?.items
                     if (item!!.isNotEmpty()) {
-                            if(username == "admin") {
-                                if(password == "1234") {
-                                    val preferences = getSharedPreferences("login", MODE_PRIVATE)
-                                    val editor = preferences.edit()
-                                    editor.putString("username", username)
-                                    editor.apply()
-                                    Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                                    val intent = Intent(this@Login, LoginAdmin::class.java)
-                                    startActivity(intent)
-                                } else {
-                                    Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
-                                }
-                            } else {
-                                if(password == "0000") {
-                                    val preferences = getSharedPreferences("login", MODE_PRIVATE)
-                                    val editor = preferences.edit()
-                                    editor.putString("username", username)
-                                    editor.apply()
+                        if(username == "admin") {
+                            if(password == "1234") {
+                                val preferences = getSharedPreferences("login", MODE_PRIVATE)
+                                val editor = preferences.edit()
+                                editor.putString("username", username)
+                                editor.apply()
+                                val csrfCall = networkService.getCsrfToken()
 
-                                    val csrfCall = networkService.getCsrfToken()
+                                csrfCall.enqueue(object : Callback<CsrfToken> {
+                                    override fun onResponse(call: Call<CsrfToken>,response: Response<CsrfToken>) {
+                                        val csrfToken = response.body()?.token
+                                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                                            OnCompleteListener { task ->
+                                                if (!task.isSuccessful) {
+                                                    return@OnCompleteListener
+                                                    Log.d("lmj","tast 성공 : ${task.isSuccessful}")
+                                                }
 
-                                    csrfCall.enqueue(object : Callback<CsrfToken> {
-                                        override fun onResponse(call: Call<CsrfToken>,response: Response<CsrfToken>) {
-                                            val csrfToken = response.body()?.token
-                                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
-                                                OnCompleteListener { task ->
-                                                    if (!task.isSuccessful) {
-                                                        return@OnCompleteListener
-                                                        Log.d("lmj","tast 성공 : ${task.isSuccessful}")
+                                                val token = task.result
+
+                                                val updateCall = networkService.insertCode(csrfToken, username, token)
+
+                                                updateCall.enqueue(object : Callback<Unit> {
+                                                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
                                                     }
 
-                                                    val token = task.result
+                                                    override fun onFailure(call: Call<Unit>,t: Throwable) {
 
-                                                    val updateCall = networkService.insertCode(csrfToken, username, token)
-
-                                                    updateCall.enqueue(object : Callback<Unit> {
-                                                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-
-                                                        }
-
-                                                        override fun onFailure(call: Call<Unit>,t: Throwable) {
-
-                                                        }
-                                                    })
-
+                                                    }
                                                 })
-                                        }
+                                            })
+                                    }
 
-                                        override fun onFailure(call: Call<CsrfToken>,t: Throwable) {
-                                        }
-                                    })
-                                    Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                                    val intent = Intent(this@Login, LoginDetail::class.java)
-                                    startActivity(intent)
-                                } else {
-                                    Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
-                                }
+                                    override fun onFailure(call: Call<CsrfToken>,t: Throwable) {
+                                    }
+                                })
+                                Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@Login, LoginAdmin::class.java)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
                             }
+                        } else {
+                            if(password == "0000") {
+                                val preferences = getSharedPreferences("login", MODE_PRIVATE)
+                                val editor = preferences.edit()
+                                editor.putString("username", username)
+                                editor.apply()
+                                val csrfCall = networkService.getCsrfToken()
+
+                                csrfCall.enqueue(object : Callback<CsrfToken> {
+                                    override fun onResponse(call: Call<CsrfToken>,response: Response<CsrfToken>) {
+                                        val csrfToken = response.body()?.token
+                                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                                            OnCompleteListener { task ->
+                                                if (!task.isSuccessful) {
+                                                    return@OnCompleteListener
+                                                    Log.d("lmj","tast 성공 : ${task.isSuccessful}")
+                                                }
+
+                                                val token = task.result
+
+                                                val updateCall = networkService.insertCode(csrfToken, username, token)
+
+                                                updateCall.enqueue(object : Callback<Unit> {
+                                                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                                                    }
+
+                                                    override fun onFailure(call: Call<Unit>,t: Throwable) {
+
+                                                    }
+                                                })
+                                            })
+                                    }
+
+                                    override fun onFailure(call: Call<CsrfToken>,t: Throwable) {
+                                    }
+                                })
+                                Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@Login, LoginDetail::class.java)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this@Login, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
                     } else {
                             Toast.makeText(this@Login, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
