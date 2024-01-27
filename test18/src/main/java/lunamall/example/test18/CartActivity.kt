@@ -41,7 +41,7 @@ class CartActivity : AppCompatActivity() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "성공 내용 : ${response.code()}")
-                adapter = MyCartAdapter(item)
+                adapter = MyCartAdapter(username, item, networkService)
                 binding.cartRecyclerView.adapter = adapter
             }
 

@@ -39,10 +39,11 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
         binding.orderMenu.text = order?.order_menu.toString()
         binding.price.text = order?.order_price.toString() + " 루나"
 
-        var isClickable = true
+        var isClickable1 = true
+        var isClickable2 = true
 
         binding.deliver.setOnClickListener {
-            if(isClickable) {
+            if(isClickable1) {
                 val csrfCall = networkService.getCsrfToken()
 
                 csrfCall.enqueue(object : Callback<CsrfToken> {
@@ -66,12 +67,12 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                     }
                 })
                 binding.deliver.setTextColor(Color.GREEN)
-                isClickable = false
+                isClickable1 = false
             }
         }
 
         binding.complete.setOnClickListener {
-            if(isClickable) {
+            if(isClickable2) {
                 val csrfCall = networkService.getCsrfToken()
 
                 csrfCall.enqueue(object : Callback<CsrfToken> {
@@ -94,7 +95,7 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                     }
                 })
                 binding.complete.setTextColor(Color.GREEN)
-                isClickable = false
+                isClickable2 = false
             }
         }
 

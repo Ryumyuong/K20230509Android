@@ -104,4 +104,6 @@ interface INetworkService {
     @POST("luna/main/deliver")
     fun deliver(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("deliver") deliver: String?): Call<Unit>
 
+    @POST("luna/main/deleteCart")
+    fun deleteCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("itemName") itemName: String?): Call<Unit>
 }
