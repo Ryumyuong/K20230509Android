@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/first_tab"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:tooltipText="투어소개"
+        android:title="투어소개" />
+    <item
+        android:id="@+id/second_tab"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:tooltipText="시설소개"
+        android:title="시설소개"/>
+
+    <item
+        android:id="@+id/third_tab"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:tooltipText="예약방법"
+        android:title="예약방법">
+    </item>
+
+    <item
+        android:id="@+id/fourth_tab"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:tooltipText="오시는길"
+        android:title="오시는길">
+    </item>
+
+
+</menu>
