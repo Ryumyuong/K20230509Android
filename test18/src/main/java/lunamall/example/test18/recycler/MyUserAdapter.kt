@@ -24,7 +24,7 @@ class MyUserAdapter(val context: Context, datas: MutableList<User>?): RecyclerVi
         val user = userData?.get(position)
         binding.vip.text = user?.vip
         binding.userId.text = "이름 : " + user?.userId
-        binding.money.text = user?.money.toString() + " 루나"
+        binding.money.text = "루나 포인트 : " + user?.money.toString()
         binding.phone.text = user?.phone
         binding.address.text = user?.address
         binding.money.paintFlags = binding.money.paintFlags or Paint.UNDERLINE_TEXT_FLAG

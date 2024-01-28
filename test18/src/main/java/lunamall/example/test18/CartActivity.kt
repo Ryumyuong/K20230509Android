@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import lunamall.example.test18.databinding.ActivityCartBinding
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.recycler.MyCartAdapter
@@ -24,6 +25,10 @@ class CartActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "장바구니"
+
+        val bottomNavigationView = binding.bottommenu
+
+        bottomNavigationView.selectedItemId = R.id.second_tab
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -92,7 +97,10 @@ class CartActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, LoginAdmin::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, LoginDetail::class.java)
                         startActivity(intent)
                     }
@@ -100,5 +108,7 @@ class CartActivity : AppCompatActivity() {
             }
             true
         }
+
+
     }
 }

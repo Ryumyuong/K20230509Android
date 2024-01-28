@@ -14,13 +14,14 @@ import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.InOrder
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.recycler.MyCartAdapter
+import lunamall.example.test18.recycler.OrderMenuAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class OrderMenu : AppCompatActivity() {
     lateinit var binding: ActivityOrderMenuBinding
-    lateinit var adapter: MyCartAdapter
+    lateinit var adapter: OrderMenuAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +69,8 @@ class OrderMenu : AppCompatActivity() {
                 Log.d("lmj", "-------")
                 Log.d("lmj", "One Cart : $item")
                 Log.d("lmj", "===========")
-                adapter = MyCartAdapter(item)
-                binding.cartRecyclerView.adapter = adapter
+                adapter = OrderMenuAdapter(item)
+                binding.OrderMenuRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 
@@ -135,7 +136,9 @@ class OrderMenu : AppCompatActivity() {
 
 
                                                 val token = task.result
-                                                val myToken: String = getString(R.string.myToken)
+                                                val myToken = ""
+                                                val preferences = getSharedPreferences("code", MODE_PRIVATE)
+                                                val code = preferences.getString("code", myToken)
                                                 val networkService = (applicationContext as MyApplication).networkService
                                                 val csrfCall = networkService.getCsrfToken()
 
@@ -143,7 +146,7 @@ class OrderMenu : AppCompatActivity() {
                                                     override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                                                         val csrfToken = response.body()?.token
 
-                                                        val notiTokenCall = networkService.notiToken(csrfToken, token, myToken)
+                                                        val notiTokenCall = networkService.notiToken(csrfToken, token, code)
 
                                                         notiTokenCall.enqueue(object : Callback<Unit> {
                                                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {

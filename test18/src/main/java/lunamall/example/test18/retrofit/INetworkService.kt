@@ -64,14 +64,14 @@ interface INetworkService {
     fun notiToken(
         @Header("X-CSRF-TOKEN") csrfToken: String?,
         @Query("token") token: String?,
-        @Query("notiToken") mytoken: String?
+        @Query("notiToken") notiToken: String?
     ): Call<Unit>
 
     @POST("luna/main/notificationLunaToken")
     fun notiLunaToken(
         @Header("X-CSRF-TOKEN") csrfToken: String?,
         @Query("notiToken") notiToken: String?,
-        @Query("luna") luna: Int,
+        @Query("luna") luna: String,
     ): Call<Unit>
 
     @POST("luna/main/insertProduct")
@@ -81,7 +81,7 @@ interface INetworkService {
     fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>
 
     @POST("luna/main/deleteProduct")
-    fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>
+    fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("productName") productName: String?): Call<Unit>
 
     @GET("luna/main/userList")
     fun userList(
@@ -90,10 +90,10 @@ interface INetworkService {
     ): Call<UserList>
 
     @POST("luna/main/addLuna")
-    fun addLuna(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Body user : User?): Call<Unit>
+    fun addLuna(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("luna") money: Int?, @Body user : User?): Call<Unit>
 
     @POST("luna/main/minLuna")
-    fun minLuna(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Body user : User?): Call<Unit>
+    fun minLuna(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("luna") moneyValue: Int?, @Body user : User?): Call<Unit>
 
     @POST("luna/main/newLogin")
     fun newLogin(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body user: User?): Call<User>

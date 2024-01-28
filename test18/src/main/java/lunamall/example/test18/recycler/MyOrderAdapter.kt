@@ -18,7 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MyOrderViewHolder(val binding: OrderRecyclerviewBinding): RecyclerView.ViewHolder(binding.root)
+class MyOrderViewHolder(val binding: OrderRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+
+}
 
 class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var orderData: MutableList<Order>? = datas

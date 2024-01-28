@@ -53,7 +53,6 @@ class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?, val us
                         val csrfToken = response.body()?.token
                         Log.d("lmj", "토큰 : $csrfToken")
                         Log.d("lmj", "username : $username")
-                        // userId의 값이 하드코딩이라 전달이 안됨 동적으로 변경하기
                         val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
                         Log.d("lmj", "데이터 : ${waiting?.s_price}")
                         Log.d("lmj", "토큰 : $csrfToken")

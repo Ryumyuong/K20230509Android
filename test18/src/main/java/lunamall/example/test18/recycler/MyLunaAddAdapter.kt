@@ -36,8 +36,8 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
         binding.price.text = user?.money.toString() + " 루나"
 
         holder.button1.setOnClickListener {
-            val money = binding.addLuna.text
-            user?.money = money.toString().toIntOrNull()
+            val money = binding.addLuna.text.toString().toIntOrNull()//입력값
+            var luna = user?.money
 
             if(money != null) {
                 val csrfCall = networkService.getCsrfToken()
@@ -46,10 +46,12 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
                     override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                         val csrfToken = response.body()?.token
 
-                        val addLunaCall = networkService.addLuna(csrfToken, user?.userId, user)
+                        val addLunaCall = networkService.addLuna(csrfToken, user?.userId, money, user)
 
                         addLunaCall.enqueue(object : Callback<Unit> {
                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                                luna = money?.let { it1 -> luna?.plus(it1) }
+                                user?.money = luna
 
                                 Toast.makeText(context, "루나가 추가되었습니다.", Toast.LENGTH_LONG).show()
                                 notifyDataSetChanged()
@@ -72,12 +74,12 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
 
         holder.button2.setOnClickListener {
             val mon = user?.money.toString()
+            var luna = mon.toIntOrNull()
             val money = binding.minLuna.text
-            val myMoney = mon.toIntOrNull()
             val moneyValue = money.toString().toInt()
 
             if (mon != null) {
-                if((myMoney?.minus(moneyValue))!! <0) {
+                if((luna?.minus(moneyValue))!! <0) {
                     Toast.makeText(context, "루나가 부족합니다.", Toast.LENGTH_LONG).show()
                 } else {
                     if(moneyValue!=null) {
@@ -87,10 +89,13 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
                             override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                                 val csrfToken = response.body()?.token
 
-                                val minLunaCall = networkService.minLuna(csrfToken, user?.userId, user)
+                                val minLunaCall = networkService.minLuna(csrfToken, user?.userId, moneyValue, user)
 
                                 minLunaCall.enqueue(object : Callback<Unit> {
                                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                                        luna = moneyValue?.let { it1 -> luna?.minus(it1) }
+                                        user?.money = luna
+
                                         Toast.makeText(context, "루나가 제거되었습니다.", Toast.LENGTH_LONG).show()
                                         notifyDataSetChanged()
                                     }

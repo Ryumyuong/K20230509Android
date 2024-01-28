@@ -49,14 +49,18 @@ class LunaUserActivity : AppCompatActivity() {
             val luna = binding.lunaAdd.text.toString().toIntOrNull()
 
             if(luna != null) {
+                val luna = binding.lunaAdd.text.toString()
                 FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         return@OnCompleteListener
                         Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
                     }
 
+                    val myToken = ""
+                    val preferences = getSharedPreferences("code", MODE_PRIVATE)
+                    val code = preferences.getString("code", myToken)
+
                     val token = task.result
-                    val myToken: String = getString(R.string.myToken)
                     val networkService = (applicationContext as MyApplication).networkService
                     val csrfCall = networkService.getCsrfToken()
 
@@ -64,7 +68,7 @@ class LunaUserActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                             val csrfToken = response.body()?.token
 
-                            val notiTokenMyCall = networkService.notiLunaToken(csrfToken, myToken, luna)
+                            val notiTokenMyCall = networkService.notiLunaToken(csrfToken, code, luna)
 
                             notiTokenMyCall.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {

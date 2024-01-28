@@ -13,14 +13,14 @@
         android:id="@+id/second_tab"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/timeline"
+        android:icon="@drawable/cart"
         android:title="Maps"/>
 
     <item
         android:id="@+id/third_tab"
         app:showAsAction="always"
         android:enabled="true"
-        android:icon="@drawable/mydining"
+        android:icon="@drawable/list"
         android:title="Record">
     </item>
 

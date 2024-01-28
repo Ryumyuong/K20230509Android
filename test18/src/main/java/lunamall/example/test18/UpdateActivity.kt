@@ -26,6 +26,10 @@ class UpdateActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "루나몰"
 
+        var userId = ""
+        val preferences = getSharedPreferences("login", MODE_PRIVATE)
+        val username = preferences.getString("username", userId)
+
         val networkService = (applicationContext as MyApplication).networkService
 
         val reserveListCall = networkService.getMyProductAll()
@@ -37,7 +41,7 @@ class UpdateActivity : AppCompatActivity() {
                 Log.d("lmj", "One item : $item")
                 Log.d("lmj", "===========")
                 Log.d("lmj", "실패 내용 : ${response.code()}")
-                adapter = MyProductAllAdapter(this@UpdateActivity,item,networkService)
+                adapter = MyProductAllAdapter(username,this@UpdateActivity,item,networkService)
 
                 binding.productRecyclerView.adapter = adapter
                 binding.productRecyclerView.addItemDecoration(DividerItemDecoration(this@UpdateActivity, LinearLayoutManager.VERTICAL))

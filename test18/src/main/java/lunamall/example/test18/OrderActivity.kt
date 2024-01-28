@@ -89,7 +89,10 @@ class OrderActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, LoginAdmin::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, LoginDetail::class.java)
                         startActivity(intent)
                     }

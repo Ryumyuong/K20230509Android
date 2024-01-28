@@ -27,7 +27,7 @@ class MyProductAllViewHolder(val binding: ItemAllRecyclerviewBinding): RecyclerV
     val button2: Button = itemView.findViewById(R.id.deletebutton)
 }
 
-class MyProductAllAdapter(val context:Context, datas: MutableList<Product>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyProductAllAdapter(val username:String?, val context:Context, datas: MutableList<Product>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     var listDataFilter: MutableList<Product>? = datas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -54,7 +54,7 @@ class MyProductAllAdapter(val context:Context, datas: MutableList<Product>?, val
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
 
-                    val deleteCall = networkService.deleteProduct(csrfToken, waiting?.s_name)
+                    val deleteCall = networkService.deleteProduct(csrfToken, username, waiting?.s_name)
 
                     deleteCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
