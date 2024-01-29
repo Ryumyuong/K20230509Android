@@ -5,7 +5,9 @@ import android.graphics.Paint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.viewpager2.widget.ViewPager2
 import com.first.rental.databinding.ActivityPlaceBinding
+import com.first.rental.recycler.ImagePagerAdapter
 
 class PlaceActivity : AppCompatActivity() {
     lateinit var binding: ActivityPlaceBinding
@@ -14,6 +16,17 @@ class PlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val viewPager: ViewPager2 = findViewById(R.id.Viewpager)  // ViewPager2 ID로 변경
+//        val imageList = listOf(
+//            R.drawable.image1,  // 각 이미지에 대한 리소스 ID로 변경
+//            R.drawable.image2,
+//            R.drawable.image3
+//        )
+//
+//        val adapter = ImagePagerAdapter(imageList)
+//        viewPager.adapter = adapter
+
 
         binding.tour.setOnClickListener {
             val intent = Intent(this, TourActivity::class.java)
