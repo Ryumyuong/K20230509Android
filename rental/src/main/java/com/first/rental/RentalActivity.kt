@@ -47,13 +47,15 @@ class RentalActivity : AppCompatActivity() {
         binding.buy.setOnClickListener {
             val url = "http://www.lunamall.co.kr"
 
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
+            if (!url.isNullOrBlank()) {
+                openLink(url)
             }
         }
 
+    }
+
+    private fun openLink(link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(intent)
     }
 }

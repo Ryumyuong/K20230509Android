@@ -47,11 +47,8 @@ class TourActivity : AppCompatActivity() {
         binding.buy.setOnClickListener {
             val url = "http://www.lunamall.co.kr"
 
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
+            if (!url.isNullOrBlank()) {
+                openLink(url)
             }
         }
 
@@ -61,5 +58,10 @@ class TourActivity : AppCompatActivity() {
 각종 모임의 성격에 맞게 공간 준비가 되어 있습니다.
 인원 또는 예산을 말씀해 주시면 커스텀 도와드릴게요.
 맛있는 음식과 다양한 주류, 다채로운 서비스를 누려보세요"""
+    }
+
+    private fun openLink(link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(intent)
     }
 }

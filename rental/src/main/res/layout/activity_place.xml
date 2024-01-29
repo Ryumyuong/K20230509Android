@@ -68,7 +68,7 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="투어소개"
+            android:text="블렌디 소개"
             android:textStyle="bold" />
 
         <TextView
@@ -82,7 +82,7 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="시설소개"
+            android:text="대관 행사"
             android:textStyle="bold" />
 
         <TextView
@@ -108,25 +108,30 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="오시는길"
+            android:text="오시는 길"
             android:textStyle="bold" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/point"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="| Cafe &amp; Rooftop |"
         android:textColor="@color/sky"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:padding="50dp"/>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="50dp"
+            android:layout_marginBottom="50dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="552dp"
-        android:text="카페 &amp; 루프탑"
         android:textSize="30sp"
         android:textStyle="bold"
         android:gravity="center"/>

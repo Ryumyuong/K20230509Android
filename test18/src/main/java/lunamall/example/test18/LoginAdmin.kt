@@ -24,6 +24,11 @@ class LoginAdmin : AppCompatActivity() {
         setSupportActionBar(binding.Toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.Toolbar.title = "로그인 정보"
+
+        val bottomNavigationView = binding.bottommenu
+
+        bottomNavigationView.selectedItemId = R.id.fourth_tab
+
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)

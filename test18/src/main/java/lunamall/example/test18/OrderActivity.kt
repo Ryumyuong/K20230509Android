@@ -24,6 +24,10 @@ class OrderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "주문 목록"
 
+        val bottomNavigationView = binding.bottommenu
+
+        bottomNavigationView.selectedItemId = R.id.third_tab
+
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)

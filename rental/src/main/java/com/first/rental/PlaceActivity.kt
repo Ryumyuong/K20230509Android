@@ -1,6 +1,7 @@
 package com.first.rental
 
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -47,12 +48,34 @@ class PlaceActivity : AppCompatActivity() {
         binding.buy.setOnClickListener {
             val url = "http://www.lunamall.co.kr"
 
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
+            if (!url.isNullOrBlank()) {
+                openLink(url)
             }
         }
+
+        binding.point.text = """point 01 ) 최대 70인 수용 가능한 여유로운 공간!
+point 02 ) 빔프로젝터와 음향시설, 마이크 등 준비 되어 있어요!
+Point 03 ) 뷔페 및 코스, 단품 요리 등 예산에 맞게 퀄리티 높은 음식을 즐길 수 있어요!
+"""
+
+        binding.text.text = """대관 이용 시간은 기본 3시간이며 추가 이용 시 금액이 추가됩니다. (준비 시간 포함)
+행사 목적에 따라 견적 금액이 상이하니 상담 후 계약 진행해 주세요."""
+
+        binding.textView.text = "지금 바로 대관 견적 알아보러 가기"
+
+        binding.textView.paintFlags = binding.textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        binding.textView.setOnClickListener {
+            val url = "https://i.listovey.com/c/rlatkanwkd76"
+
+            if (!url.isNullOrBlank()) {
+                openLink(url)
+            }
+        }
+    }
+
+    private fun openLink(link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(intent)
     }
 }

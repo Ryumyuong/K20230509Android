@@ -68,7 +68,7 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="투어소개"
+            android:text="블렌디 소개"
             android:textStyle="bold" />
 
         <TextView
@@ -81,7 +81,7 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="시설소개"
+            android:text="대관 행사"
             android:textStyle="bold" />
 
         <TextView
@@ -108,28 +108,194 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="오시는길"
+            android:text="오시는 길"
             android:textStyle="bold" />
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reservation"
+                    android:textColor="@color/sky"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="| Reservation |"
-        android:textColor="@color/sky"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:gravity="center" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="예약절차"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/reservation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="50dp"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="552dp"
-        android:text="예약방법 3단계"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:layout_marginTop="50dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/Refund"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/sky"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_marginTop="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="취소/변경/환불규정"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/refund"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="50dp"/>
+
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:text="자주 묻는 질문"
+            android:layout_marginTop="100dp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40dp"
+            android:layout_marginTop="50dp"
+            android:background="#FFF2CC">
+            <TextView
+                android:id="@+id/qna1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="1. 예약 및 이용절차가 어떻게 되나요?"/>
+
+            <TextView
+                android:id="@+id/ans1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/qna2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="2. 보증 인원이 어떻게 될까요?"/>
+
+            <TextView
+                android:id="@+id/ans2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/qna3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="3. 대관 이용 시간은 기본 3시간인가요? 추가 할 수 없나요?"/>
+
+            <TextView
+                android:id="@+id/ans3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/qna4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="4. 대관 이용 시간을 추천해주실 수 있나요?"/>
+
+            <TextView
+                android:id="@+id/ans4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/qna5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="5. 빔프로젝터, 마이크를 사용할 수 있나요?"/>
+
+            <TextView
+                android:id="@+id/ans5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/qna6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:text="6. 외부 음식 및 주류 반입 가능한가요?"/>
+
+            <TextView
+                android:id="@+id/ans6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+
+
+
+
+
     </LinearLayout>
 
 </ScrollView>
