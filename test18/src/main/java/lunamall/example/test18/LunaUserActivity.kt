@@ -85,6 +85,8 @@ class LunaUserActivity : AppCompatActivity() {
                             notiTokenCall.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                                     Log.d("lmj", "성공 : $token , 토큰 : $csrfToken")
+                                    val intent = Intent(this@LunaUserActivity,LoginDetail::class.java)
+                                    startActivity(intent)
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {

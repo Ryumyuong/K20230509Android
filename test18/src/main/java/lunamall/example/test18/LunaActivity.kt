@@ -31,7 +31,7 @@ class LunaActivity : AppCompatActivity() {
         val networkService = (applicationContext as MyApplication).networkService
 
         var pageNumber = 1
-        var pageSize = 10000
+        var pageSize = 10
 
         val cartCall = networkService.runaList(username, pageNumber, pageSize)
 

@@ -3,6 +3,8 @@ package lunamall.example.test18
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import lunamall.example.test18.databinding.ActivityLunaAddBinding
@@ -28,7 +30,95 @@ class LunaAdd : AppCompatActivity() {
         val networkService = (applicationContext as MyApplication).networkService
 
         var pageNumber = 1
-        var pageSize = 10000
+        var pageSize = 10
+
+        binding.before.isInvisible = true
+
+            binding.before.setOnClickListener {
+                pageNumber = pageNumber.minus(1)
+                if(pageNumber!=1) {
+                    val userCall = networkService.userList(pageNumber, pageSize)
+
+                    userCall.enqueue(object : Callback<UserList> {
+                        override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                            var item = response.body()?.items
+                            Log.d("lmj", "-------")
+                            Log.d("lmj", "One item : $item")
+                            Log.d("lmj", "===========")
+                            adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
+                            binding.LunaAddRecyclerView.adapter = adapter
+                            binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
+                            binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
+                            binding.next.isInvisible = false
+                            adapter.notifyDataSetChanged()
+                        }
+
+                        override fun onFailure(call: Call<UserList>, t: Throwable) {
+                            Log.d("lmj", "실패 내용 : ${t.message}")
+                            call.cancel()
+                        }
+
+                    })
+                } else {
+                    val userCall = networkService.userList(pageNumber, pageSize)
+
+                    userCall.enqueue(object : Callback<UserList> {
+                        override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                            var item = response.body()?.items
+                            Log.d("lmj", "-------")
+                            Log.d("lmj", "One item : $item")
+                            Log.d("lmj", "===========")
+                            adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
+                            binding.LunaAddRecyclerView.adapter = adapter
+                            binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
+                            binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
+                            binding.next.isInvisible = false
+                            binding.before.isInvisible = true
+                            adapter.notifyDataSetChanged()
+                        }
+
+                        override fun onFailure(call: Call<UserList>, t: Throwable) {
+                            Log.d("lmj", "실패 내용 : ${t.message}")
+                            call.cancel()
+                        }
+
+                    })
+
+                }
+
+
+            }
+
+        binding.next.setOnClickListener {
+            binding.before.isInvisible = false
+            pageNumber = pageNumber.plus(1)
+
+            val userCall = networkService.userList(pageNumber, pageSize)
+
+            userCall.enqueue(object : Callback<UserList> {
+                override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                    var item = response.body()?.items
+                    Log.d("lmj", "-------")
+                    Log.d("lmj", "One item : $item")
+                    Log.d("lmj", "===========")
+                    adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
+                    binding.LunaAddRecyclerView.adapter = adapter
+                    binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
+                    binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
+                    if(item?.count()!! <10) {
+                        binding.next.isInvisible = true
+                    }
+                    adapter.notifyDataSetChanged()
+
+                }
+
+                override fun onFailure(call: Call<UserList>, t: Throwable) {
+                    Log.d("lmj", "실패 내용 : ${t.message}")
+                    call.cancel()
+                }
+
+            })
+        }
 
         val userCall = networkService.userList(pageNumber, pageSize)
 
