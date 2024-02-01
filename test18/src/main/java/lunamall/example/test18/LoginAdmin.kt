@@ -43,7 +43,7 @@ class LoginAdmin : AppCompatActivity() {
                 var item = response.body()?.items
                 binding.VIP.text = item?.get(0)?.vip
                 binding.name.text = item?.get(0)?.username
-                binding.luna.text = item?.get(0)?.money.toString() + " 루나"
+                binding.luna.text = "루나포인트 : " + item?.get(0)?.money.toString()
                 binding.luna.paintFlags = binding.luna.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                 Log.d("lmj", "-------${item?.get(0)?.vip}------")
                 Log.d("lmj", "-------${item?.get(0)?.username}------")

@@ -29,6 +29,10 @@ class LunaUserActivity : AppCompatActivity() {
 
         binding.DoDo.text = intent.getIntExtra("dodo",0).toString()
 
+        var userId = ""
+        val preferences = getSharedPreferences("login", MODE_PRIVATE)
+        val username = preferences.getString("username", userId)
+
         binding.addLuna.setOnClickListener {
             val dodo = binding.dodo.text.toString().toIntOrNull()
             val runa = binding.Luna.text.toString().toIntOrNull()
@@ -50,17 +54,6 @@ class LunaUserActivity : AppCompatActivity() {
 
             if(luna != null) {
                 val luna = binding.lunaAdd.text.toString()
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        return@OnCompleteListener
-                        Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
-                    }
-
-                    val myToken = ""
-                    val preferences = getSharedPreferences("code", MODE_PRIVATE)
-                    val code = preferences.getString("code", myToken)
-
-                    val token = task.result
                     val networkService = (applicationContext as MyApplication).networkService
                     val csrfCall = networkService.getCsrfToken()
 
@@ -68,23 +61,10 @@ class LunaUserActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                             val csrfToken = response.body()?.token
 
-                            val notiTokenMyCall = networkService.notiLunaToken(csrfToken, code, luna)
+                            val notiTokenMyCall = networkService.notiLunaToken(csrfToken, username, luna)
 
                             notiTokenMyCall.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                    Log.d("lmj", "성공 : $myToken , 토큰 : $csrfToken")
-                                }
-
-                                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Log.d("lmj", "실패데이터 : ${t.message}")
-                                }
-                            })
-
-                            val notiTokenCall = networkService.notiLunaToken(csrfToken, token, luna)
-
-                            notiTokenCall.enqueue(object : Callback<Unit> {
-                                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                    Log.d("lmj", "성공 : $token , 토큰 : $csrfToken")
                                     val intent = Intent(this@LunaUserActivity,LoginDetail::class.java)
                                     startActivity(intent)
                                 }
@@ -99,7 +79,6 @@ class LunaUserActivity : AppCompatActivity() {
                             Log.d("lmj", "실패토큰 : ${t.message}")
                         }
                     })
-                })
             } else {
                 Toast.makeText(this,"전환 신청할 루나를 입력하세요",Toast.LENGTH_LONG).show()
             }

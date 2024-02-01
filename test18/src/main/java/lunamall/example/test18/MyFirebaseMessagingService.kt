@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -13,7 +14,6 @@ import com.google.firebase.messaging.RemoteMessage
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    private var notificationId = 0
     private val GROUP_KEY = "lunamall_group"
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -34,9 +34,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val channel = NotificationChannel(
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             )
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null)
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -47,8 +48,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val notificationId = System.currentTimeMillis().toInt()
+
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.profiler)
+            .setSmallIcon(R.drawable.logo)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -57,14 +60,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setGroup(GROUP_KEY)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(notificationId++, notificationBuilder.build())
 
-        val summaryNotification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.profiler)
-            .setGroup(GROUP_KEY)
-            .setGroupSummary(true)
-            .build()
+        val existingSummaryNotification = notificationManager.activeNotifications
+            .find { it.id == 0 && it.notification.group == GROUP_KEY }
 
-        notificationManager.notify(0, summaryNotification)
+        if (existingSummaryNotification == null) {
+            val summaryNotification = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.logo)
+                .setGroup(GROUP_KEY)
+                .setGroupSummary(true)
+                .setContentIntent(pendingIntent)
+                .build()
+
+            notificationManager.notify(0, summaryNotification)
+        }
+
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 }

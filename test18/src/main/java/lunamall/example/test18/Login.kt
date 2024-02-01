@@ -67,15 +67,14 @@ class Login : AppCompatActivity() {
 
                                                 updateCall.enqueue(object : Callback<Unit> {
                                                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                                        editor.putString("code", token)
-                                                        editor.apply()
                                                     }
 
                                                     override fun onFailure(call: Call<Unit>,t: Throwable) {
 
                                                     }
                                                 })
-                                            })
+                                            }
+                                        )
                                     }
 
                                     override fun onFailure(call: Call<CsrfToken>,t: Throwable) {

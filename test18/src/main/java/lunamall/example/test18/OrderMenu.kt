@@ -128,17 +128,6 @@ class OrderMenu : AppCompatActivity() {
                                     orderCall.enqueue(object : Callback<InOrder> {
                                         override fun onResponse(call: Call<InOrder>, response: Response<InOrder>) {
                                             Log.d("lmj", "서버 응답 코드: ${response.code()}")
-                                            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                                                if (!task.isSuccessful) {
-                                                    return@OnCompleteListener
-                                                    Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
-                                                }
-
-
-                                                val token = task.result
-                                                val myToken = ""
-                                                val preferences = getSharedPreferences("code", MODE_PRIVATE)
-                                                val code = preferences.getString("code", myToken)
                                                 val networkService = (applicationContext as MyApplication).networkService
                                                 val csrfCall = networkService.getCsrfToken()
 
@@ -146,7 +135,7 @@ class OrderMenu : AppCompatActivity() {
                                                     override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                                                         val csrfToken = response.body()?.token
 
-                                                        val notiTokenCall = networkService.notiToken(csrfToken, token, code)
+                                                        val notiTokenCall = networkService.notiToken(csrfToken, username)
 
                                                         notiTokenCall.enqueue(object : Callback<Unit> {
                                                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -163,7 +152,6 @@ class OrderMenu : AppCompatActivity() {
                                                         Log.d("lmj", "실패토큰 : ${t.message}")
                                                     }
                                                 })
-                                            })
                                             Toast.makeText(this@OrderMenu, "주문이 성공하였습니다.", Toast.LENGTH_SHORT).show()
                                             val intent = Intent(this@OrderMenu, OrderActivity::class.java)
                                             startActivity(intent)
