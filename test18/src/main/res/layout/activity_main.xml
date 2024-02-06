@@ -23,7 +23,6 @@
         android:layout_marginTop="165px"
         app:tabGravity="start"/>
 
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/Viewpager"
         android:layout_width="match_parent"

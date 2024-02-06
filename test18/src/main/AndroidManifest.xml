@@ -33,7 +33,13 @@
             android:name=".InsertUser"
             android:exported="false" />
         <activity
+            android:name=".UpdateUser"
+            android:exported="false" />
+        <activity
             android:name=".OrderMenu"
+            android:exported="false" />
+        <activity
+            android:name=".UserListActivity"
             android:exported="false" />
 
         <service
@@ -59,7 +65,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".UpdateActivity"
+            android:name=".UpdateProduct"
             android:exported="true" />
         <activity
             android:name=".LunaActivity"

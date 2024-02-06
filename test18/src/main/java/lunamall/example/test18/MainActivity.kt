@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "루나몰"
 
-
         val tabLayout = binding.Tabs
 
         val viewPager = binding.Viewpager
@@ -111,8 +110,11 @@ class MainActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
-                        val intent = Intent(this, OrderActivity::class.java)
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, UserListActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, LunaActivity::class.java)
                         startActivity(intent)
                     }
                 }

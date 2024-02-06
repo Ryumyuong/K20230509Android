@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.InsertProduct
 import lunamall.example.test18.R
-import lunamall.example.test18.databinding.ItemAllRecyclerviewBinding
+import lunamall.example.test18.databinding.UpdateProductRecyclerviewBinding
 import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.Product
 import lunamall.example.test18.retrofit.INetworkService
@@ -22,28 +22,34 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MyProductAllViewHolder(val binding: ItemAllRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-    val button1: Button = itemView.findViewById(R.id.updatebutton)
+class UpdateProductViewHolder(val binding: UpdateProductRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+    val button: Button = itemView.findViewById(R.id.updatebutton)
     val button2: Button = itemView.findViewById(R.id.deletebutton)
 }
 
-class MyProductAllAdapter(val username:String?, val context:Context, datas: MutableList<Product>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     var listDataFilter: MutableList<Product>? = datas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        MyProductAllViewHolder(ItemAllRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        UpdateProductViewHolder(UpdateProductRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val binding = (holder as MyProductAllViewHolder).binding
+        val binding = (holder as UpdateProductViewHolder).binding
         val waiting = listDataFilter?.get(position)
+        holder.button2.setBackgroundColor(R.drawable.actions)
         Log.d("lmj", "waiting 값 : $waiting")
 
         binding.itemtitle.text = waiting?.s_name
+        binding.itemcontent.text = "더보기"
         binding.itemprice.text = waiting?.s_price.toString() + " 루나"
 
-        holder.button1.setOnClickListener {
-            val intent = Intent(context, InsertProduct::class.java)
-            intent.putExtra("product", waiting?.s_name)
+        holder.button.setOnClickListener {
+            val intent = Intent(context,InsertProduct::class.java)
+            intent.putExtra("productName",waiting?.s_name)
+            intent.putExtra("productCategory",waiting?.s_category)
+            intent.putExtra("price",waiting?.s_price)
+            intent.putExtra("description", waiting?.s_description)
+            intent.putExtra("fileName",waiting?.s_fileName)
             context.startActivity(intent)
         }
 
@@ -54,28 +60,24 @@ class MyProductAllAdapter(val username:String?, val context:Context, datas: Muta
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
 
-                    val deleteCall = networkService.deleteProduct(csrfToken, username, waiting?.s_name)
+                    val updateCall = networkService.deleteProduct(csrfToken,waiting?.s_name)
 
-                    deleteCall.enqueue(object : Callback<Unit> {
+                    updateCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                            Log.d("lmj", "성공 내용 : ${response.code()}")
-                            Toast.makeText(context, "물품이 삭제되었습니다.", Toast.LENGTH_LONG).show()
-                            notifyDataSetChanged()
+
                         }
 
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
-                            call.cancel()
-                        }
 
+                        }
                     })
+
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
                     Log.d("lmj", "실패토큰 : ${t.message}")
                 }
             })
-
         }
 
         val urlImg = waiting?.s_fileName
@@ -87,6 +89,17 @@ class MyProductAllAdapter(val username:String?, val context:Context, datas: Muta
 
         }
 
+        binding.itemcontent.setOnClickListener {
+            val link = waiting?.s_description
+            if (!link.isNullOrBlank()) {
+                openLink(link)
+            }
+        }
+    }
+
+    private fun openLink(link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        context.startActivity(intent)
     }
 
     override fun getItemCount(): Int {

@@ -97,16 +97,15 @@
         app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <Button
-        android:id="@+id/updatebtn"
+        android:id="@+id/orderList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"
-        android:text="회원정보 수정"
+        android:text="주문 목록"
         app:layout_constraintBottom_toTopOf="@+id/bottommenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

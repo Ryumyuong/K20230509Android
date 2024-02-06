@@ -13,6 +13,7 @@ import lunamall.example.test18.MyApplication
 import lunamall.example.test18.databinding.FragmentEightBinding
 import lunamall.example.test18.model.ItemDataList
 import lunamall.example.test18.recycler.MyWaitingAdapter
+import lunamall.example.test18.recycler.UpdateProductAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +21,7 @@ import retrofit2.Response
 class EightFragment : Fragment() {
     lateinit var binding: FragmentEightBinding
     lateinit var adapter: MyWaitingAdapter
+    lateinit var adapter2: UpdateProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +45,17 @@ class EightFragment : Fragment() {
                     Log.d("lmj", "One item : $item")
                     Log.d("lmj", "===========")
                     Log.d("lmj", "실패 내용 : ${response.code()}")
-                    adapter = MyWaitingAdapter(requireContext(), item, username, networkService)
-
-                    binding.eightRecyclerView.adapter = adapter
-                    binding.eightRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-                    adapter.notifyDataSetChanged()
+                    if(username=="admin") {
+                        adapter2 = UpdateProductAdapter(requireContext(), item, username, networkService)
+                        binding.eightRecyclerView.adapter = adapter2
+                        binding.eightRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                        adapter2.notifyDataSetChanged()
+                    } else {
+                        adapter = MyWaitingAdapter(requireContext(), item, username, networkService)
+                        binding.eightRecyclerView.adapter = adapter
+                        binding.eightRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                        adapter.notifyDataSetChanged()
+                    }
                 }
             }
 

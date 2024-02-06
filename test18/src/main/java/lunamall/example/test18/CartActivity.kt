@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import lunamall.example.test18.databinding.ActivityCartBinding
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.recycler.MyCartAdapter
@@ -88,8 +87,11 @@ class CartActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
-                        val intent = Intent(this, OrderActivity::class.java)
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, UserListActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, LunaActivity::class.java)
                         startActivity(intent)
                     }
                 }

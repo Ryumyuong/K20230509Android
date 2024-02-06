@@ -15,6 +15,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+
 import retrofit2.http.Query
 
 interface INetworkService {
@@ -23,9 +24,6 @@ interface INetworkService {
 
     @GET("luna/main/getCategory")
     fun getMyProduct(@Query("category") s_category: String?): Call<ItemDataList>
-
-    @GET("luna/main/productAll")
-    fun getMyProductAll(): Call<ItemDataList>
 
     @POST("luna/main/insert")
     fun insertCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body inCart: InCart?): Call<InCart>
@@ -77,10 +75,11 @@ interface INetworkService {
     fun insertProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body product: Product?): Call<Unit>
 
     @POST("luna/main/updateProduct")
-    fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>
+    fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("category") category: String?, @Query("name") name: String?, @Query("sname") sname: String?,
+                      @Query("description") description: String?, @Query("price") price: Int?, @Query("fileName") fileName: String?): Call<Unit>
 
     @POST("luna/main/deleteProduct")
-    fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("productName") productName: String?): Call<Unit>
+    fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>
 
     @GET("luna/main/userList")
     fun userList(
@@ -105,4 +104,14 @@ interface INetworkService {
 
     @POST("luna/main/deleteCart")
     fun deleteCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("itemName") itemName: String?): Call<Unit>
+
+    @POST("luna/main/deleteUser")
+    fun deleteUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?): Call<Unit>
+
+    @GET("luna/main/productName")
+    fun productName(@Query("productName") productName: String?): Call<UserList>
+
+    @POST("luna/main/updateUser")
+    fun updateUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body user: User?, @Query("userId") userId: String?): Call<Unit>
+
 }

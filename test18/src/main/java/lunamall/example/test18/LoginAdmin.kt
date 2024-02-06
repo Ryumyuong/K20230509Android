@@ -74,8 +74,9 @@ class LoginAdmin : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.updatebtn.setOnClickListener {
-
+        binding.orderList.setOnClickListener {
+            val intent = Intent(this, OrderActivity::class.java)
+            startActivity(intent)
         }
 
         binding.logoutbtn.setOnClickListener {
@@ -99,7 +100,7 @@ class LoginAdmin : AppCompatActivity() {
                         startActivity(intent)
                 }
                 R.id.third_tab -> {
-                        val intent = Intent(this, OrderActivity::class.java)
+                        val intent = Intent(this, UserListActivity::class.java)
                         startActivity(intent)
                 }
                 R.id.fourth_tab -> {

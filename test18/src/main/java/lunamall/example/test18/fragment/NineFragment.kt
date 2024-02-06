@@ -13,6 +13,7 @@ import lunamall.example.test18.MyApplication
 import lunamall.example.test18.databinding.FragmentNineBinding
 import lunamall.example.test18.model.ItemDataList
 import lunamall.example.test18.recycler.MyWaitingsAdapter
+import lunamall.example.test18.recycler.UpdateProductAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +21,7 @@ import retrofit2.Response
 class NineFragment : Fragment() {
     lateinit var binding: FragmentNineBinding
     lateinit var adapter: MyWaitingsAdapter
+    lateinit var adapter2: UpdateProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +45,17 @@ class NineFragment : Fragment() {
                     Log.d("lmj", "One item : $item")
                     Log.d("lmj", "===========")
                     Log.d("lmj", "실패 내용 : ${response.code()}")
-                    adapter = MyWaitingsAdapter(requireContext(), item, username, networkService)
-
-                    binding.nineRecyclerView.adapter = adapter
-                    binding.nineRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-                    adapter.notifyDataSetChanged()
+                    if(username=="admin") {
+                        adapter2 = UpdateProductAdapter(requireContext(), item, username, networkService)
+                        binding.nineRecyclerView.adapter = adapter2
+                        binding.nineRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                        adapter2.notifyDataSetChanged()
+                    } else {
+                        adapter = MyWaitingsAdapter(requireContext(), item, username, networkService)
+                        binding.nineRecyclerView.adapter = adapter
+                        binding.nineRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                        adapter.notifyDataSetChanged()
+                    }
                 }
             }
 
