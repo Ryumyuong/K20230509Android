@@ -1,9 +1,11 @@
 package lunamall.example.test18
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import lunamall.example.test18.databinding.ActivityUpdateUserBinding
 import lunamall.example.test18.model.CsrfToken
@@ -32,26 +34,19 @@ class UpdateUser : AppCompatActivity() {
 
             val networkService = (applicationContext as MyApplication).networkService
 
-            val productCall = networkService.productName(userId)
+            val userCall = networkService.user(userId)
 
-            productCall.enqueue(object : Callback<UserList> {
+            userCall.enqueue(object : Callback<UserList> {
                 override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                     val user = response.body()?.items
-                    val password = user?.get(0)?.password
                     val name = user?.get(0)?.username
-                    val phone = user?.get(0)?.phone
-                    val address = user?.get(0)?.address
-                    val vip = user?.get(0)?.vip
+
                     money = user?.get(0)?.money
                     kit = user?.get(0)?.kit
                     code = user?.get(0)?.code
 
                     binding.id.text = userId
-                    binding.password.setText(password)
-                    binding.name.setText(name)
-                    binding.phone.setText(phone)
-                    binding.address.setText(address)
-                    binding.vip.text = vip
+                    binding.name.text = name
 
                 }
 
@@ -78,6 +73,9 @@ class UpdateUser : AppCompatActivity() {
 
                     updateCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                            val intent = Intent(this@UpdateUser, UserListActivity::class.java)
+                            startActivity(intent)
+                            Toast.makeText(this@UpdateUser,"회원수정이 완료되었습니다.",Toast.LENGTH_SHORT).show()
 
                         }
 

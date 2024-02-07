@@ -108,8 +108,8 @@ interface INetworkService {
     @POST("luna/main/deleteUser")
     fun deleteUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?): Call<Unit>
 
-    @GET("luna/main/productName")
-    fun productName(@Query("productName") productName: String?): Call<UserList>
+    @GET("luna/main/user")
+    fun user(@Query("userId") userId: String?): Call<UserList>
 
     @POST("luna/main/updateUser")
     fun updateUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body user: User?, @Query("userId") userId: String?): Call<Unit>
