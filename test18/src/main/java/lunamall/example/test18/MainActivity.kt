@@ -99,9 +99,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.second_tab -> {
                     Log.d("lmj", "username==$username==")
                     if(username.equals("")) {
-                            val intent = Intent(this, Login::class.java)
-                            startActivity(intent)
-                    }else {
+                        val intent = Intent(this, Login::class.java)
+                        startActivity(intent)
+                    }else if(username.equals("admin")) {
+                        val intent = Intent(this, InsertUser::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                     }

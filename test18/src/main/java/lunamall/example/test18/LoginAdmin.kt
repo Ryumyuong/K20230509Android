@@ -59,11 +59,6 @@ class LoginAdmin : AppCompatActivity() {
 
         })
 
-        binding.itembtn.setOnClickListener {
-            val intent = Intent(this, InsertProduct::class.java)
-            startActivity(intent)
-        }
-
         binding.addLuna.setOnClickListener {
             val intent = Intent(this,LunaAdd::class.java)
             startActivity(intent)
@@ -96,8 +91,8 @@ class LoginAdmin : AppCompatActivity() {
                         startActivity(intent)
                 }
                 R.id.second_tab -> {
-                        val intent = Intent(this, CartActivity::class.java)
-                        startActivity(intent)
+                    val intent = Intent(this, InsertProduct::class.java)
+                    startActivity(intent)
                 }
                 R.id.third_tab -> {
                         val intent = Intent(this, UserListActivity::class.java)

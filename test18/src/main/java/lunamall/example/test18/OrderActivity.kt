@@ -158,7 +158,10 @@ class OrderActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
+                    }else if(username.equals("admin")) {
+                        val intent = Intent(this, InsertUser::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                     }
@@ -167,8 +170,11 @@ class OrderActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
-                        val intent = Intent(this, OrderActivity::class.java)
+                    }else if(username.equals("admin")){
+                        val intent = Intent(this, UserListActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(this, LunaActivity::class.java)
                         startActivity(intent)
                     }
                 }
