@@ -31,7 +31,8 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyOrderViewHolder).binding
         val order = orderData?.get(position)
-
+        val id = order?.id.toString().toIntOrNull()
+        val ids = order?.id.toString()
         val username = order?.userId.toString()
 
         binding.orderTime.text = order?.order_time.toString()
@@ -43,6 +44,19 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
 
         var isClickable1 = true
         var isClickable2 = true
+
+        if(order?.deliver.toString() == "배송중") {
+            isClickable1 = false
+            binding.deliver.setTextColor(Color.GREEN)
+        } else if(order?.deliver.toString() == "배송완료") {
+            isClickable1 = false
+            isClickable2 = false
+            binding.deliver.setTextColor(Color.GREEN)
+            binding.complete.setTextColor(Color.GREEN)
+        }
+
+
+
 
         binding.deliver.setOnClickListener {
             if(isClickable1) {
@@ -63,13 +77,24 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
 
                             }
                         })
+
+                        val orderCall = networkService.delivering(csrfToken, id, username)
+
+                        orderCall.enqueue(object : Callback<Unit> {
+                            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                            }
+
+                            override fun onFailure(call: Call<Unit>, t: Throwable) {
+
+                            }
+                        })
                     }
 
                     override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
                     }
                 })
                 binding.deliver.setTextColor(Color.GREEN)
-                isClickable1 = false
             }
         }
 
@@ -80,11 +105,11 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                 csrfCall.enqueue(object : Callback<CsrfToken> {
                     override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                         val csrfToken = response.body()?.token
-                        val updateCall = networkService.alarm(csrfToken, username)
+                        val orderCall = networkService.deliverCom(csrfToken, ids, username)
 
-                        updateCall.enqueue(object : Callback<Unit> {
+                        orderCall.enqueue(object : Callback<Unit> {
                             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                Toast.makeText(context, "배송 완료 알람이 전송되었습니다.",Toast.LENGTH_SHORT).show()
+
                             }
 
                             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -97,7 +122,6 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                     }
                 })
                 binding.complete.setTextColor(Color.GREEN)
-                isClickable2 = false
             }
         }
 

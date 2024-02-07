@@ -1,6 +1,7 @@
 package lunamall.example.test18.model
 
 data class Order (
+    var id: Int?,
     var order_time: String?,
     var userId: String?,
     var phone: String,

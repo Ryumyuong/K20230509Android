@@ -1,5 +1,7 @@
 package lunamall.example.test18.model
 
+import java.io.StringBufferInputStream
+
 data class Cart (
     var userId: String?,
     var s_name: String?,
@@ -8,5 +10,6 @@ data class Cart (
     var fileName: String?,
     var count: Int?,
     var cost: Int?,
-    var total: Int?
+    var total: Int?,
+    var condition: String?
 )

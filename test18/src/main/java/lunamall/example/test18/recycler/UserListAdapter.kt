@@ -57,6 +57,7 @@ class UserListAdapter(val context: Context, datas: MutableList<User>?, val netwo
                     deleteCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                             Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            notifyDataSetChanged()
                         }
 
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
