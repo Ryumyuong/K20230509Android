@@ -78,7 +78,10 @@ class CartActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else {
+                    }else if(username.equals("admin")) {
+                        val intent = Intent(this, InsertProduct::class.java)
+                        startActivity(intent)
+                    } else {
                         val intent = Intent(this, CartActivity::class.java)
                         startActivity(intent)
                     }
