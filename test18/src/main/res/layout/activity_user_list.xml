@@ -31,22 +31,26 @@
         android:orientation="horizontal"
         android:layout_above="@+id/bottommenu"
         android:padding="20dp">
+
         <Button
             android:id="@+id/before"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="before"/>
+            android:backgroundTint="#00BCD4"
+            android:text="before" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+
         <Button
             android:id="@+id/next"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="next"/>
+            android:backgroundTint="#2196F3"
+            android:text="next" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

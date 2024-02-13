@@ -38,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#FFC107"
+        android:textColor="@color/black"
         android:text="로그인" />
 
 </RelativeLayout>

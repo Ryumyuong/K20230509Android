@@ -119,7 +119,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="물품 수정"/>
+        android:backgroundTint="#FF9800"
+        android:text="물품 수정" />
 
 
 </LinearLayout>

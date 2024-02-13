@@ -61,11 +61,13 @@
                     android:textSize="16dp"
                     android:textColor="#757575"
                     />
+
             <Button
                 android:id="@+id/orderbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주문하기"/>
+                android:backgroundTint="#00BCD4"
+                android:text="주문하기" />
         </LinearLayout>
     </LinearLayout>
 

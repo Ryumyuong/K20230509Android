@@ -34,21 +34,24 @@
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_above="@id/bottommenu">
+
         <Button
             android:id="@+id/before"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="before"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#00BCD4"
+            android:text="before"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="170dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#2196F3"
             android:text="next"
             android:textSize="20sp" />
 
