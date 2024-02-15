@@ -37,7 +37,6 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
         val binding = (holder as UpdateProductViewHolder).binding
         val waiting = listDataFilter?.get(position)
         holder.button2.setBackgroundColor(R.drawable.actions)
-        Log.d("lmj", "waiting 값 : $waiting")
 
         binding.itemtitle.text = waiting?.s_name
         binding.itemcontent.text = "더보기"

@@ -42,10 +42,6 @@ class OneFragment : Fragment() {
             override fun onResponse(call: Call<ItemDataList>, response: Response<ItemDataList>) {
                 if (isAdded) {
                     var item = response.body()?.items
-                    Log.d("lmj", "-------")
-                    Log.d("lmj", "One item : $item")
-                    Log.d("lmj", "===========")
-                    Log.d("lmj", "실패 내용 : ${response.code()}")
                     if(username=="admin") {
                         adapter2 = UpdateProductAdapter(requireContext(), item, username, networkService)
                         binding.oneRecyclerView.adapter = adapter2
