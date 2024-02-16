@@ -1,36 +1,31 @@
 package com.main.lego
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
+import com.main.lego.databinding.ActivityDataBinding
 import com.main.lego.databinding.ActivityMainBinding
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN
 import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC
 import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+class DataActivity : AppCompatActivity() {
+    lateinit var binding: ActivityDataBinding
     private var value: String = ""
 
     companion object {
         const val READ_REQUEST_CODE = 42
-        const val CREATE_FILE_REQUEST_CODE = 43
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.buttonSelectFile.setOnClickListener {
@@ -41,32 +36,17 @@ class MainActivity : AppCompatActivity() {
             // 파일을 선택하는 화면으로 이동
             startActivityForResult(intent, READ_REQUEST_CODE)
         }
-
-        binding.download.setOnClickListener {
-            createFile()
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
 
-        when (requestCode) {
-            READ_REQUEST_CODE -> {
-                // 선택된 파일의 Uri를 가져옴
-                val uri = resultData?.data
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // 선택된 파일의 Uri를 가져옴
+            val uri = resultData?.data
 
-                // Uri를 통해 엑셀 파일 읽기
-                readExcelFile(uri)
-            }
-            CREATE_FILE_REQUEST_CODE -> {
-                // 선택된 파일의 Uri를 가져옴
-                val uri = resultData?.data
-
-                // 결과값을 파일로 저장하고 공유
-                if (uri != null) {
-                    saveResultToFileAndShare(uri)
-                }
-            }
+            // Uri를 통해 엑셀 파일 읽기
+            readExcelFile(uri)
         }
     }
 
@@ -165,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                binding.tip1.text = "특이 : 6개월 내 채무 00%"
+                binding.tip1.text = "6개월 내 채무 00%"
 
                 // 파일을 사용한 후에는 InputStream을 닫아줍니다.
                 inputStream.close()
@@ -183,47 +163,4 @@ class MainActivity : AppCompatActivity() {
             else -> ""
         }
     }
-
-    private fun saveResultToFileAndShare(uri: Uri) {
-        try {
-            val outputStream = contentResolver.openOutputStream(uri)
-            outputStream?.use { stream ->
-                val fileContents = buildResultText()
-                stream.write(fileContents.toByteArray())
-            }
-
-            showToast("파일로 저장되었습니다.")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            showToast("저장에 실패하였습니다.")
-        }
-    }
-
-    private fun buildResultText(): String {
-
-        val name = binding.name.text.toString()
-        val tip1 = binding.tip1.text.toString()
-        val tip2 = binding.tip2.text.toString()
-        val tip3 = binding.tip3.text.toString()
-        val shortT = binding.shortT.text.toString()
-        val longT = binding.longT.text.toString()
-        val earn = binding.earn.text.toString()
-
-        return "$name\n\n$tip1\n$tip2\n$tip3\n\n$shortT\n$longT\n\n$earn"
-    }
-
-    private fun showToast(message: String) {
-        // 간단한 Toast 메시지 표시
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun createFile() {
-        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "text/plain"  // 파일 타입에 따라 변경
-        intent.putExtra(Intent.EXTRA_TITLE, "result.txt")
-
-        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
-    }
-
 }

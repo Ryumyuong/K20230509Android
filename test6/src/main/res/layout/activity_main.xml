@@ -8,134 +8,147 @@
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/actions"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:id="@+id/earn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="소득 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/that"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="대상 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="재산 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:id="@+id/tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tip4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tip5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tip6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="특이 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:id="@+id/shortT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단기 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/longT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장기 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:id="@+id/test1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="진단 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="진단 : "
+            android:textSize="20sp"
+            android:ellipsize="end"
+            />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttonSelectFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="엑셀파일 올리기"/>
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/download"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이름 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        android:layout_marginBottom="40dp"
-        />
-
-    <TextView
-        android:id="@+id/earn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="소득 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-
-    <TextView
-        android:id="@+id/that"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="대상 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-
-    <TextView
-        android:id="@+id/money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="재산 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        android:layout_marginBottom="40dp"
-        />
-    <TextView
-        android:id="@+id/tip1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/tip2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/tip3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/tip4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/tip5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/tip6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="특이 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/shortT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="단기 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/longT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="장기 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        android:layout_marginBottom="40dp"
-        />
-    <TextView
-        android:id="@+id/test1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="진단 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-    <TextView
-        android:id="@+id/test2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="진단 : "
-        android:textSize="20sp"
-        android:ellipsize="end"
-        />
-
-
-
+        android:text="다운로드하기"/>
 
 
 </LinearLayout>
