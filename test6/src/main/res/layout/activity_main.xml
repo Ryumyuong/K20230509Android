@@ -142,13 +142,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="엑셀파일 올리기"/>
+        android:backgroundTint="#4CAF50"
+        android:text="엑셀파일 올리기" />
 
     <Button
         android:id="@+id/download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="다운로드하기"/>
+        android:backgroundTint="#03A9F4"
+        android:text="다운로드하기" />
 
 
 </LinearLayout>
