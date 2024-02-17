@@ -13,6 +13,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.InsertProduct
 import lunamall.example.test18.R
+import lunamall.example.test18.UpdateProduct
 import lunamall.example.test18.databinding.UpdateProductRecyclerviewBinding
 import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.Product
@@ -43,7 +44,7 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
         binding.itemprice.text = waiting?.s_price.toString() + " 루나"
 
         holder.button.setOnClickListener {
-            val intent = Intent(context,InsertProduct::class.java)
+            val intent = Intent(context, UpdateProduct::class.java)
             intent.putExtra("productName",waiting?.s_name)
             intent.putExtra("productCategory",waiting?.s_category)
             intent.putExtra("price",waiting?.s_price)

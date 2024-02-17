@@ -47,8 +47,13 @@ class UpdateProduct : AppCompatActivity() {
 
         binding.category.text = category
         binding.name.setText(name)
-        binding.price.setText(price)
+        binding.price.setText(price.toString())
         binding.description.setText(description)
+        if(fileName == null) {
+            binding.image.text = "사진이 있습니다."
+        } else {
+            binding.image.text = "사진이 없습니다."
+        }
 
 
         binding.category.setOnClickListener{
