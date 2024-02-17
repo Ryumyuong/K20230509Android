@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import lunamall.example.test18.databinding.ActivityMainBinding
 import lunamall.example.test18.fragment.EightFragment
+import lunamall.example.test18.fragment.EventFragment
 import lunamall.example.test18.fragment.FiveFragment
 import lunamall.example.test18.fragment.FourFragment
 import lunamall.example.test18.fragment.NineFragment
@@ -40,38 +41,42 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = "전자/기기"
+                    tab.text = "EVENT"
                 }
 
                 1 -> {
-                    tab.text = "생활가전"
+                    tab.text = "전자/기기"
                 }
 
                 2 -> {
-                    tab.text = "식음료"
+                    tab.text = "생활가전"
                 }
 
                 3 -> {
-                    tab.text = "운동"
+                    tab.text = "식음료"
                 }
 
                 4 -> {
-                    tab.text = "여가문화"
+                    tab.text = "운동"
                 }
 
                 5 -> {
-                    tab.text = "여행"
+                    tab.text = "여가문화"
                 }
 
                 6 -> {
-                    tab.text = "업무"
+                    tab.text = "여행"
                 }
 
                 7 -> {
-                    tab.text = "VVIP"
+                    tab.text = "업무"
                 }
 
                 8 -> {
+                    tab.text = "VVIP"
+                }
+
+                9 -> {
                     tab.text = "웰컴키트"
                 }
             }
@@ -141,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     class PagerAdapter(activity: MainActivity): FragmentStateAdapter(activity){
         val fragments: List<Fragment>
         init {
-            fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment(), FourFragment(), FiveFragment(), SixFragment(), SevenFragment(), EightFragment(), NineFragment())
+            fragments= listOf(EventFragment(), OneFragment(), TwoFragment(), ThreeFragment(), FourFragment(), FiveFragment(), SixFragment(), SevenFragment(), EightFragment(), NineFragment())
         }
         override fun getItemCount(): Int = fragments.size
 
