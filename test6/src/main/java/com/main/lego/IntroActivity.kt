@@ -16,7 +16,7 @@ class IntroActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler().postDelayed(Runnable {
-            val intent = Intent(this@IntroActivity, MainActivity::class.java)
+            val intent = Intent(this@IntroActivity, DataActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_TIMEOUT)
