@@ -37,7 +37,6 @@ class MyWaitingsAdapter(val context:Context, datas: MutableList<Product>?, val u
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyWaitingsViewHolder).binding
         val waiting = listDataFilter?.get(position)
-        Log.d("lmj", "waiting 값 : $waiting")
 
         binding.itemtitle.text = waiting?.s_name
         binding.itemcontent.text = "더보기"
@@ -50,9 +49,7 @@ class MyWaitingsAdapter(val context:Context, datas: MutableList<Product>?, val u
             userCall.enqueue(object : Callback<UserList> {
                 override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                     var item = response.body()?.items
-                    Log.d("lmj", "kitBefore : ${item?.get(0)?.kit}")
                     if(item?.get(0)?.kit.equals("O")) {
-                        Log.d("lmj", "kitAfter : ${item?.get(0)?.kit}")
                         Toast.makeText(context, "1회만 구입 가능합니다.", Toast.LENGTH_SHORT).show()
                     } else {
                         val csrfCall = networkService.getCsrfToken()
@@ -60,27 +57,22 @@ class MyWaitingsAdapter(val context:Context, datas: MutableList<Product>?, val u
                         csrfCall.enqueue(object : Callback<CsrfToken> {
                             override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                                 val csrfToken = response.body()?.token
-                                Log.d("lmj", "토큰 : $csrfToken")
-                                Log.d("lmj", "username : $username")
-                                // userId의 값이 하드코딩이라 전달이 안됨 동적으로 변경하기
                                 val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
-                                Log.d("lmj", "데이터 : ${waiting?.s_price}")
                                 val insertCall = networkService.insertCart(csrfToken, cart)
 
                                 insertCall.enqueue(object : Callback<InCart> {
                                     override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
-                                        Log.d("lmj", "성공 ${waiting?.s_name}, ${waiting?.s_price}, ${response.code()}")
                                         Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                                     }
 
                                     override fun onFailure(call: Call<InCart>, t: Throwable) {
-                                        Log.d("lmj", "실패데이터 : ${t.message}")
+                                        call.cancel()
                                     }
                                 })
                             }
 
                             override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                                Log.d("lmj", "실패토큰 : ${t.message}")
+                                call.cancel()
                             }
                         })
                     }
@@ -88,7 +80,6 @@ class MyWaitingsAdapter(val context:Context, datas: MutableList<Product>?, val u
                 }
 
                 override fun onFailure(call: Call<UserList>, t: Throwable) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
 
@@ -114,7 +105,6 @@ class MyWaitingsAdapter(val context:Context, datas: MutableList<Product>?, val u
     }
 
     private fun openLink(link: String) {
-        // Open the link in a web browser
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         context.startActivity(intent)
     }

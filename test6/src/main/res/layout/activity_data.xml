@@ -7,7 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="50dp"
+    android:background="#E5E5E5"
     tools:context=".DataActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/headimage"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -15,13 +20,13 @@
         android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         android:text="개인회생 진단 변환기"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:text="조회한 엑셀파일을 프로그램을 통해\n계산하여 변환해드립니다."

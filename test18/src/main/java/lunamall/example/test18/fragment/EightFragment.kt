@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import lunamall.example.test18.MyApplication
 import lunamall.example.test18.databinding.FragmentEightBinding
 import lunamall.example.test18.model.ItemDataList
-import lunamall.example.test18.recycler.MyWaitingAdapter
+import lunamall.example.test18.recycler.MyWaitingVIPAdapter
 import lunamall.example.test18.recycler.UpdateProductAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class EightFragment : Fragment() {
     lateinit var binding: FragmentEightBinding
-    lateinit var adapter: MyWaitingAdapter
+    lateinit var adapter: MyWaitingVIPAdapter
     lateinit var adapter2: UpdateProductAdapter
 
     override fun onCreateView(
@@ -51,7 +51,7 @@ class EightFragment : Fragment() {
                         binding.eightRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                         adapter2.notifyDataSetChanged()
                     } else {
-                        adapter = MyWaitingAdapter(requireContext(), item, username, networkService)
+                        adapter = MyWaitingVIPAdapter(requireContext(), item, username, networkService)
                         binding.eightRecyclerView.adapter = adapter
                         binding.eightRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                         adapter.notifyDataSetChanged()

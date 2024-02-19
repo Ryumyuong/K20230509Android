@@ -17,21 +17,23 @@ import lunamall.example.test18.databinding.ItemRecyclerviewBinding
 import lunamall.example.test18.model.CsrfToken
 import lunamall.example.test18.model.InCart
 import lunamall.example.test18.model.Product
+import lunamall.example.test18.model.UserList
 import lunamall.example.test18.retrofit.INetworkService
+import okio.ByteString.decodeBase64
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MyWaitingViewHolder(val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+class MyWaitingVIPViewHolder(val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
     val button: Button = itemView.findViewById(R.id.orderbutton)
 }
 
-class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?, val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyWaitingVIPAdapter(val context:Context, datas: MutableList<Product>?, val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     var listDataFilter: MutableList<Product>? = datas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        MyWaitingViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        MyWaitingVIPViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyWaitingViewHolder).binding
@@ -42,35 +44,47 @@ class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?, val us
         binding.itemprice.text = waiting?.s_price.toString() + " 루나"
 
         holder.button.setOnClickListener {
-            if(username.equals("")) {
-                Toast.makeText(context, "로그인을 먼저 하세요.", Toast.LENGTH_LONG).show()
-            } else {
-                val csrfCall = networkService.getCsrfToken()
+            val userCall = networkService.getUser(username)
 
-                csrfCall.enqueue(object : Callback<CsrfToken> {
-                    override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                        val csrfToken = response.body()?.token
-                        val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
-                        val insertCall = networkService.insertCart(csrfToken, cart)
+            userCall.enqueue(object : Callback<UserList> {
+                override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                    var item = response.body()?.items
 
-                        insertCall.enqueue(object : Callback<InCart> {
-                            override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
-                                Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    if (item?.get(0)?.vip.equals("VVIP")) {
+                        val csrfCall = networkService.getCsrfToken()
+
+                        csrfCall.enqueue(object : Callback<CsrfToken> {
+                            override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                                val csrfToken = response.body()?.token
+                                val cart = InCart(username, waiting?.s_name, waiting?.s_price, waiting?.s_description, waiting?.s_fileName)
+                                val insertCall = networkService.insertCart(csrfToken, cart)
+
+                                insertCall.enqueue(object : Callback<InCart> {
+                                    override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
+                                        Toast.makeText(context, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                                    }
+
+                                    override fun onFailure(call: Call<InCart>, t: Throwable) {
+                                        call.cancel()
+                                    }
+                                })
                             }
 
-                            override fun onFailure(call: Call<InCart>, t: Throwable) {
+                            override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
                                 call.cancel()
                             }
                         })
+
+                    } else {
+                        Toast.makeText(context, "VVIP만 구입 가능합니다.", Toast.LENGTH_SHORT).show()
                     }
 
-                    override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                        call.cancel()
-                    }
-                })
-            }
+                }
 
-
+                override fun onFailure(call: Call<UserList>, t: Throwable) {
+                    call.cancel()
+                }
+            })
         }
 
         val urlImg = waiting?.s_fileName
