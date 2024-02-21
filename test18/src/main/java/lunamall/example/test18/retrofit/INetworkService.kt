@@ -75,8 +75,7 @@ interface INetworkService {
     fun insertProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body product: Product?): Call<Unit>
 
     @POST("luna/main/updateProduct")
-    fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("category") category: String?, @Query("name") name: String?, @Query("sname") sname: String?,
-                      @Query("description") description: String?, @Query("price") price: Int?, @Query("fileName") fileName: String?): Call<Unit>
+    fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("sname") sname:String?, @Body product: Product?): Call<Unit>
 
     @POST("luna/main/deleteProduct")
     fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>

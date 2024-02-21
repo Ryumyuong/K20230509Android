@@ -1,7 +1,9 @@
 package com.main.lego
 
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +19,7 @@ import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.down.setOnClickListener {
+            copyExcelFileToInternalStorage()
+            downloadExcelFile()
+        }
 
         binding.buttonSelectFile.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -88,12 +96,12 @@ class MainActivity : AppCompatActivity() {
                         val cellValue = getCellValue(cell)
 
                         // 이름
-                        if ((i == 1) and (j == 1)) {
+                        if ((i == 3) and (j == 2)) {
                             binding.name.text = "이름 : $cellValue"
                         }
 
                         // 미성년자 수
-                        if ((i == 5) and (j == 2)) {
+                        if ((i == 7) and (j == 2)) {
                             if(cellValue=="*미성년*"){
                                 val words = cellValue!!.split(" ")
                                 val lastWord = words.lastOrNull()?.lastOrNull()
@@ -123,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if((i == 10) and (j == 2)) {
+                        if((i == 12) and (j == 2)) {
                             // 소득
                             val words = cellValue!!.split(" ")
                             val lastWord = words.lastOrNull()
@@ -225,5 +233,41 @@ class MainActivity : AppCompatActivity() {
 
         startActivityForResult(intent, CREATE_FILE_REQUEST_CODE)
     }
+
+    private fun copyExcelFileToInternalStorage() {
+        val excelFileName = "your_excel_file.xlsx"
+
+        val internalStoragePath = ContextWrapper(applicationContext).filesDir
+        val internalFilePath = File(internalStoragePath, excelFileName)
+
+        try {
+            val inputStream: InputStream = assets.open(excelFileName)
+            val outputStream = FileOutputStream(internalFilePath)
+            val buffer = ByteArray(1024)
+            var length: Int
+            while ((inputStream.read(buffer).also { length = it }) > 0) {
+                outputStream.write(buffer, 0, length)
+            }
+            inputStream.close()
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun downloadExcelFile() {
+        val internalFilePath = "https://download.blog.naver.com/close/35a0299a8bd1d10d20c7ae93a34f3548eaba41a8f6/nxhokvYc1BU1N3AQJhnqKsqYe3E5Ja3EnbiNGEkv-BEUd2kuk052x6F3e82CmuHfAAAMLQceyTbLBvi1ESpZgWFMvFO83ilC5JBjUnhMNCg/inquiry.xlsx"
+
+        val request = DownloadManager.Request(Uri.parse(internalFilePath))
+            .setTitle("Excel 다운로드")
+            .setDescription("Downloading")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "downloaded_file.xlsx")
+
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        downloadManager.enqueue(request)
+    }
+
+    //
 
 }

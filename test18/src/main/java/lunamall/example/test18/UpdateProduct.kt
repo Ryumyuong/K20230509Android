@@ -49,7 +49,7 @@ class UpdateProduct : AppCompatActivity() {
         binding.name.setText(name)
         binding.price.setText(price.toString())
         binding.description.setText(description)
-        if(fileName == null) {
+        if(fileName != null) {
             binding.image.text = "사진이 있습니다."
         } else {
             binding.image.text = "사진이 없습니다."
@@ -88,6 +88,8 @@ class UpdateProduct : AppCompatActivity() {
                 0
             }
 
+            Log.d("lmj", "- $price -")
+
             val description = binding.description.text.toString()
 
             val csrfCall = networkService.getCsrfToken()
@@ -96,7 +98,7 @@ class UpdateProduct : AppCompatActivity() {
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
 
-                    val updateProductCall = networkService.updateProduct(csrfToken, category, intent.getStringExtra("productName"),name, description, price, fileName)
+                    val updateProductCall = networkService.updateProduct(csrfToken, intent.getStringExtra("productName"), Product(category, name, price, description, fileName))
 
                     updateProductCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
