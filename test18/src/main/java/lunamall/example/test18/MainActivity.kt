@@ -1,6 +1,7 @@
 package lunamall.example.test18
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        handleDeepLink(intent)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -152,5 +155,21 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment = fragments[position]
 
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+
+        handleDeepLink(intent)
+    }
+
+    private fun handleDeepLink(intent: Intent) {
+        val action = intent.action
+        val data: Uri? = intent.data
+
+        if (Intent.ACTION_VIEW == action && data != null) {
+            val playStoreIntent = Intent(Intent.ACTION_VIEW, data)
+            startActivity(playStoreIntent)
+        }
     }
 }

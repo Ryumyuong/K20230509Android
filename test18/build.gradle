@@ -12,8 +12,8 @@ android {
         applicationId "lunamall.example.test18"
         minSdk 24
         targetSdk 33
-        versionCode 7
-        versionName "1.7"
+        versionCode 8
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
