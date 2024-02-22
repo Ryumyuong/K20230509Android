@@ -8,6 +8,7 @@ import lunamall.example.test18.model.InOrder
 import lunamall.example.test18.model.ItemDataList
 import lunamall.example.test18.model.OrderList
 import lunamall.example.test18.model.Product
+import lunamall.example.test18.model.Time
 import lunamall.example.test18.model.User
 import lunamall.example.test18.model.UserList
 import retrofit2.Call
@@ -118,5 +119,8 @@ interface INetworkService {
 
     @POST("luna/main/deliverCom")
     fun deliverCom(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("id") id: String?, @Query("username") username: String?): Call<Unit>
+
+    @GET("luna/main/api/time")
+    fun currentTime(): Call<Time>
 
 }

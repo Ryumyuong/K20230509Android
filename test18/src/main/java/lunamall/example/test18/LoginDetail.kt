@@ -33,7 +33,6 @@ class LoginDetail : AppCompatActivity() {
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)
-        Log.d("lmj", "-------$username------")
 
         val networkService = (applicationContext as MyApplication).networkService
 
@@ -42,17 +41,12 @@ class LoginDetail : AppCompatActivity() {
         userCall.enqueue(object : Callback<UserList> {
             override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
-                Log.d("lmj", "실패 내용 : ${response.code()}")
                 adapter = MyUserAdapter(this@LoginDetail, item)
                 binding.userRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<UserList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -86,7 +80,6 @@ class LoginDetail : AppCompatActivity() {
 
                 }
                 R.id.second_tab -> {
-                    Log.d("lmj", "username==$username==")
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
@@ -99,10 +92,7 @@ class LoginDetail : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
-                        val intent = Intent(this, UserListActivity::class.java)
-                        startActivity(intent)
-                    } else {
+                    }else {
                         val intent = Intent(this, LunaActivity::class.java)
                         startActivity(intent)
                     }
@@ -111,10 +101,7 @@ class LoginDetail : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
-                        val intent = Intent(this, LoginAdmin::class.java)
-                        startActivity(intent)
-                    } else {
+                    }else {
                         val intent = Intent(this, LoginDetail::class.java)
                         startActivity(intent)
                     }

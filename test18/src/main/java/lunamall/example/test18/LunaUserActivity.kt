@@ -70,20 +70,19 @@ class LunaUserActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Log.d("lmj", "실패데이터 : ${t.message}")
+                                    call.cancel()
                                 }
                             })
                         }
 
                         override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                            Log.d("lmj", "실패토큰 : ${t.message}")
+                            call.cancel()
                         }
                     })
             } else {
                 Toast.makeText(this,"전환 신청할 루나를 입력하세요",Toast.LENGTH_LONG).show()
             }
         }
-
 
     }
 }

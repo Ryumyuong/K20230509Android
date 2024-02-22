@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide.init
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import lunamall.example.test18.databinding.ActivityMainBinding
@@ -20,6 +21,11 @@ import lunamall.example.test18.fragment.SevenFragment
 import lunamall.example.test18.fragment.SixFragment
 import lunamall.example.test18.fragment.ThreeFragment
 import lunamall.example.test18.fragment.TwoFragment
+import lunamall.example.test18.model.CsrfToken
+import lunamall.example.test18.model.Time
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -109,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")) {
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         val intent = Intent(this, InsertProduct::class.java)
                         startActivity(intent)
                     } else {
@@ -121,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, UserListActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -133,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, LoginAdmin::class.java)
                         startActivity(intent)
                     } else {

@@ -14,6 +14,7 @@ import lunamall.example.test18.R
 import lunamall.example.test18.databinding.FragmentEventBinding
 import lunamall.example.test18.databinding.FragmentOneBinding
 import lunamall.example.test18.model.ItemDataList
+import lunamall.example.test18.model.Time
 import lunamall.example.test18.recycler.MyWaitingAdapter
 import lunamall.example.test18.recycler.UpdateProductAdapter
 import retrofit2.Call
@@ -28,6 +29,20 @@ class EventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEventBinding.inflate(inflater, container, false)
+
+        val networkService = (context?.applicationContext as MyApplication).networkService
+
+        val timeCall = networkService.currentTime()
+
+        timeCall.enqueue(object : Callback<Time> {
+            override fun onResponse(call: Call<Time>, response: Response<Time>) {
+                val time = response.body()?.time
+            }
+
+            override fun onFailure(call: Call<Time>, t: Throwable) {
+                call.cancel()
+            }
+        })
 
         return binding.root
     }

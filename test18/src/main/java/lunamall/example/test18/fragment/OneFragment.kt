@@ -42,7 +42,7 @@ class OneFragment : Fragment() {
             override fun onResponse(call: Call<ItemDataList>, response: Response<ItemDataList>) {
                 if (isAdded) {
                     var item = response.body()?.items
-                    if(username=="admin") {
+                    if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         adapter2 = UpdateProductAdapter(requireContext(), item, username, networkService)
                         binding.oneRecyclerView.adapter = adapter2
                         binding.oneRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -58,14 +58,11 @@ class OneFragment : Fragment() {
 
             override fun onFailure(call: Call<ItemDataList>, t: Throwable) {
                 if (isAdded) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
             }
 
         })
-
-        Log.d("lmj", "----------")
 
         return binding.root
     }

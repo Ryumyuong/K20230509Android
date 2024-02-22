@@ -38,17 +38,12 @@ class LunaActivity : AppCompatActivity() {
         cartCall.enqueue(object : Callback<OrderList> {
             override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
-                Log.d("lmj", "성공 내용 : ${response.code()}")
                 adapter = MyLunaAdapter(item)
                 binding.lunaRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -71,7 +66,7 @@ class LunaActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")) {
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         val intent = Intent(this, InsertProduct::class.java)
                         startActivity(intent)
                     } else {
@@ -83,7 +78,7 @@ class LunaActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, UserListActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -95,7 +90,7 @@ class LunaActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, LoginAdmin::class.java)
                         startActivity(intent)
                     } else {

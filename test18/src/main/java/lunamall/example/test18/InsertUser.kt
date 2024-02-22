@@ -42,7 +42,6 @@ class InsertUser : AppCompatActivity() {
             FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
                     return@OnCompleteListener
-                    Log.d("lmj", "tast 성공 : ${task.isSuccessful}")
                 }
 
                 val token = task.result
@@ -64,7 +63,6 @@ class InsertUser : AppCompatActivity() {
                             }
 
                             override fun onFailure(call: Call<User>, t: Throwable) {
-                                Log.d("lmj", "실패 내용 : ${t.message}")
                                 call.cancel()
                             }
 
@@ -72,7 +70,6 @@ class InsertUser : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
                         call.cancel()
                     }
                 })
@@ -85,7 +82,6 @@ class InsertUser : AppCompatActivity() {
         binding.vip.setOnClickListener{
             val items = arrayOf("일반 회원", "VIP", "VVIP")
 
-            // AlertDialog 빌더 생성
             val builder = AlertDialog.Builder(this)
             builder.setTitle("등급 선택")
                 .setItems(items) { dialog, which ->
@@ -93,12 +89,9 @@ class InsertUser : AppCompatActivity() {
                     binding.vip.text = selectedValue
                 }
 
-            // AlertDialog 생성 및 표시
             val dialog = builder.create()
             dialog.show()
         }
-
-
 
     }
 }

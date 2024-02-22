@@ -32,7 +32,6 @@ class LoginAdmin : AppCompatActivity() {
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)
-        Log.d("lmj", "-------$username------")
 
         val networkService = (applicationContext as MyApplication).networkService
 
@@ -45,15 +44,11 @@ class LoginAdmin : AppCompatActivity() {
                 binding.name.text = item?.get(0)?.username
                 binding.luna.text = "루나포인트 : " + item?.get(0)?.money.toString()
                 binding.luna.paintFlags = binding.luna.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                Log.d("lmj", "-------${item?.get(0)?.vip}------")
-                Log.d("lmj", "-------${item?.get(0)?.username}------")
-                Log.d("lmj", "-------${item?.get(0)?.money.toString()} 루나------")
 
 
             }
 
             override fun onFailure(call: Call<UserList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 

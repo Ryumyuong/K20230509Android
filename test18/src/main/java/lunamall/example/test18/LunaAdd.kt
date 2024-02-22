@@ -41,9 +41,6 @@ class LunaAdd : AppCompatActivity() {
                     userCall.enqueue(object : Callback<UserList> {
                         override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                             var item = response.body()?.items
-                            Log.d("lmj", "-------")
-                            Log.d("lmj", "One item : $item")
-                            Log.d("lmj", "===========")
                             adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
                             binding.LunaAddRecyclerView.adapter = adapter
                             binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
@@ -53,7 +50,6 @@ class LunaAdd : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<UserList>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
                             call.cancel()
                         }
 
@@ -64,9 +60,6 @@ class LunaAdd : AppCompatActivity() {
                     userCall.enqueue(object : Callback<UserList> {
                         override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                             var item = response.body()?.items
-                            Log.d("lmj", "-------")
-                            Log.d("lmj", "One item : $item")
-                            Log.d("lmj", "===========")
                             adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
                             binding.LunaAddRecyclerView.adapter = adapter
                             binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
@@ -77,7 +70,6 @@ class LunaAdd : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<UserList>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
                             call.cancel()
                         }
 
@@ -97,9 +89,6 @@ class LunaAdd : AppCompatActivity() {
             userCall.enqueue(object : Callback<UserList> {
                 override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                     var item = response.body()?.items
-                    Log.d("lmj", "-------")
-                    Log.d("lmj", "One item : $item")
-                    Log.d("lmj", "===========")
                     adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
                     binding.LunaAddRecyclerView.adapter = adapter
                     binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
@@ -112,7 +101,6 @@ class LunaAdd : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<UserList>, t: Throwable) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
 
@@ -124,9 +112,6 @@ class LunaAdd : AppCompatActivity() {
         userCall.enqueue(object : Callback<UserList> {
             override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
                 adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
                 binding.LunaAddRecyclerView.adapter = adapter
                 binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
@@ -135,12 +120,10 @@ class LunaAdd : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
         })
-
 
     }
 }

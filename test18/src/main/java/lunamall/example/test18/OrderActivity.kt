@@ -48,10 +48,6 @@ class OrderActivity : AppCompatActivity() {
                 orderCall.enqueue(object : Callback<OrderList> {
                     override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                         var item = response.body()?.items
-                        Log.d("lmj", "-------")
-                        Log.d("lmj", "One item : $item")
-                        Log.d("lmj", "===========")
-                        Log.d("lmj", "성공 내용 : ${response.code()}")
                         adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
                         binding.OrderRecyclerView.adapter = adapter
                         binding.next.isInvisible = false
@@ -59,7 +55,6 @@ class OrderActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
                         call.cancel()
                     }
 
@@ -70,10 +65,6 @@ class OrderActivity : AppCompatActivity() {
                 orderCall.enqueue(object : Callback<OrderList> {
                     override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                         var item = response.body()?.items
-                        Log.d("lmj", "-------")
-                        Log.d("lmj", "One item : $item")
-                        Log.d("lmj", "===========")
-                        Log.d("lmj", "성공 내용 : ${response.code()}")
                         adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
                         binding.OrderRecyclerView.adapter = adapter
                         binding.before.isInvisible = true
@@ -82,7 +73,6 @@ class OrderActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
                         call.cancel()
                     }
 
@@ -100,10 +90,6 @@ class OrderActivity : AppCompatActivity() {
             orderCall.enqueue(object : Callback<OrderList> {
                 override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                     var item = response.body()?.items
-                    Log.d("lmj", "-------")
-                    Log.d("lmj", "One item : $item")
-                    Log.d("lmj", "===========")
-                    Log.d("lmj", "성공 내용 : ${response.code()}")
                     adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
                     binding.OrderRecyclerView.adapter = adapter
                     if(item?.count()!! <10) {
@@ -113,7 +99,6 @@ class OrderActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
 
@@ -125,17 +110,12 @@ class OrderActivity : AppCompatActivity() {
         orderCall.enqueue(object : Callback<OrderList> {
             override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
-                Log.d("lmj", "성공 내용 : ${response.code()}")
                 adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
                 binding.OrderRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -154,11 +134,10 @@ class OrderActivity : AppCompatActivity() {
 
                 }
                 R.id.second_tab -> {
-                    Log.d("lmj", "username==$username==")
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")) {
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         val intent = Intent(this, InsertProduct::class.java)
                         startActivity(intent)
                     } else {
@@ -170,7 +149,7 @@ class OrderActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, UserListActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -182,7 +161,7 @@ class OrderActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, LoginAdmin::class.java)
                         startActivity(intent)
                     } else {

@@ -36,7 +36,6 @@ class OrderMenu : AppCompatActivity() {
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)
-        Log.d("lmj", "===username===$username===")
 
         val networkService = (applicationContext as MyApplication).networkService
 
@@ -45,9 +44,6 @@ class OrderMenu : AppCompatActivity() {
         userCall.enqueue(object : Callback<UserList> {
             override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One User : $item")
-                Log.d("lmj", "===========")
 
                 binding.name.text = item?.get(0)?.username
                 binding.tel.setText(item?.get(0)?.phone)
@@ -55,7 +51,6 @@ class OrderMenu : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -66,16 +61,12 @@ class OrderMenu : AppCompatActivity() {
         cartCall.enqueue(object : Callback<CartList> {
             override fun onResponse(call: Call<CartList>, response: Response<CartList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One Cart : $item")
-                Log.d("lmj", "===========")
                 adapter = OrderMenuAdapter(item)
                 binding.OrderMenuRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<CartList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -86,9 +77,6 @@ class OrderMenu : AppCompatActivity() {
         totalCall.enqueue(object : Callback<Cart> {
             override fun onResponse(call: Call<Cart>, response: Response<Cart>) {
                 var item = response.body()
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One total : ${item?.total.toString()}")
-                Log.d("lmj", "===========")
                 binding.total2.text = item?.total.toString()
                 val editor = preferences.edit()
                 editor.putString("total", item?.total.toString())
@@ -96,7 +84,6 @@ class OrderMenu : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Cart>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -108,8 +95,6 @@ class OrderMenu : AppCompatActivity() {
             csrfCall.enqueue(object : Callback<CsrfToken> {
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
-                    Log.d("lmj", "토큰 : $csrfToken")
-                    Log.d("lmj", "username : $username")
 
                     val userCall = networkService.getUser(username)
 
@@ -118,16 +103,14 @@ class OrderMenu : AppCompatActivity() {
                             var item = response.body()?.items
                             val total = ""
                             val totals = preferences.getString("total", total)
-                            Log.d("lmj", "total : $totals")
+
                             if (totals != null) {
                                 Log.d("lmj", "total ${item?.get(0)?.money?:0 >= totals.toInt()}")
                                 if(item?.get(0)?.money?:0 >= totals.toInt()) {
-                                    Log.d("lmj", "숫자로 변환")
                                     val order = InOrder(username, binding.tel.text.toString(), binding.add.text.toString(), binding.inquire.text.toString(), totals.toInt())
                                     val orderCall = networkService.order(csrfToken, order)
                                     orderCall.enqueue(object : Callback<InOrder> {
                                         override fun onResponse(call: Call<InOrder>, response: Response<InOrder>) {
-                                            Log.d("lmj", "서버 응답 코드: ${response.code()}")
                                                 val networkService = (applicationContext as MyApplication).networkService
                                                 val csrfCall = networkService.getCsrfToken()
 
@@ -143,13 +126,13 @@ class OrderMenu : AppCompatActivity() {
                                                             }
 
                                                             override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                                                Log.d("lmj", "실패데이터 : ${t.message}")
+                                                                call.cancel()
                                                             }
                                                         })
                                                     }
 
                                                     override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                                                        Log.d("lmj", "실패토큰 : ${t.message}")
+                                                        call.cancel()
                                                     }
                                                 })
                                             Toast.makeText(this@OrderMenu, "주문이 성공하였습니다.", Toast.LENGTH_SHORT).show()
@@ -158,7 +141,6 @@ class OrderMenu : AppCompatActivity() {
                                         }
 
                                         override fun onFailure(call: Call<InOrder>, t: Throwable) {
-                                            Log.d("lmj", "${t.message}")
                                             Toast.makeText(this@OrderMenu, "주문이 실패하었습니다.", Toast.LENGTH_SHORT).show()
                                         }
                                     })
@@ -171,7 +153,6 @@ class OrderMenu : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<UserList>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
                             call.cancel()
                         }
 
@@ -181,7 +162,6 @@ class OrderMenu : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
                     call.cancel()
                 }
             })

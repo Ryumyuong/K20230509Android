@@ -41,11 +41,7 @@ class FourFragment : Fragment() {
             override fun onResponse(call: Call<ItemDataList>, response: Response<ItemDataList>) {
                 if (isAdded) {
                     var item = response.body()?.items
-                    Log.d("lmj", "-------")
-                    Log.d("lmj", "One item : $item")
-                    Log.d("lmj", "===========")
-                    Log.d("lmj", "실패 내용 : ${response.code()}")
-                    if(username=="admin") {
+                    if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         adapter2 = UpdateProductAdapter(requireContext(), item, username, networkService)
                         binding.fourRecyclerView.adapter = adapter2
                         binding.fourRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -61,14 +57,11 @@ class FourFragment : Fragment() {
 
             override fun onFailure(call: Call<ItemDataList>, t: Throwable) {
                 if (isAdded) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
             }
 
         })
-
-        Log.d("lmj", "----------")
 
         return binding.root
     }

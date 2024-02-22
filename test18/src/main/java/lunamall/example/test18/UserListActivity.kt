@@ -42,16 +42,12 @@ class UserListActivity : AppCompatActivity() {
             userCall.enqueue(object : Callback<UserList> {
                 override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                     var item = response.body()?.items
-                    Log.d("lmj", "-------")
-                    Log.d("lmj", "One item : $item")
-                    Log.d("lmj", "===========")
                     adapter = UserListAdapter(this@UserListActivity, item, networkService)
                     binding.userRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
                 }
 
                 override fun onFailure(call: Call<UserList>, t: Throwable) {
-                    Log.d("lmj", "실패 내용 : ${t.message}")
                     call.cancel()
                 }
 
@@ -68,16 +64,12 @@ class UserListActivity : AppCompatActivity() {
                 userCall.enqueue(object : Callback<UserList> {
                     override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                         var item = response.body()?.items
-                        Log.d("lmj", "-------")
-                        Log.d("lmj", "One item : $item")
-                        Log.d("lmj", "===========")
                         adapter = UserListAdapter(this@UserListActivity, item, networkService)
                         binding.userRecyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()
                     }
 
                     override fun onFailure(call: Call<UserList>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
                         call.cancel()
                     }
 
@@ -92,9 +84,6 @@ class UserListActivity : AppCompatActivity() {
                 userCall.enqueue(object : Callback<UserList> {
                     override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                         var item = response.body()?.items
-                        Log.d("lmj", "-------")
-                        Log.d("lmj", "One item : $item")
-                        Log.d("lmj", "===========")
                         adapter = UserListAdapter(this@UserListActivity, item, networkService)
                         binding.userRecyclerView.adapter = adapter
                         if(item?.count()!! < 10) {
@@ -105,7 +94,6 @@ class UserListActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<UserList>, t: Throwable) {
-                        Log.d("lmj", "실패 내용 : ${t.message}")
                         call.cancel()
                     }
 
@@ -125,11 +113,10 @@ class UserListActivity : AppCompatActivity() {
 
                     }
                     R.id.second_tab -> {
-                        Log.d("lmj", "username==$username==")
                         if(username.equals("")) {
                             val intent = Intent(this, Login::class.java)
                             startActivity(intent)
-                        }else if(username.equals("admin")) {
+                        }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                             val intent = Intent(this, InsertProduct::class.java)
                             startActivity(intent)
                         } else {
@@ -141,7 +128,7 @@ class UserListActivity : AppCompatActivity() {
                         if(username.equals("")) {
                             val intent = Intent(this, Login::class.java)
                             startActivity(intent)
-                        }else if(username.equals("admin")){
+                        }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                             val intent = Intent(this, UserListActivity::class.java)
                             startActivity(intent)
                         } else {
@@ -153,7 +140,7 @@ class UserListActivity : AppCompatActivity() {
                         if(username.equals("")) {
                             val intent = Intent(this, Login::class.java)
                             startActivity(intent)
-                        }else if(username.equals("admin")){
+                        }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                             val intent = Intent(this, LoginAdmin::class.java)
                             startActivity(intent)
                         } else {

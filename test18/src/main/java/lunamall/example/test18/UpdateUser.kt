@@ -51,7 +51,7 @@ class UpdateUser : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<UserList>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
+                    call.cancel()
                 }
             })
 
@@ -80,7 +80,7 @@ class UpdateUser : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
-
+                            call.cancel()
                         }
                     })
 
@@ -88,11 +88,9 @@ class UpdateUser : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
+                    call.cancel()
                 }
             })
-
-
         }
 
 
@@ -108,8 +106,5 @@ class UpdateUser : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
-
-
-
     }
 }

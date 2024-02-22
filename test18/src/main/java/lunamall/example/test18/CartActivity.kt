@@ -32,7 +32,6 @@ class CartActivity : AppCompatActivity() {
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
         val username = preferences.getString("username", userId)
-        Log.d("lmj", "===username===$username===")
 
         val networkService = (applicationContext as MyApplication).networkService
 
@@ -41,16 +40,11 @@ class CartActivity : AppCompatActivity() {
         cartCall.enqueue(object : Callback<CartList> {
             override fun onResponse(call: Call<CartList>, response: Response<CartList>) {
                 var item = response.body()?.items
-                Log.d("lmj", "-------")
-                Log.d("lmj", "One item : $item")
-                Log.d("lmj", "===========")
-                Log.d("lmj", "성공 내용 : ${response.code()}")
                 adapter = MyCartAdapter(username, item, networkService)
                 binding.cartRecyclerView.adapter = adapter
             }
 
             override fun onFailure(call: Call<CartList>, t: Throwable) {
-                Log.d("lmj", "실패 내용 : ${t.message}")
                 call.cancel()
             }
 
@@ -74,11 +68,10 @@ class CartActivity : AppCompatActivity() {
 
                 }
                 R.id.second_tab -> {
-                    Log.d("lmj", "username==$username==")
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")) {
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
                         val intent = Intent(this, InsertProduct::class.java)
                         startActivity(intent)
                     } else {
@@ -90,7 +83,7 @@ class CartActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, UserListActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -102,7 +95,7 @@ class CartActivity : AppCompatActivity() {
                     if(username.equals("")) {
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
-                    }else if(username.equals("admin")){
+                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
                         val intent = Intent(this, LoginAdmin::class.java)
                         startActivity(intent)
                     } else {
@@ -113,7 +106,6 @@ class CartActivity : AppCompatActivity() {
             }
             true
         }
-
 
     }
 }

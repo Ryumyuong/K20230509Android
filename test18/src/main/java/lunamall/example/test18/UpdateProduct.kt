@@ -88,8 +88,6 @@ class UpdateProduct : AppCompatActivity() {
                 0
             }
 
-            Log.d("lmj", "- $price -")
-
             val description = binding.description.text.toString()
 
             val csrfCall = networkService.getCsrfToken()
@@ -108,7 +106,6 @@ class UpdateProduct : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            Log.d("lmj", "실패 내용 : ${t.message}")
                             call.cancel()
                         }
 
@@ -116,7 +113,7 @@ class UpdateProduct : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
+                    call.cancel()
                 }
             })
         }
@@ -167,7 +164,6 @@ class UpdateProduct : AppCompatActivity() {
             binding.image.text = "이미지가 선택되었습니다."
             val base64Image: String = bitmapToBase64(selectedBitmap)
             getBase64Image(base64Image)
-            // base64Image를 db에 저장가능
 
         }
     }

@@ -34,8 +34,6 @@ class Login : AppCompatActivity() {
             val username: String = editTextUsername
             val password: String = editTextPassword
 
-            Log.d("lmj", "username = $username, password : $password")
-
             val networkService = (applicationContext as MyApplication).networkService
             val userCall = networkService.getUser(username)
 
@@ -58,7 +56,6 @@ class Login : AppCompatActivity() {
                                             OnCompleteListener { task ->
                                                 if (!task.isSuccessful) {
                                                     return@OnCompleteListener
-                                                    Log.d("lmj","tast 성공 : ${task.isSuccessful}")
                                                 }
 
                                                 val token = task.result
@@ -70,6 +67,7 @@ class Login : AppCompatActivity() {
                                                     }
 
                                                     override fun onFailure(call: Call<Unit>,t: Throwable) {
+                                                        call.cancel()
 
                                                     }
                                                 })
@@ -78,6 +76,7 @@ class Login : AppCompatActivity() {
                                     }
 
                                     override fun onFailure(call: Call<CsrfToken>,t: Throwable) {
+                                        call.cancel()
                                     }
                                 })
                                 Toast.makeText(this@Login, "로그인이 성공하였습니다.", Toast.LENGTH_SHORT).show()
@@ -101,7 +100,6 @@ class Login : AppCompatActivity() {
                                             OnCompleteListener { task ->
                                                 if (!task.isSuccessful) {
                                                     return@OnCompleteListener
-                                                    Log.d("lmj","tast 성공 : ${task.isSuccessful}")
                                                 }
 
                                                 val token = task.result
@@ -114,7 +112,7 @@ class Login : AppCompatActivity() {
                                                     }
 
                                                     override fun onFailure(call: Call<Unit>,t: Throwable) {
-
+                                                        call.cancel()
                                                     }
                                                 })
                                             })
@@ -137,10 +135,10 @@ class Login : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<UserList>, t: Throwable) {
+                    call.cancel()
                 }
             })
         }
-
 
     }
 }

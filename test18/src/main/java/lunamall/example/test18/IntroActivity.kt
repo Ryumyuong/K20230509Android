@@ -9,7 +9,7 @@ import lunamall.example.test18.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {
     lateinit var binding: ActivityIntroBinding
-    private val SPLASH_TIMEOUT:Long = 2000 //2초
+    private val SPLASH_TIMEOUT:Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
