@@ -5,5 +5,6 @@ data class InOrder (
     var phone: String?,
     var address: String?,
     var inquire: String?,
+    var time: String,
     var total: Int?,
 )

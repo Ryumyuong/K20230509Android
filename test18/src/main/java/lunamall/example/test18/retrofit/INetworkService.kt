@@ -1,14 +1,16 @@
 package lunamall.example.test18.retrofit
 
+import lunamall.example.test18.model.Card
+import lunamall.example.test18.model.CardList
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.model.CsrfToken
+import lunamall.example.test18.model.InCard
 import lunamall.example.test18.model.InCart
 import lunamall.example.test18.model.InOrder
 import lunamall.example.test18.model.ItemDataList
 import lunamall.example.test18.model.OrderList
 import lunamall.example.test18.model.Product
-import lunamall.example.test18.model.Time
 import lunamall.example.test18.model.User
 import lunamall.example.test18.model.UserList
 import retrofit2.Call
@@ -120,7 +122,10 @@ interface INetworkService {
     @POST("luna/main/deliverCom")
     fun deliverCom(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("id") id: String?, @Query("username") username: String?): Call<Unit>
 
-    @GET("luna/main/api/time")
-    fun currentTime(): Call<Time>
+    @GET("luna/main/getCardList")
+    fun cardList(): Call<CardList>
+
+    @POST("luna/main/insertCard")
+    fun insertCard(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body inCard: InCard?): Call<Unit>
 
 }

@@ -10,9 +10,9 @@ class MyApplication : Application() {
     var networkService: INetworkService
     val retrofit: Retrofit
         get() = Retrofit.Builder()
-//            .baseUrl("http://172.30.1.61:8088/")
+            .baseUrl("http://172.30.1.36:8088/")
 //            .baseUrl("http://192.168.219.136:8088/")
-            .baseUrl("https://lunamall.co.kr/")
+//            .baseUrl("https://lunamall.co.kr/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     init {

@@ -54,6 +54,11 @@ class LoginAdmin : AppCompatActivity() {
 
         })
 
+        binding.card.setOnClickListener {
+            val intent = Intent(this, CardActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.addLuna.setOnClickListener {
             val intent = Intent(this,LunaAdd::class.java)
             startActivity(intent)

@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testproject">
         <activity
+            android:name=".CardActivity"
+            android:exported="false" />
+        <activity
             android:name=".LunaUserActivity"
             android:exported="false" />
         <activity
@@ -63,15 +66,25 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="play.google.com" />
-                <data android:scheme="http" android:host="play.google.com" />
-                <data android:scheme="https" android:host="www.play.google.com" />
-                <data android:scheme="http" android:host="www.play.google.com" />
+
+                <data
+                    android:host="play.google.com"
+                    android:scheme="https" />
+                <data
+                    android:host="play.google.com"
+                    android:scheme="http" />
+                <data
+                    android:host="www.play.google.com"
+                    android:scheme="https" />
+                <data
+                    android:host="www.play.google.com"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
@@ -82,9 +95,6 @@
             android:exported="true" />
         <activity
             android:name=".OrderActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CartActivity"
             android:exported="true" />
         <activity
             android:name=".LoginDetail"

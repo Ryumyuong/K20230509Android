@@ -45,6 +45,8 @@ class InsertProduct : AppCompatActivity() {
                 .setItems(items) { dialog, which ->
                     val selectedValue = items[which]
                     binding.category.text = selectedValue
+
+                    dialog.dismiss()
                 }
 
             val dialog = builder.create()
