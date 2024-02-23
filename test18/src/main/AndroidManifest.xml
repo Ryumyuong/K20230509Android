@@ -24,6 +24,9 @@
             android:name=".CardActivity"
             android:exported="false" />
         <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
             android:name=".LunaUserActivity"
             android:exported="false" />
         <activity
