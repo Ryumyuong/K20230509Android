@@ -52,7 +52,7 @@ interface INetworkService {
     ): Call<OrderList>
 
     @POST("luna/main/order")
-    fun order(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body order: InOrder?): Call<InOrder>
+    fun order(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body order: InOrder?, @Query("days") days:String?, @Query("luna") luna:Int): Call<InOrder>
 
     @GET("luna/main/orderList")
     fun orderList(
@@ -97,9 +97,6 @@ interface INetworkService {
 
     @POST("luna/main/newLogin")
     fun newLogin(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body user: User?): Call<User>
-
-    @POST("luna/main/alarm")
-    fun alarm(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?): Call<Unit>
 
     @POST("luna/main/deliver")
     fun deliver(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("deliver") deliver: String?): Call<Unit>

@@ -81,9 +81,6 @@ class OrderMenu : AppCompatActivity() {
                 var item = response.body()
                 total = item?.total.toString()
                 binding.total2.text = item?.total.toString()
-                val editor = preferences.edit()
-                editor.putString("total", item?.total.toString())
-                editor.apply()
             }
 
             override fun onFailure(call: Call<Cart>, t: Throwable) {
@@ -136,39 +133,23 @@ class OrderMenu : AppCompatActivity() {
                     userCall.enqueue(object : Callback<UserList> {
                         override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                             var item = response.body()?.items
-                            val total = ""
-                            val totals = preferences.getString("total", total)
-
-                            if (totals != null) {
-                                if(item?.get(0)?.money?:0 >= totals.toInt()) {
-                                    val order = InOrder(username, binding.tel.text.toString(), binding.add.text.toString(), binding.inquire.text.toString(), selectedNumber, totals.toInt())
-                                    val orderCall = networkService.order(csrfToken, order)
+                            if (total != null) {
+                                if(item?.get(0)?.money?:0 >= binding.total2.text.toString().toInt()) {
+                                    val order = InOrder(username, binding.tel.text.toString(), binding.add.text.toString(), binding.inquire.text.toString(), selectedNumber, total.toInt())
+                                    val orderCall = networkService.order(csrfToken, order, binding.plan.text.toString(), binding.total2.text.toString().toInt())
                                     orderCall.enqueue(object : Callback<InOrder> {
                                         override fun onResponse(call: Call<InOrder>, response: Response<InOrder>) {
-                                                val networkService = (applicationContext as MyApplication).networkService
-                                                val csrfCall = networkService.getCsrfToken()
+                                            val notiTokenCall = networkService.notiToken(csrfToken, username)
 
-                                                csrfCall.enqueue(object : Callback<CsrfToken> {
-                                                    override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                                                        val csrfToken = response.body()?.token
+                                            notiTokenCall.enqueue(object : Callback<Unit> {
+                                                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
 
-                                                        val notiTokenCall = networkService.notiToken(csrfToken, username)
+                                                }
 
-                                                        notiTokenCall.enqueue(object : Callback<Unit> {
-                                                            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-
-                                                            }
-
-                                                            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                                                call.cancel()
-                                                            }
-                                                        })
-                                                    }
-
-                                                    override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                                                        call.cancel()
-                                                    }
-                                                })
+                                                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                                    call.cancel()
+                                                }
+                                            })
                                             Toast.makeText(this@OrderMenu, "주문이 성공하였습니다.", Toast.LENGTH_SHORT).show()
                                             val intent = Intent(this@OrderMenu, OrderActivity::class.java)
                                             startActivity(intent)
@@ -178,8 +159,6 @@ class OrderMenu : AppCompatActivity() {
                                             Toast.makeText(this@OrderMenu, "주문이 실패하었습니다.", Toast.LENGTH_SHORT).show()
                                         }
                                     })
-
-
 
                                 }
                                 else {
@@ -193,23 +172,6 @@ class OrderMenu : AppCompatActivity() {
                         }
 
                     })
-
-                    val card = InCard(username, binding.plan.text.toString(),binding.total2.text.toString().toIntOrNull())
-
-                    val cardCall = networkService.insertCard(csrfToken, card)
-
-                    cardCall.enqueue(object : Callback<Unit> {
-                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-
-                        }
-
-                        override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            call.cancel()
-                        }
-
-                    })
-
-
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
