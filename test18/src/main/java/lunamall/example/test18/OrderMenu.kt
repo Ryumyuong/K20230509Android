@@ -92,26 +92,31 @@ class OrderMenu : AppCompatActivity() {
 
         })
 
-        binding.plan.setOnClickListener {
-            val items = arrayOf("일시불", "2개월", "3개월", "4개월", "5개월", "6개월", "7개월", "8개월", "9개월", "10개월", "11개월", "12개월")
+        val items = arrayOf("일시불", "2개월", "3개월", "4개월", "5개월", "6개월", "7개월", "8개월", "9개월", "10개월", "11개월", "12개월")
 
-            val defaultSelection = 0
-            binding.plan.text = items[defaultSelection]
+        val defaultSelection = 0
+        binding.plan.text = items[defaultSelection]
+
+        binding.plan.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("일시불")
+            builder.setTitle("할부 개월수")
                 .setSingleChoiceItems(items, defaultSelection) { dialog, which ->
                     val selectedValue = items[which]
-                    selectedNumber = selectedValue.substringBefore("개월").trim()
-                    binding.plan.text = selectedValue
-                    val card = total.toDoubleOrNull()?.div(selectedNumber.toInt())
-                    if(card != null) {
-                        val roundup = ceil(card)
-                        binding.total2.text = roundup.toString()
-                        adapter.notifyDataSetChanged()
+                    if(selectedValue != "일시불") {
+                        selectedNumber = selectedValue.substringBefore("개월").trim()
+
+                        val card = total.toDoubleOrNull()?.div(selectedNumber.toInt())
+                        if (card != null) {
+                            val roundup = ceil(card).toInt()
+                            binding.total2.text = roundup.toString()
+                        }
+                    }else {
+                        binding.total2.text = total
+
                     }
-
-
+                    adapter.notifyDataSetChanged()
+                    binding.plan.text = selectedValue
                     dialog.dismiss()
                 }
 

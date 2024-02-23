@@ -41,7 +41,8 @@
                 android:id="@+id/name"
                 android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
@@ -58,7 +59,7 @@
                 android:id="@+id/tel"
                 android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
@@ -75,7 +76,7 @@
                 android:id="@+id/add"
                 android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
@@ -92,7 +93,7 @@
                 android:id="@+id/inquire"
                 android:padding="15dp"
                 android:layout_width="150dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/actions"/>
         </LinearLayout>
 
@@ -110,6 +111,7 @@
             android:id="@+id/plan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:textSize="20sp"
             android:background="@drawable/actions"
             android:layout_marginBottom="10dp"/>
