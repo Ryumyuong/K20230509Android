@@ -13,6 +13,7 @@ import lunamall.example.test18.model.OrderList
 import lunamall.example.test18.model.Product
 import lunamall.example.test18.model.User
 import lunamall.example.test18.model.UserList
+import lunamall.example.test18.model.Version
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -124,5 +125,8 @@ interface INetworkService {
 
     @POST("luna/main/insertCard")
     fun insertCard(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body inCard: InCard?): Call<Unit>
+
+    @GET("luna/main/version")
+    fun version(): Call<Version>
 
 }

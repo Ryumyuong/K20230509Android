@@ -2,11 +2,14 @@ package lunamall.example.test18
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide.init
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import lunamall.example.test18.databinding.ActivityMainBinding
@@ -20,6 +23,12 @@ import lunamall.example.test18.fragment.SevenFragment
 import lunamall.example.test18.fragment.SixFragment
 import lunamall.example.test18.fragment.ThreeFragment
 import lunamall.example.test18.fragment.TwoFragment
+import lunamall.example.test18.model.UserList
+import lunamall.example.test18.model.Version
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -28,8 +37,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        handleDeepLink(intent)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -144,6 +151,28 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        var pInfo = packageManager.getPackageInfo(packageName, 0)
+        var versionCode = pInfo.versionCode
+        val networkService = (applicationContext as MyApplication).networkService
+        val versionCall = networkService.version()
+
+        versionCall.enqueue(object : Callback<Version> {
+            override fun onResponse(call: Call<Version>, response: Response<Version>) {
+                var item = response.body()
+                val version = item?.version
+                if(version.equals(versionCode.toString())) {
+
+                } else {
+                    showUpdateDialog()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Version>, t: Throwable) {
+                call.cancel()
+            }
+
+        })
     }
 
     class PagerAdapter(activity: MainActivity): FragmentStateAdapter(activity){
@@ -157,19 +186,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-
-        handleDeepLink(intent)
-    }
-
-    private fun handleDeepLink(intent: Intent) {
-        val action = intent.action
-        val data: Uri? = intent.data
-
-        if (Intent.ACTION_VIEW == action && data != null) {
-            val playStoreIntent = Intent(Intent.ACTION_VIEW, data)
-            startActivity(playStoreIntent)
+    fun showUpdateDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("업데이트 필요")
+        builder.setMessage("새로운 버전이 있습니다. 업데이트가 필요합니다.")
+        builder.setPositiveButton("업데이트") { _, _ ->
+            val packageName = "lunamall.example.test18"
+            // 플레이스토어로 이동하는 인텐트 실행
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${packageName}"))
+            startActivity(intent)
         }
+        builder.setNegativeButton("나중에") { _, _ ->
+            // 사용자가 나중에 업데이트할지 선택한 경우
+        }
+        builder.show()
     }
 }

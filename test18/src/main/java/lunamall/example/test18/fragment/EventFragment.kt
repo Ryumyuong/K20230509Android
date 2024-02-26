@@ -5,11 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import lunamall.example.test18.MyApplication
 import lunamall.example.test18.databinding.FragmentEventBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class EventFragment : Fragment() {
     lateinit var binding: FragmentEventBinding

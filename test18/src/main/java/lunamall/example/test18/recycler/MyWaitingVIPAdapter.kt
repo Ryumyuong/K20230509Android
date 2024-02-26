@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -19,7 +18,6 @@ import lunamall.example.test18.model.InCart
 import lunamall.example.test18.model.Product
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.retrofit.INetworkService
-import okio.ByteString.decodeBase64
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
