@@ -25,6 +25,7 @@ import lunamall.example.test18.fragment.ThreeFragment
 import lunamall.example.test18.fragment.TwoFragment
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.model.Version
+import lunamall.example.test18.model.VersionList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -156,19 +157,21 @@ class MainActivity : AppCompatActivity() {
         val networkService = (applicationContext as MyApplication).networkService
         val versionCall = networkService.version()
 
-        versionCall.enqueue(object : Callback<Version> {
-            override fun onResponse(call: Call<Version>, response: Response<Version>) {
-                var item = response.body()
-                val version = item?.version
-                if(version.equals(versionCode.toString())) {
+        versionCall.enqueue(object : Callback<VersionList> {
+            override fun onResponse(call: Call<VersionList>, response: Response<VersionList>) {
+                var item = response.body()?.version
+                val version = item
+                if (version != null) {
+                    if(version.equals(versionCode.toString())) {
 
-                } else {
-                    showUpdateDialog()
+                    } else {
+                        showUpdateDialog()
+                    }
                 }
 
             }
 
-            override fun onFailure(call: Call<Version>, t: Throwable) {
+            override fun onFailure(call: Call<VersionList>, t: Throwable) {
                 call.cancel()
             }
 
