@@ -36,9 +36,11 @@ class InsertProduct : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = "물품 등록"
 
-        binding.category.setOnClickListener{
-            val items = arrayOf("전자", "생활가전", "식음료", "운동", "여가문화", "여행", "업무", "VVIP", "웰컴키트")
+        val items = arrayOf("전자", "생활가전", "식음료", "운동", "여가문화", "여행", "업무", "VVIP", "웰컴키트")
 
+        binding.category.text = items[0]
+
+        binding.category.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             builder.setTitle("카테고리 선택")
                 .setItems(items) { dialog, which ->

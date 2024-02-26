@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import lunamall.example.test18.databinding.ActivityUpdateProductBinding
 import lunamall.example.test18.model.CsrfToken
+import lunamall.example.test18.model.ItemDataList
 import lunamall.example.test18.model.Product
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,18 +39,36 @@ class UpdateProduct : AppCompatActivity() {
         binding.toolbar.title = "물품 수정"
 
         val name = intent.getStringExtra("productName")
-        val category = intent.getStringExtra("productCategory")
-        val price = intent.getIntExtra("price",0)
-        val description = intent.getStringExtra("description")
-        fileName = intent.getStringExtra("fileName")
 
         val networkService = (applicationContext as MyApplication).networkService
 
-        binding.category.text = category
-        binding.name.setText(name)
-        binding.price.setText(price.toString())
-        binding.description.setText(description)
-        if(fileName != null) {
+        val productCall = networkService.getProduct(name)
+
+        productCall.enqueue(object : Callback<ItemDataList> {
+            override fun onResponse(call: Call<ItemDataList>, response: Response<ItemDataList>) {
+                val item = response.body()?.items
+
+                val category = item?.get(0)?.s_category
+                val price = item?.get(0)?.s_price
+                val description = item?.get(0)?.s_description
+                fileName = item?.get(0)?.s_fileName
+
+                binding.category.text = category
+                binding.name.setText(name)
+                binding.price.setText(price.toString())
+                binding.description.setText(description)
+
+                Log.d("lmj", "성공 : =${binding.name.text}=")
+            }
+
+            override fun onFailure(call: Call<ItemDataList>, t: Throwable) {
+                Log.d("lmj", "실패 : ${t.message}")
+                call.cancel()
+            }
+        })
+
+
+        if(fileName != "") {
             binding.image.text = "사진이 있습니다."
         } else {
             binding.image.text = "사진이 없습니다."

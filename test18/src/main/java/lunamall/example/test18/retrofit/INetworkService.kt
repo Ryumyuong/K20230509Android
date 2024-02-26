@@ -28,6 +28,9 @@ interface INetworkService {
     @GET("luna/main/getCategory")
     fun getMyProduct(@Query("category") s_category: String?): Call<ItemDataList>
 
+    @GET("luna/main/getProduct")
+    fun getProduct(@Query("productName") s_name: String?) : Call<ItemDataList>
+
     @POST("luna/main/insert")
     fun insertCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body inCart: InCart?): Call<InCart>
 

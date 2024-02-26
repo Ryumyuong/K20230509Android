@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.InsertProduct
 import lunamall.example.test18.R
@@ -46,10 +47,6 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
         holder.button.setOnClickListener {
             val intent = Intent(context, UpdateProduct::class.java)
             intent.putExtra("productName",waiting?.s_name)
-            intent.putExtra("productCategory",waiting?.s_category)
-            intent.putExtra("price",waiting?.s_price)
-            intent.putExtra("description", waiting?.s_description)
-            intent.putExtra("fileName",waiting?.s_fileName)
             context.startActivity(intent)
         }
 
@@ -60,15 +57,16 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
 
-                    val updateCall = networkService.deleteProduct(csrfToken,waiting?.s_name)
+                    val deleteCall = networkService.deleteProduct(csrfToken,waiting?.s_name)
 
-                    updateCall.enqueue(object : Callback<Unit> {
+                   deleteCall.enqueue(object : Callback<Unit> {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-
+                            Toast.makeText(context,"물품이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            notifyDataSetChanged()
                         }
 
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
-
+                            call.cancel()
                         }
                     })
 
