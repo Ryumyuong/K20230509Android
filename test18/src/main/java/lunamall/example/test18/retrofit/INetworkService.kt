@@ -55,7 +55,7 @@ interface INetworkService {
     ): Call<OrderList>
 
     @POST("luna/main/order")
-    fun order(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body order: InOrder?, @Query("days") days:String?, @Query("luna") luna:Int): Call<InOrder>
+    fun order(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body InOrder: InOrder?, @Query("days") days:String?, @Query("luna") luna:Int): Call<InOrder>
 
     @GET("luna/main/orderList")
     fun orderList(

@@ -25,10 +25,7 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        var buttonLogin = binding.buttonLogin
-
-        buttonLogin.setOnClickListener {
+        binding.login.setOnClickListener {
             var editTextUsername = binding.editTextUsername.text.toString()
             var editTextPassword = binding.editTextPassword.text.toString()
             val username: String = editTextUsername

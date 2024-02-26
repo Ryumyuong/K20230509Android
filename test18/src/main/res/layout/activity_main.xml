@@ -6,28 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <ImageView
+        android:id="@+id/home"
+        android:background="@drawable/headlogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFAC07"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_height="40dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/Tabs"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="165px"
-        app:tabGravity="start"/>
+        android:layout_marginTop="300px"
+        app:tabGravity="start"
+        app:tabIconTint="@color/luna"
+        app:tabIndicatorColor="#000000"
+        app:tabTextColor="#000000" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/Viewpager"
         android:layout_width="match_parent"
-        android:layout_height="565dp"
-        android:layout_marginTop="115dp"
+        android:layout_height="515dp"
+        android:layout_marginTop="165dp"
         app:layout_constraintBottom_toTopOf="@+id/bottommenu"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0"

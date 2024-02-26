@@ -69,7 +69,6 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
                             call.cancel()
                         }
                     })
-
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {

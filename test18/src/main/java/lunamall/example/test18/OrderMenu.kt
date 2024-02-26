@@ -22,7 +22,7 @@ import kotlin.math.ceil
 class OrderMenu : AppCompatActivity() {
     lateinit var binding: ActivityOrderMenuBinding
     lateinit var adapter: OrderMenuAdapter
-    lateinit var selectedNumber: String
+    private var selectedNumber = "일시불"
     lateinit var total: String
 
 
@@ -103,6 +103,7 @@ class OrderMenu : AppCompatActivity() {
                     if(selectedValue != "일시불") {
                         selectedNumber = selectedValue.substringBefore("개월").trim()
 
+
                         val card = total.toDoubleOrNull()?.div(selectedNumber.toInt())
                         if (card != null) {
                             val roundup = ceil(card).toInt()
@@ -135,6 +136,7 @@ class OrderMenu : AppCompatActivity() {
                             var item = response.body()?.items
                             if (total != null) {
                                 if(item?.get(0)?.money?:0 >= binding.total2.text.toString().toInt()) {
+                                    Log.d("lmj", "select : $selectedNumber")
                                     val order = InOrder(username, binding.tel.text.toString(), binding.add.text.toString(), binding.inquire.text.toString(), selectedNumber, total.toInt())
                                     val orderCall = networkService.order(csrfToken, order, binding.plan.text.toString(), binding.total2.text.toString().toInt())
                                     orderCall.enqueue(object : Callback<InOrder> {

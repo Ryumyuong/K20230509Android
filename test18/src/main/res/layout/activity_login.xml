@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/Title"
-        android:hint="Username" />
+        android:hint="아이디" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -29,17 +29,14 @@
         android:layout_below="@id/editTextUsername"
         android:layout_marginTop="8dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="비밀번호"
         android:layout_marginBottom="50dp"/>
 
-    <Button
-        android:id="@+id/buttonLogin"
+    <ImageView
+        android:id="@+id/login"
+        android:background="@drawable/login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FFC107"
-        android:textColor="@color/black"
-        android:text="로그인" />
+        android:layout_height="60dp"
+        android:layout_below="@id/editTextPassword"/>
 
 </RelativeLayout>
