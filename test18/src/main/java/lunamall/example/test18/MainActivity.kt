@@ -7,9 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.bumptech.glide.Glide.init
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import lunamall.example.test18.databinding.ActivityMainBinding
@@ -23,9 +21,7 @@ import lunamall.example.test18.fragment.SevenFragment
 import lunamall.example.test18.fragment.SixFragment
 import lunamall.example.test18.fragment.ThreeFragment
 import lunamall.example.test18.fragment.TwoFragment
-import lunamall.example.test18.model.UserList
 import lunamall.example.test18.model.Version
-import lunamall.example.test18.model.VersionList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -156,9 +152,10 @@ class MainActivity : AppCompatActivity() {
         var versionCode = pInfo.versionCode
         val networkService = (applicationContext as MyApplication).networkService
         val versionCall = networkService.version()
+        Log.d("lmj", "버전 : $versionCode")
 
-        versionCall.enqueue(object : Callback<VersionList> {
-            override fun onResponse(call: Call<VersionList>, response: Response<VersionList>) {
+        versionCall.enqueue(object : Callback<Version> {
+            override fun onResponse(call: Call<Version>, response: Response<Version>) {
                 var item = response.body()?.version
                 val version = item
                 if (version != null) {
@@ -171,7 +168,8 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<VersionList>, t: Throwable) {
+            override fun onFailure(call: Call<Version>, t: Throwable) {
+                Log.d("lmj", "버전오류 : ${t.message}")
                 call.cancel()
             }
 

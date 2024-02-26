@@ -1,6 +1,5 @@
 package lunamall.example.test18.retrofit
 
-import lunamall.example.test18.model.Card
 import lunamall.example.test18.model.CardList
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CartList
@@ -14,7 +13,6 @@ import lunamall.example.test18.model.Product
 import lunamall.example.test18.model.User
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.model.Version
-import lunamall.example.test18.model.VersionList
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -128,6 +126,6 @@ interface INetworkService {
     fun insertCard(@Header("X-CSRF-TOKEN") csrfToken: String?, @Body inCard: InCard?): Call<Unit>
 
     @GET("luna/main/version")
-    fun version(): Call<VersionList>
+    fun version(): Call<Version>
 
 }
