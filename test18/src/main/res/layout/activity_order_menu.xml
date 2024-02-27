@@ -9,94 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFAC07"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            tools:layout_editor_absoluteX="0dp" />
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:text="주문내역"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:padding="20dp"
-        android:background="@drawable/actions"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="이름 : "/>
-            <TextView
-                android:id="@+id/name"
-                android:padding="15dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:background="@drawable/actions"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="전화번호 : "/>
-            <EditText
-                android:id="@+id/tel"
-                android:padding="15dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/actions"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="주소 : "/>
-            <EditText
-                android:id="@+id/add"
-                android:padding="15dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/actions"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="문의사항 : "/>
-            <EditText
-                android:id="@+id/inquire"
-                android:padding="15dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/actions"/>
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/OrderMenuRecyclerView"
             android:layout_width="match_parent"
@@ -127,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="총액 : "/>
+                android:text="총액 "/>
             <TextView
                 android:id="@+id/total2"
                 android:layout_width="match_parent"
@@ -139,21 +66,87 @@
                 android:layout_height="wrap_content"
                 android:text=" 루나"
                 android:gravity="right"/>
-
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="이름 "/>
+            <TextView
+                android:id="@+id/name"
+                android:padding="15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:background="@drawable/actions"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="전화번호 "/>
+            <EditText
+                android:id="@+id/tel"
+                android:padding="15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/actions"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="주소 "/>
+            <EditText
+                android:id="@+id/add"
+                android:padding="15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/actions"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="문의사항 "/>
+            <EditText
+                android:id="@+id/inquire"
+                android:padding="15dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/actions"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/orderCom"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ordercom"/>
         </LinearLayout>
 
 
 
-        <TextView
-            android:id="@+id/orderCom"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="주문완료"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:background="#FF9800"/>
 
-    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

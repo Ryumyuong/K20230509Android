@@ -31,9 +31,7 @@ class OrderMenu : AppCompatActivity() {
         binding = ActivityOrderMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "주문 내역"
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)

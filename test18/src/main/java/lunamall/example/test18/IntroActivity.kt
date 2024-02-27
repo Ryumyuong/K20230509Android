@@ -16,6 +16,8 @@ class IntroActivity : AppCompatActivity() {
         binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         Handler().postDelayed(Runnable {
             val intent = Intent(this@IntroActivity, MainActivity::class.java)
             startActivity(intent)

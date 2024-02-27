@@ -1,67 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginDetail">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Toolbar"
+    <ImageView
+        android:id="@+id/main"
+        android:background="@drawable/headlogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFAC07"
-        android:textAlignment="center"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Toolbar" />
+        android:layout_marginTop="120dp"/>
 
 
     <Button
         android:id="@+id/addluna"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:backgroundTint="#F44336"
         android:text="루나 추가 신청"
-        app:layout_constraintBottom_toTopOf="@+id/logoutbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="550dp"/>
 
     <Button
         android:id="@+id/logoutbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
         android:backgroundTint="#000000"
         android:text="로그아웃"
-        app:layout_constraintBottom_toTopOf="@+id/bottommenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="600dp"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottommenu"
+    <ImageView
+
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/box"
+        android:layout_gravity="bottom"/>
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="#FF9800"
-        app:itemIconTint="#000000"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/home"
+        android:layout_gravity="bottom"/>
+
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/cart"
+        android:layout_gravity="bottom"/>
+
+    <ImageView
+        android:id="@+id/list"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/list"
+        android:layout_gravity="bottom"/>
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/profilelight"
+        android:layout_gravity="bottom"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

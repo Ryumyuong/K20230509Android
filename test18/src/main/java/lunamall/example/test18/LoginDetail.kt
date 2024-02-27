@@ -22,13 +22,8 @@ class LoginDetail : AppCompatActivity() {
         binding = ActivityLoginDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.Toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.Toolbar.title = "로그인 정보"
 
-        val bottomNavigationView = binding.bottommenu
-
-        bottomNavigationView.selectedItemId = R.id.fourth_tab
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -66,48 +61,58 @@ class LoginDetail : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.main.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
-        binding.bottommenu.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.first_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                }
-                R.id.second_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else {
-                        val intent = Intent(this, CartActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                R.id.third_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else {
-                        val intent = Intent(this, LunaActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                R.id.fourth_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else {
-                        val intent = Intent(this, LoginDetail::class.java)
-                        startActivity(intent)
-                    }
-                }
+        binding.home.setOnClickListener{
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
-            true
+        }
+
+        binding.cart.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
+                val intent = Intent(this, InsertProduct::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.list.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, UserListActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LunaActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.profile.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, LoginAdmin::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LoginDetail::class.java)
+                startActivity(intent)
+            }
         }
 
     }
