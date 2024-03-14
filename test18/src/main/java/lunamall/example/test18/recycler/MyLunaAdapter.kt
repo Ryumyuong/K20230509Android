@@ -20,6 +20,8 @@ class MyLunaAdapter(datas: MutableList<Order>?): RecyclerView.Adapter<RecyclerVi
         val luna = lunaData?.get(position)
         binding.orderTime.text = luna?.order_time.toString()
         binding.name.text = luna?.userId.toString()
+        binding.add.text = luna?.address
+        binding.phone.text = luna?.phone
         binding.orderMenu.text = luna?.order_menu.toString()
         binding.price.text = luna?.order_price.toString() + "루나"
     }

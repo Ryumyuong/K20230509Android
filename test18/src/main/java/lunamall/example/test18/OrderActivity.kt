@@ -3,11 +3,12 @@ package lunamall.example.test18
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.core.view.isInvisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.databinding.ActivityOrderBinding
 import lunamall.example.test18.model.OrderList
 import lunamall.example.test18.recycler.MyOrderAdapter
+import lunamall.example.test18.retrofit.INetworkService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,19 +16,16 @@ import retrofit2.Response
 class OrderActivity : AppCompatActivity() {
     lateinit var binding: ActivityOrderBinding
     lateinit var adapter: MyOrderAdapter
+    lateinit var layoutManager: LinearLayoutManager
+    var loading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "주문 목록"
 
-        val bottomNavigationView = binding.bottommenu
-
-        bottomNavigationView.selectedItemId = R.id.third_tab
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -38,139 +36,111 @@ class OrderActivity : AppCompatActivity() {
         var pageNumber = 1
         var pageSize = 10
 
-        binding.before.isInvisible = true
 
-        binding.before.setOnClickListener {
-            pageNumber = pageNumber.minus(1)
-            if (pageNumber != 1) {
-                val orderCall = networkService.orderList(username, pageNumber, pageSize)
+        layoutManager = LinearLayoutManager(this)
+        binding.OrderRecyclerView.layoutManager = layoutManager
 
-                orderCall.enqueue(object : Callback<OrderList> {
-                    override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
-                        var item = response.body()?.items
-                        adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
-                        binding.OrderRecyclerView.adapter = adapter
-                        binding.next.isInvisible = false
-                        adapter.notifyDataSetChanged()
-                    }
+        loadOrders(username,pageNumber,pageSize,networkService)
 
-                    override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                        call.cancel()
-                    }
+        binding.OrderRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-                })
-            } else {
-                val orderCall = networkService.orderList(username, pageNumber, pageSize)
 
-                orderCall.enqueue(object : Callback<OrderList> {
-                    override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
-                        var item = response.body()?.items
-                        adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
-                        binding.OrderRecyclerView.adapter = adapter
-                        binding.before.isInvisible = true
-                        binding.next.isInvisible = false
-                        adapter.notifyDataSetChanged()
-                    }
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-                    override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                        call.cancel()
-                    }
+                if (!loading && totalItemCount <= (lastVisibleItem + 1)) {
+                    loading = true // 중복 호출 방지
+                    pageNumber++
+                    loadOrders(username,pageNumber,pageSize,networkService)
 
-                })
+                }
 
+            }
+
+        })
+
+        binding.home.setOnClickListener{
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
 
-        binding.next.setOnClickListener {
-            pageNumber = pageNumber.plus(1)
-            binding.before.isInvisible = false
-
-            val orderCall = networkService.orderList(username, pageNumber, pageSize)
-
-            orderCall.enqueue(object : Callback<OrderList> {
-                override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
-                    var item = response.body()?.items
-                    adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
-                    binding.OrderRecyclerView.adapter = adapter
-                    if(item?.count()!! <10) {
-                        binding.next.isInvisible = true
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onFailure(call: Call<OrderList>, t: Throwable) {
-                    call.cancel()
-                }
-
-            })
+        binding.cart.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
+                val intent = Intent(this, InsertProduct::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
         }
 
+        binding.list.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, UserListActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LunaActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.profile.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, LoginAdmin::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LoginDetail::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
+
+    private fun loadOrders(username: String?, pageNumber: Int, pageSize: Int, networkService: INetworkService) {
         val orderCall = networkService.orderList(username, pageNumber, pageSize)
 
         orderCall.enqueue(object : Callback<OrderList> {
             override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
                 var item = response.body()?.items
-                adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
-                binding.OrderRecyclerView.adapter = adapter
-                adapter.notifyDataSetChanged()
+                item?.let {
+                    if (!::adapter.isInitialized) {
+                        adapter = MyOrderAdapter(this@OrderActivity, it, networkService)
+                        binding.OrderRecyclerView.adapter = adapter
+                    } else {
+                        adapter.addItems(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+
+//                adapter = MyOrderAdapter(this@OrderActivity, item, networkService)
+//                binding.OrderRecyclerView.adapter = adapter
+//                adapter.notifyDataSetChanged()
+                loading = false
             }
 
             override fun onFailure(call: Call<OrderList>, t: Throwable) {
                 call.cancel()
+                loading = false
             }
 
         })
-
-        binding.bottommenu.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.first_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                }
-                R.id.second_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
-                        val intent = Intent(this, InsertProduct::class.java)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, CartActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                R.id.third_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
-                        val intent = Intent(this, UserListActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, LunaActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                R.id.fourth_tab -> {
-                    if(username.equals("")) {
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                    }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
-                        val intent = Intent(this, LoginAdmin::class.java)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, LoginDetail::class.java)
-                        startActivity(intent)
-                    }
-                }
-            }
-            true
-        }
     }
+
+
 }

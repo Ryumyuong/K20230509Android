@@ -46,18 +46,11 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
         var isClickable2 = true
 
         if(order?.deliver.toString() == "배송중") {
-            isClickable1 = false
-            binding.deliver.setTextColor(Color.GREEN)
+
         } else if(order?.deliver.toString() == "배송완료") {
-            isClickable1 = false
-            isClickable2 = false
-            binding.deliver.setTextColor(Color.GREEN)
-            binding.complete.setTextColor(Color.GREEN)
+
         }
 
-
-
-79791543689
         binding.deliver.setOnClickListener {
             if(isClickable1) {
                 val csrfCall = networkService.getCsrfToken()
@@ -94,7 +87,9 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                     override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
                     }
                 })
-                binding.deliver.setTextColor(Color.GREEN)
+                isClickable1 = false
+            } else {
+                Toast.makeText(context,"배송 중입니다.",Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -121,8 +116,34 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                     override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
                     }
                 })
-                binding.complete.setTextColor(Color.GREEN)
+                isClickable2 = false
+            } else {
+                Toast.makeText(context,"배송 완료되었습니다.",Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.back.setOnClickListener {
+            val csrfCall = networkService.getCsrfToken()
+
+            csrfCall.enqueue(object : Callback<CsrfToken> {
+                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                    val csrfToken = response.body()?.token
+                    val orderCall = networkService.deliverCom(csrfToken, ids, username)
+
+                    orderCall.enqueue(object : Callback<Unit> {
+                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                        }
+
+                        override fun onFailure(call: Call<Unit>, t: Throwable) {
+
+                        }
+                    })
+                }
+
+                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
+                }
+            })
         }
 
 
@@ -130,6 +151,11 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
 
     override fun getItemCount(): Int {
         return orderData?.size ?: 0
+    }
+
+    fun addItems(newItems: List<Order>) {
+        orderData?.addAll(newItems)
+        notifyDataSetChanged()
     }
 
 }

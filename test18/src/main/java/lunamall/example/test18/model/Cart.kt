@@ -1,8 +1,7 @@
 package lunamall.example.test18.model
 
-import java.io.StringBufferInputStream
-
 data class Cart (
+    var c_id : Int,
     var userId: String?,
     var s_name: String?,
     var s_price: Int?,

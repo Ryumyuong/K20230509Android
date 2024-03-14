@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.R
@@ -24,7 +25,7 @@ import retrofit2.Response
 
 
 class MyWaitingViewHolder(val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-    val button: Button = itemView.findViewById(R.id.orderbutton)
+    val button: ImageView = itemView.findViewById(R.id.orderbutton)
 }
 
 class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?, val username:String?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -38,7 +39,6 @@ class MyWaitingAdapter(val context:Context, datas: MutableList<Product>?, val us
         val waiting = listDataFilter?.get(position)
 
         binding.itemtitle.text = waiting?.s_name
-        binding.itemcontent.text = "더보기"
         binding.itemprice.text = waiting?.s_price.toString() + " 루나"
 
         holder.button.setOnClickListener {

@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isInvisible
 import lunamall.example.test18.databinding.ActivityCartBinding
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.recycler.MyCartAdapter
@@ -18,13 +18,15 @@ import retrofit2.Response
 class CartActivity : AppCompatActivity() {
     lateinit var binding: ActivityCartBinding
     lateinit var adapter: MyCartAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        var total: Int? = 0
+        var total = 0
+        var i = 0
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -37,14 +39,7 @@ class CartActivity : AppCompatActivity() {
         cartCall.enqueue(object : Callback<CartList> {
             override fun onResponse(call: Call<CartList>, response: Response<CartList>) {
                 var item = response.body()?.items
-                var i = 0
-                if (item != null) {
-                    while(i < item.size) {
-                        total = total?.plus(item.get(i).cost!!)
-                        ++i
-                    }
-                }
-                binding.total.text = "합계 : ${total.toString()} POINT"
+
                 if(item?.size == 0) {
 
                 } else {
@@ -52,6 +47,7 @@ class CartActivity : AppCompatActivity() {
                 }
                 adapter = MyCartAdapter(username, item, networkService)
                 binding.cartRecyclerView.adapter = adapter
+
             }
 
             override fun onFailure(call: Call<CartList>, t: Throwable) {

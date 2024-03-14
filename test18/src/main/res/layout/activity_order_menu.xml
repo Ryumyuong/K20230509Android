@@ -144,9 +144,6 @@
             android:background="@drawable/ordercom"/>
         </LinearLayout>
 
-
-
-
     </LinearLayout>
 
 </ScrollView>

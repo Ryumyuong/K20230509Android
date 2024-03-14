@@ -1,13 +1,12 @@
 package lunamall.example.test18.recycler
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import lunamall.example.test18.R
 import lunamall.example.test18.databinding.CartRecyclerviewBinding
@@ -20,9 +19,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
 class MyCartViewHolder(val binding: CartRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-    val plus: TextView = itemView.findViewById(R.id.plus)
-    val cancle: TextView = itemView.findViewById(R.id.cancle)
+    val plus: ImageView = itemView.findViewById(R.id.plus)
+    val minus: ImageView = itemView.findViewById(R.id.minus)
+    val cancle: ImageView = itemView.findViewById(R.id.cancle)
 }
 
 class MyCartAdapter(val username:String?, datas: MutableList<Cart>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,7 +39,9 @@ class MyCartAdapter(val username:String?, datas: MutableList<Cart>?, val network
         val itemName = cart?.s_name.toString()
         var count = cart?.count
         val price = cart?.s_price
-        var total = cart?.cost
+        var total = 0
+        var i = 0
+
 
         binding.itemname.text = cart?.s_name.toString()
         binding.count.text = cart?.count.toString()
@@ -53,41 +56,91 @@ class MyCartAdapter(val username:String?, datas: MutableList<Cart>?, val network
 
         }
 
-        var isClickable = true
-
         if(binding.count.text == "1") {
-            isClickable = false
+            holder.minus.isClickable = false
         }
 
         holder.plus.setOnClickListener {
             count = count?.plus(1)
-            total = price?.let { it1 -> total?.plus(it1) }
+            if (price != null) {
+                total = price * count!!
+            }
+            holder.minus.isClickable = true
             cart?.count = count
-            cart?.cost = total
+            cart?.total = total
+
+            notifyDataSetChanged()
+
             val csrfCall = networkService.getCsrfToken()
 
             csrfCall.enqueue(object : Callback<CsrfToken> {
                 override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
                     val csrfToken = response.body()?.token
                     val cart = InCart(username, cart?.s_name, cart?.s_price, cart?.s_description, cart?.fileName)
+
                     val insertCall = networkService.insertCart(csrfToken, cart)
 
                     insertCall.enqueue(object : Callback<InCart> {
                         override fun onResponse(call: Call<InCart>, response: Response<InCart>) {
+
                         }
 
                         override fun onFailure(call: Call<InCart>, t: Throwable) {
-                            Log.d("lmj", "실패데이터 : ${t.message}")
+                            Log.d("lmj", "실패 내용 : ${t.message}")
+                            call.cancel()
                         }
+
                     })
                 }
 
                 override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
+
                 }
             })
-            isClickable = true
-            notifyDataSetChanged()
+        }
+
+        holder.minus.setOnClickListener {
+            if(count == 1) {
+                holder.minus.isClickable = false
+            } else {
+                count = count?.minus(1)
+                if (price != null) {
+                    total = price * count!!
+                }
+                cart?.count = count
+                cart?.total = total
+                notifyDataSetChanged()
+
+                val id = cart?.c_id
+                val csrfCall = networkService.getCsrfToken()
+
+                csrfCall.enqueue(object : Callback<CsrfToken> {
+                    override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
+                        val csrfToken = response.body()?.token
+
+                        val deleteCall = networkService.delete(csrfToken, id)
+
+                        deleteCall.enqueue(object : Callback<Unit> {
+                            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                            }
+
+                            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                Log.d("lmj", "실패 내용 : ${t.message}")
+                                call.cancel()
+                            }
+
+                        })
+                    }
+
+                    override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
+
+                    }
+                })
+
+
+            }
+
         }
 
         holder.cancle.setOnClickListener {

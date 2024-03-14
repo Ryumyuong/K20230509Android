@@ -38,14 +38,6 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="70dp">
         <TextView
-            android:id="@+id/total"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="60dp"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:background="@drawable/action"/>
-        <TextView
             android:id="@+id/order"
             android:layout_width="0dp"
             android:layout_weight="1"

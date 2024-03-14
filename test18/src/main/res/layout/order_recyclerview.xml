@@ -1,99 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cart_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@drawable/actions"
-    android:padding="10dp"
+    android:layout_marginBottom="5dp"
     >
-            <TextView
-                android:id="@+id/order_time"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                />
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="16dp"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
             android:textSize="16dp"
-            />
-        <LinearLayout
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:textColor="#757575"
+            android:textSize="16dp" />
 
-            <TextView
-                android:id="@+id/deliver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="#0000FF"
-                android:textStyle="bold"
-                android:text="배송시작"
-                android:layout_marginBottom="10dp"
-                />
-
-            <TextView
-                android:id="@+id/complete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="배송완료"
-                />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#757575"
+            android:textSize="16dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/address"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16dp"
+        android:gravity="right"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        />
-                <TextView
-                    android:id="@+id/order_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="16dp"
-                    android:textColor="#757575"
-                    />
+        <ImageView
+            android:id="@+id/deliver"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/start"
+            android:gravity="right" />
 
+        <ImageView
+            android:id="@+id/complete"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/complete"
+            android:gravity="right" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:textColor="#757575"
-                />
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/back"
+            android:gravity="right" />
+    </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

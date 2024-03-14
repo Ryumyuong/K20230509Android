@@ -107,6 +107,9 @@ interface INetworkService {
     @POST("luna/main/deleteCart")
     fun deleteCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("itemName") itemName: String?): Call<Unit>
 
+    @POST("luna/main/delete")
+    fun delete(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("id") id: Int?): Call<Unit>
+
     @POST("luna/main/deleteUser")
     fun deleteUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?): Call<Unit>
 
@@ -130,5 +133,7 @@ interface INetworkService {
 
     @GET("luna/main/version")
     fun version(): Call<Version>
+
+
 
 }

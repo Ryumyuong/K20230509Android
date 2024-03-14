@@ -32,8 +32,8 @@ class OrderMenuAdapter(datas: MutableList<Cart>?): RecyclerView.Adapter<Recycler
         val cart = cartData?.get(position)
 
         binding.itemname.text = cart?.s_name.toString()
-        binding.count.text = cart?.count.toString() + "개"
-        binding.total.text = cart?.cost.toString() + " 루나"
+        binding.count.text = "수량 " + cart?.count.toString() + "개 / "
+        binding.total.text = cart?.cost.toString() + "루나"
 
         val urlImg = cart?.fileName
 
