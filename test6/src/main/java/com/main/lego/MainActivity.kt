@@ -5,17 +5,15 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -25,11 +23,21 @@ import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN
 import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC
 import org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.apache.poi.util.IOUtils
+import org.apache.poi.xssf.usermodel.XSSFPicture
+import org.apache.poi.xssf.usermodel.XSSFSheet
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.lang.Math.round
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -37,6 +45,10 @@ class MainActivity : AppCompatActivity() {
     private var value = 0
     private var bValue = 0
     private var baby = "0"
+    private var avalue = 0
+    private var cost = 0
+    private var bCost = 0.0
+    private var acost = 0
 
 
     companion object {
@@ -60,6 +72,62 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        binding.cost.setOnClickListener {
+            val dat = cost - binding.bhouse.text.toString().toInt() - binding.bcar.text.toString().toInt() - binding.bill.text.toString().toInt()
+            binding.dat.text = "[대상] $dat"
+            binding.je.text = "[재산] ${binding.mhouse.text}"
+            if(binding.bhouse.text.toString()  != "") {
+                bCost = bValue/cost.toDouble()*100
+                val bcost = round(bCost * 10) / 10.0
+                binding.co.text = "[특이] 6개월 내 채무 $bcost%"
+            } else {
+
+            }
+
+            if(baby == "0") {
+                baby = "135"
+            } else if(baby == "1"){
+                baby = "220"
+            } else if(baby == "2") {
+                baby = "285"
+            } else if(baby == "3") {
+                baby = "245"
+            } else if(baby == "4") {
+                baby = "400"
+            }
+
+            if(binding.moneyy.text.toString().toDouble().toInt()*0.8/12 > binding.moneym.text.toString().toDouble().toInt()) {
+                if(binding.parent.text == "[특이] 60세 이상 부모 O") {
+                    acost = ((binding.moneyy.text.toString().toDouble().toInt()*0.8/12 - baby.toInt()-50)*2/3).toInt()
+                    binding.test2.text = "[장기] ${acost}만"
+                    binding.test1.text = "[단기] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12-baby.toInt()).toInt()}만 3~5년납"
+                    binding.card.text = "[소득] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12).toInt()}"
+                } else {
+                    acost = ((binding.moneyy.text.toString().toDouble().toInt()*0.8/12 - baby.toInt())*2/3).toInt()
+                    binding.test2.text = "[장기] ${acost}만"
+                    binding.test1.text = "[단기] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12-baby.toInt()).toInt()}만 3~5년납"
+                    binding.card.text = "[소득] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12).toInt()}"
+                }
+            } else {
+                if(binding.parent.text == "[특이] 60세 이상 부모 O") {
+                    acost = ((binding.moneym.text.toString().toDouble().toInt() - baby.toInt()-50)*2/3).toDouble().toInt()
+                    binding.test2.text = "[장기] ${acost}만"
+                    binding.test1.text = "[단기] ${(binding.moneym.text.toString().toDouble().toInt()-baby.toInt()).toDouble().toInt()}만 3~5년납"
+                    binding.card.text = "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+                } else {
+                    acost = ((binding.moneym.text.toString().toDouble().toInt() - baby.toInt())*2/3).toDouble().toInt()
+                    binding.test2.text = "[장기] ${acost}만"
+                    binding.test1.text = "[단기] ${(binding.moneym.text.toString().toDouble().toInt()-baby.toInt()).toDouble().toInt()}만 3~5년납"
+                    binding.card.text = "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+                }
+            }
+
+            val year = round(dat / acost /12.0)
+
+            binding.test2.text = "${binding.test2.text} ${year}년납"
+
+        }
+
         binding.mhouse.setText("0")
         binding.bhouse.setText("0")
         binding.mcar.setText("0")
@@ -67,8 +135,8 @@ class MainActivity : AppCompatActivity() {
         binding.bill.setText("0")
         binding.moneyy.setText("0")
         binding.moneym.setText("0")
-
-
+        binding.total.setText("0")
+        binding.btotal.setText("0")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -95,20 +163,25 @@ class MainActivity : AppCompatActivity() {
             }
 
             REQUEST_PICK_IMAGE -> {
-                val selectedImageUri: Uri? = resultData?.data
-                val selectedImageBitmap =
-                    MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
-                processImage(selectedImageBitmap)
-
-                if (selectedImageUri != null) {
+                try {
+                    val selectedImageUri: Uri? = resultData?.data
                     val selectedImageBitmap =
                         MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
-                    binding.imageView.setImageBitmap(selectedImageBitmap)
+                    processImage(selectedImageBitmap)
+                    //processImage에서 텍스트 인식함
 
-                    val layoutParams = binding.imageView.layoutParams
-                    layoutParams.width = selectedImageBitmap.width * 2
-                    layoutParams.height = selectedImageBitmap.height * 2
-                    binding.imageView.layoutParams = layoutParams
+                    if (selectedImageUri != null) {
+                        val selectedImageBitmap =
+                            MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
+                        binding.imageView.setImageBitmap(selectedImageBitmap)
+
+                        val layoutParams = binding.imageView.layoutParams
+                        layoutParams.width = selectedImageBitmap.width * 3
+                        layoutParams.height = selectedImageBitmap.height * 3
+                        binding.imageView.layoutParams = layoutParams
+                    }
+                } catch(e:Exception) {
+                    showToast("이미지가 선택되지 않았습니다.")
                 }
 
             }
@@ -119,7 +192,7 @@ class MainActivity : AppCompatActivity() {
     //이미지 스캔
     @RequiresApi(Build.VERSION_CODES.O)
     private fun processTextResult(visionText: Text) {
-
+        try {
         val textBlocks = visionText.textBlocks
         if (textBlocks.isEmpty()) {
             showToast("No text found in the image.")
@@ -136,9 +209,8 @@ class MainActivity : AppCompatActivity() {
         var rows = 0
 
         val twoArray = ArrayList<ArrayList<Any>>()
-        val recognizedText = StringBuilder()
 
-        try {
+
             for (text in listText) {
                 val date = text.replace(",", ".")
                 val fourText = date.take(4)
@@ -186,75 +258,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+            cost = value + bValue + card + avalue
+            binding.total.setText(cost.toString())
+            binding.btotal.setText(bValue.toString())
+
+            showToast("채무량이 등록되었습니다.")
         } catch(e:Exception) {
-            showToast("이미지를 인식할 수 없습니다.")
+            showToast("채무량을 수정해주세요.")
         }
 
 
-        var cost = 0
-        var bCost = 0.0
-        var acost = 0
-        cost = value + bValue + card
-        binding.test1.text = cost.toString()
-        binding.test2.text = bValue.toString()
-
-        binding.cost.setOnClickListener {
-            binding.dat.text = "[대상] ${cost - binding.bhouse.text.toString().toInt() - binding.bcar.text.toString().toInt() - binding.bill.text.toString().toInt()}"
-            binding.je.text = "[재산] ${binding.mhouse.text}"
-            if(binding.bhouse.text.toString()  != "") {
-                    bCost = bValue/cost.toDouble()*100
-                    val bcost = round(bCost * 10) / 10.0
-                    binding.co.text = "[특이] 6개월 내 채무 $bcost%"
-            } else {
-
-            }
-
-            if(baby == "0") {
-                baby = "135"
-            } else if(baby == "1"){
-                baby = "220"
-            } else if(baby == "2") {
-                baby = "285"
-            } else if(baby == "3") {
-                baby = "245"
-            } else if(baby == "4") {
-                baby = "400"
-            }
-
-            if(binding.moneyy.text.toString().toInt()*0.8/12 > binding.moneym.text.toString().toInt()) {
-                if(binding.parent.text == "[특이] 60세 이상 부모 : O") {
-                    binding.test2.text = "[장기] ${(binding.moneyy.text.toString().toInt()/12 - baby.toInt()-50)*2/3}만"
-                    acost = (binding.moneyy.text.toString().toInt()/12 - baby.toInt()-50)*2/3
-                    binding.test1.text = "[단기] ${binding.moneyy.text.toString().toInt()*0.8/12-baby.toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneyy.text.toString().toInt()*0.8/12}"
-                } else {
-                    binding.test2.text = "[장기] ${(binding.moneyy.text.toString().toInt()/12 - baby.toInt())*2/3}만"
-                    acost = (binding.moneyy.text.toString().toInt()/12 - baby.toInt())*2/3
-                    binding.test1.text = "[단기] ${binding.moneyy.text.toString().toInt()*0.8/12-baby.toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneyy.text.toString().toInt()*0.8/12}"
-                }
-            } else {
-                if(binding.parent.text == "[특이] 60세 이상 부모 : O") {
-                    binding.test2.text = "[장기] ${(binding.moneym.text.toString().toInt() - baby.toInt()-50)*2/3}만"
-                    acost = (binding.moneym.text.toString().toInt() - baby.toInt()-50)*2/3
-                    binding.test1.text = "[단기] ${binding.moneym.text.toString().toInt()-baby.toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneym.text.toString().toInt()}"
-                } else {
-                    binding.test2.text = "[장기] ${(binding.moneym.text.toString().toInt() - baby.toInt())*2/3}만"
-                    acost = (binding.moneym.text.toString().toInt() - baby.toInt())*2/3
-                    binding.test1.text = "[단기] ${binding.moneym.text.toString().toInt()-baby.toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneym.text.toString().toInt()}"
-                }
-            }
-
-            binding.test2.text = " ${binding.test2.text} ${((cost-binding.bhouse.text.toString().toInt()-binding.bcar.text.toString().toInt()-binding.bill.text.toString().toInt() )/ acost /12)}년납"
-
-
-
-
-        }
-
-        showToast("진단이 완료되었습니다.")
 
     }
 
@@ -293,18 +306,30 @@ class MainActivity : AppCompatActivity() {
                 val recognizedText4 = StringBuilder()
                 val recognizedText5 = StringBuilder()
                 val recognizedText6 = StringBuilder()
+                val recognizedText7 = StringBuilder()
+                val recognizedText8 = StringBuilder()
                 val currentDate = LocalDate.now()
                 val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+                val dateformat = DateTimeFormatter.ofPattern("yy.M.d")
                 var dmoney = 0
                 var hmoney = 0
                 var omoney = 0
 
 
+
+
                 for(j in 1..9) {
-                    for (i in 1..30) {
+                    for (i in 1..40) {
                         val row = sheet.getRow(i)
                         val cell = row?.getCell(j)
                         val cellValue = getCellValue(cell)
+
+                        if(((i >= 27) and (i<=32))and (j == 1)) {
+                            if(cellValue != "") {
+                                recognizedText7.append(cellValue).append("\n")
+                                binding.test.text = recognizedText7
+                            }
+                        }
 
                         // 이름
                         if ((i == 3) and (j == 2)) {
@@ -351,21 +376,86 @@ class MainActivity : AppCompatActivity() {
                             binding.mmoney.text = "배우자소득 : $cellValue"
                         }
 
+                        if((i == 18) and (j == 2)) {
+                            binding.before.text = "채무조정이력 : $cellValue"
+                        }
+
+                        if((i == 19) and (j == 2)) {
+                            binding.use.text = "대출사용처 : $cellValue"
+                        }
+
+                        if((i == 20) and (j == 2)) {
+                            binding.check.text = "특이사항 : $cellValue"
+                        }
+
+                        if((i == 21) and (j == 2)) {
+                            binding.unable.text = "장애여부 : $cellValue"
+                        }
+
+                        if((i == 38) and (j == 4)) {
+                            if (cell != null) {
+                                val drawing = (cell.sheet as XSSFSheet).createDrawingPatriarch()
+                                val picture = drawing.shapes.firstOrNull { it is XSSFPicture } as XSSFPicture?
+                                if (picture != null) {
+                                    val pictureData = picture.pictureData
+                                    if (pictureData != null) {
+                                        val ext = pictureData.mimeType.split("/").last()
+                                        val imageData = pictureData.data
+                                        val uniqueFileName = "${System.currentTimeMillis()}.$ext"
+                                        val imagePath = "/storage/emulated/0/Download/$uniqueFileName" // 이미지를 저장할 경로
+                                        val outputFile = File(imagePath)
+
+                                        try {
+                                            val fileOutputStream = FileOutputStream(outputFile)
+                                            fileOutputStream.write(imageData)
+                                            fileOutputStream.close()
+                                            val file = File(imagePath)
+                                            if (file.exists()) {
+                                                val bitmap = BitmapFactory.decodeFile(imagePath)
+                                                if (bitmap != null) {
+                                                    val layoutParams = binding.imageview.layoutParams
+                                                    layoutParams.width = bitmap.width * 3
+                                                    layoutParams.height = bitmap.height * 3
+                                                    binding.imageview.layoutParams = layoutParams
+                                                    val imageView = binding.imageview
+                                                    if (bitmap != null) {
+                                                        imageView.setImageBitmap(bitmap)
+                                                    } else {
+                                                        // 비트맵이 null인 경우에 대한 처리 (예: 디폴트 이미지 설정 등)
+                                                    }
+                                                } else {
+                                                    // 파일을 로드하여 비트맵으로 변환하는 데 실패한 경우에 대한 처리
+                                                }
+                                            } else {
+                                                // 파일이 존재하지 않는 경우에 대한 처리
+                                            }
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    } else {
+                                    }
+                                } else {
+                                }
+                            }
+                        }
 
 
 
                         // 60세 이상 부모 여부
-                        if((i == 22) and (j == 2)) {
-                            if(cellValue.contains("60세 이상")) {
-                                binding.parent.text = "[특이] 60세 이상 부모 : O"
+                        if((i == 22) and (j == 5)) {
+                            val boovalue = cell?.booleanCellValue
+                            if(boovalue == true) {
+                                binding.parent.text = "[특이] 60세 이상 부모 O"
                             } else {
-                                binding.parent.text = "[특이] 60세 이상 부모 : X"
+                                binding.parent.text = "[특이] 60세 이상 부모 X"
                             }
                         }
 
                         if(((i >= 27) and (i<=32))and (j == 2)) {
                             if(cellValue != "") {
                                 card = cellValue.replace("만", "").toDouble().toInt()
+                                recognizedText8.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
+                                binding.ccost.text = recognizedText8
                             }
                         }
 
@@ -377,6 +467,13 @@ class MainActivity : AppCompatActivity() {
 
                         }
 
+                        if(((i>=25) and (i<=37)) and (j==6)) {
+                            if(cellValue !="") {
+                                recognizedText4.append(cellValue).append("\n")
+                                binding.pname.text = recognizedText4
+                            }
+                        }
+
                         if(((i>=5) and (i <= 14)) and (j==7)) {
                             if(cellValue !="") {
                                 recognizedText2.append(cellValue).append("\n")
@@ -385,60 +482,72 @@ class MainActivity : AppCompatActivity() {
                                 val cells = row?.getCell(j+1)
                                 val cellValues = getCellValue(cells)
                                 if(cellValue.contains("차량담보") || cellValue.contains("차담보")) {
-                                    dmoney += cellValues.replace(",","").toDouble().toInt()
+                                    dmoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
                                     binding.bcar.setText(dmoney.toString())
                                 } else if(cellValue.contains("주택담보")){
-                                    hmoney += cellValues.replace(",","").toDouble().toInt()
+                                    hmoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
                                     binding.bhouse.setText(hmoney.toString())
                                 } else if(cellValue.contains("신차")) {
-                                    omoney += cellValues.replace(",","").toDouble().toInt()
+                                    omoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
                                     binding.bill.setText(omoney.toString())
                                 }
 
                             }
                         }
 
+                        if(((i>=25) and (i<=37)) and (j==7)) {
+                            if(cellValue !="") {
+                                recognizedText5.append(cellValue).append("\n")
+                                binding.pco.text = recognizedText5
+                                try {
+                                    val beforeDate = LocalDate.parse(cellValue, dateFormat)
+                                    val plusMonth = beforeDate.plusMonths(6)
+                                    val cells = row?.getCell(j+1)
+                                    val cellValues = getCellValue(cells)
+
+                                    if(currentDate >= plusMonth) {
+                                        value += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                    } else {
+                                        bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                    }
+                                } catch(e:Exception) {
+                                    val beforeDate = LocalDate.parse(cellValue, dateformat)
+                                    val plusMonth = beforeDate.plusMonths(6)
+                                    val cells = row?.getCell(j+1)
+                                    val cellValues = getCellValue(cells)
+
+                                    if(currentDate >= plusMonth) {
+                                        value += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                    } else {
+                                        bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                    }
+                                }
+
+
+                            }
+                        }
+
                         if(((i>=5) and (i <= 14)) and (j==8)) {
                             if(cellValue !="") {
-                                recognizedText3.append(cellValue.replace(",","").toDouble().toInt()).append("\n")
+                                recognizedText3.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
                                 binding.bmon.text = recognizedText3
                             }
                         }
 
-                        if((i>=25) and (i<=37) and (j==6)) {
-                            if(cellValue !="") {
-                                recognizedText4.append(cellValue).append("\n")
-                                binding.pname.text = recognizedText4
-                            }
-                        }
 
-                        if((i>=25) and (i<=37) and (j==7)) {
-                            if(cellValue !="") {
-                                recognizedText5.append(cellValue).append("\n")
-                                binding.pco.text = recognizedText5
-                                val beforeDate = LocalDate.parse(cellValue, dateFormat)
-                                val plusMonth = beforeDate.plusMonths(6)
-                                val cells = row?.getCell(j+1)
-                                val cellValues = getCellValue(cells)
 
-                                if(currentDate >= plusMonth) {
-                                    value += cellValues.toInt()
-                                } else {
-                                    bValue += cellValues.toInt()
-                                }
-                            }
-                        }
-
-                        if((i>=25) and (i<=37) and (j==8)) {
+                        if(((i>=25) and (i<=37)) and (j==8)) {
                             if(cellValue !="") {
-                                recognizedText6.append(cellValue).append("\n")
+                                recognizedText6.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
                                 binding.pmon.text = recognizedText6
                             }
                         }
-
                     }
                 }
-                binding.card.text = card.toString()
+
+                cost = value + bValue + card + avalue
+                binding.total.setText(cost.toString())
+                binding.btotal.setText(bValue.toString())
 
                 inputStream.close()
             }
