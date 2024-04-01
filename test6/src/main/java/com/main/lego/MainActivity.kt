@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.datatransport.runtime.util.PriorityMapping.toInt
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -49,12 +50,13 @@ class MainActivity : AppCompatActivity() {
     private var cost = 0
     private var bCost = 0.0
     private var acost = 0
+    private var korea = "X"
 
 
     companion object {
         const val READ_REQUEST_CODE = 42
         const val CREATE_FILE_REQUEST_CODE = 43
-        const val REQUEST_PICK_IMAGE = 44
+        val recognizedText7 = StringBuilder()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,58 +75,348 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.cost.setOnClickListener {
-            val dat = cost - binding.bhouse.text.toString().toInt() - binding.bcar.text.toString().toInt() - binding.bill.text.toString().toInt()
-            binding.dat.text = "[대상] $dat"
-            binding.je.text = "[재산] ${binding.mhouse.text}"
-            if(binding.bhouse.text.toString()  != "") {
-                bCost = bValue/cost.toDouble()*100
-                val bcost = round(bCost * 10) / 10.0
-                binding.co.text = "[특이] 6개월 내 채무 $bcost%"
-            } else {
-
-            }
-
-            if(baby == "0") {
-                baby = "135"
-            } else if(baby == "1"){
-                baby = "220"
-            } else if(baby == "2") {
-                baby = "285"
-            } else if(baby == "3") {
-                baby = "245"
-            } else if(baby == "4") {
-                baby = "400"
-            }
-
-            if(binding.moneyy.text.toString().toDouble().toInt()*0.8/12 > binding.moneym.text.toString().toDouble().toInt()) {
-                if(binding.parent.text == "[특이] 60세 이상 부모 O") {
-                    acost = ((binding.moneyy.text.toString().toDouble().toInt()*0.8/12 - baby.toInt()-50)*2/3).toInt()
-                    binding.test2.text = "[장기] ${acost}만"
-                    binding.test1.text = "[단기] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12-baby.toInt()).toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12).toInt()}"
+            try {
+                val dam =
+                    binding.bhouse.text.toString().toDouble().toInt() + binding.bcar.text.toString()
+                        .toDouble().toInt() + binding.bill.text.toString().toDouble().toInt()
+                val cos =
+                    binding.mhouse.text.toString().toDouble().toInt() + binding.mcar.text.toString()
+                        .toDouble().toInt()
+                val dat = cost - dam
+                binding.dat.text = "[대상] $dat"
+                binding.je.text = "[재산] $cos"
+                if (binding.bhouse.text.toString() != "") {
+                    bCost = bValue / cost.toDouble() * 100
+                    val bcost = round(bCost * 10) / 10.0
+                    binding.co.text = "[특이] 6개월 내 채무 $bcost%"
                 } else {
-                    acost = ((binding.moneyy.text.toString().toDouble().toInt()*0.8/12 - baby.toInt())*2/3).toInt()
-                    binding.test2.text = "[장기] ${acost}만"
-                    binding.test1.text = "[단기] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12-baby.toInt()).toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${(binding.moneyy.text.toString().toDouble().toInt()*0.8/12).toInt()}"
+
                 }
-            } else {
-                if(binding.parent.text == "[특이] 60세 이상 부모 O") {
-                    acost = ((binding.moneym.text.toString().toDouble().toInt() - baby.toInt()-50)*2/3).toDouble().toInt()
-                    binding.test2.text = "[장기] ${acost}만"
-                    binding.test1.text = "[단기] ${(binding.moneym.text.toString().toDouble().toInt()-baby.toInt()).toDouble().toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+
+                if (baby == "0") {
+                    baby = "135"
+                } else if (baby == "1") {
+                    baby = "220"
+                } else if (baby == "2") {
+                    baby = "285"
+                } else if (baby == "3") {
+                    baby = "245"
+                } else if (baby == "4") {
+                    baby = "400"
+                }
+
+                if (binding.moneyy.text.toString().toDouble()
+                        .toInt() * 0.8 / 12 > binding.moneym.text.toString().toDouble().toInt()
+                ) {
+                    if (binding.parent.text == "[특이] 60세 이상 부모 O") {
+                        acost = ((binding.moneyy.text.toString().toDouble()
+                            .toInt() * 0.8 / 12 - baby.toInt() - 50) * 2 / 3).toInt()
+                        binding.test2.text = "[장기] ${acost}만"
+                        binding.test1.text = "[단기] ${
+                            (binding.moneyy.text.toString().toDouble()
+                                .toInt() * 0.8 / 12 - baby.toInt()).toInt()
+                        }만 3~5년납"
+                        binding.card.text = "[소득] ${
+                            (binding.moneyy.text.toString().toDouble().toInt() * 0.8 / 12).toInt()
+                        }"
+                    } else {
+                        acost = ((binding.moneyy.text.toString().toDouble()
+                            .toInt() * 0.8 / 12 - baby.toInt()) * 2 / 3).toInt()
+                        binding.test2.text = "[장기] ${acost}만"
+                        binding.test1.text = "[단기] ${
+                            (binding.moneyy.text.toString().toDouble()
+                                .toInt() * 0.8 / 12 - baby.toInt()).toInt()
+                        }만 3~5년납"
+                        binding.card.text = "[소득] ${
+                            (binding.moneyy.text.toString().toDouble().toInt() * 0.8 / 12).toInt()
+                        }"
+                    }
                 } else {
-                    acost = ((binding.moneym.text.toString().toDouble().toInt() - baby.toInt())*2/3).toDouble().toInt()
-                    binding.test2.text = "[장기] ${acost}만"
-                    binding.test1.text = "[단기] ${(binding.moneym.text.toString().toDouble().toInt()-baby.toInt()).toDouble().toInt()}만 3~5년납"
-                    binding.card.text = "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+                    if (binding.parent.text == "[특이] 60세 이상 부모 O") {
+                        acost = ((binding.moneym.text.toString().toDouble()
+                            .toInt() - baby.toInt() - 50) * 2 / 3).toDouble().toInt()
+                        binding.test2.text = "[장기] ${acost}만"
+                        binding.test1.text = "[단기] ${
+                            (binding.moneym.text.toString().toDouble()
+                                .toInt() - baby.toInt()).toDouble().toInt()
+                        }만 3~5년납"
+                        binding.card.text =
+                            "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+                    } else {
+                        acost = ((binding.moneym.text.toString().toDouble()
+                            .toInt() - baby.toInt()) * 2 / 3).toDouble().toInt()
+                        binding.test2.text = "[장기] ${acost}만"
+                        binding.test1.text = "[단기] ${
+                            (binding.moneym.text.toString().toDouble()
+                                .toInt() - baby.toInt()).toDouble().toInt()
+                        }만 3~5년납"
+                        binding.card.text =
+                            "[소득] ${binding.moneym.text.toString().toDouble().toInt()}"
+                    }
                 }
+
+                val year = round(dat / acost / 12.0)
+
+                binding.test2.text = "${binding.test2.text} ${year}년납"
+                val local = binding.local.text
+
+
+                if (binding.check.text == "연체기록 : 없음") {
+                    binding.testing.text = "[진단] 신회워"
+                    if (binding.work.text == "직업 : 무직" || binding.work.text == "직업 : 사업자" || binding.bae.text == "[특이] 배우자 모르게" || korea == "O") {
+                        binding.testing.text = "[진단] 신유워"
+                    }
+                    if (local.contains("서울")) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 13200) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 16500) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 19800) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+
+                    } else if (local.contains("용인") || local.contains("화성") || local.contains("세종") || local.contains(
+                            "김포"
+                        )
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 11600) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 14500) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 17400) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else if (local.contains("안산") || local.contains("광주") || local.contains("파주") || local.contains(
+                            "이천"
+                        ) || local.contains("평택")
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6800) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 8500) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 10200) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6000) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 7500) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 9000) {
+                                binding.testing.text = "[진단] 신유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    }
+
+                } else if (binding.check.text == "연체기록 : 1개월 ~ 2개월") {
+                    binding.testing.text = "[진단] 프회워"
+                    if (binding.work.text == "직업 : 무직" || binding.work.text == "직업 : 사업자" || binding.bae.text == "[특이] 배우자 모르게" || korea == "O") {
+                        binding.testing.text = "[진단] 프유워"
+                    }
+
+                    if (local.contains("서울")) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 13200) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 16500) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 19800) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+
+                    } else if (local.contains("용인") || local.contains("화성") || local.contains("세종") || local.contains(
+                            "김포"
+                        )
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 11600) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 14500) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 17400) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else if (local.contains("안산") || local.contains("광주") || local.contains("파주") || local.contains(
+                            "이천"
+                        ) || local.contains("평택")
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6800) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 8500) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 10200) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6000) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 7500) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 9000) {
+                                binding.testing.text = "[진단] 프유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    }
+                } else if (binding.check.text == "연체기록 : 3개월 ~ 6개월") {
+                    binding.testing.text = "[진단] 회워"
+
+                    if (binding.work.text == "직업 : 무직" || binding.work.text == "직업 : 사업자" || binding.bae.text == "[특이] 배우자 모르게" || korea == "O") {
+                        binding.testing.text = "[진단] 유워"
+                    }
+
+                    if (local.contains("서울")) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 13200) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 16500) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 19800) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+
+                    } else if (local.contains("용인") || local.contains("화성") || local.contains("세종") || local.contains(
+                            "김포"
+                        )
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 11600) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 14500) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 17400) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else if (local.contains("안산") || local.contains("광주") || local.contains("파주") || local.contains(
+                            "이천"
+                        ) || local.contains("평택")
+                    ) {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6800) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 8500) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 10200) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    } else {
+                        if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
+                            if ((cos - dam) > 6000) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("3")) {
+                            if ((cos - dam) > 7500) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        } else if (binding.group.text.contains("4")) {
+                            if ((cos - dam) > 9000) {
+                                binding.testing.text = "[진단] 유워"
+                                binding.bae2.text = "[특이] 재산초과"
+                            }
+                        }
+                    }
+                } else if (binding.check.text == "연체기록 : 6개월 이상") {
+                    binding.testing.text = "[진단] 단순워크"
+                } else {
+                    binding.testing.text = "[진단]"
+                }
+
+            } catch(e:Exception){
+                showToast("${e.message}")
             }
-
-            val year = round(dat / acost /12.0)
-
-            binding.test2.text = "${binding.test2.text} ${year}년납"
 
         }
 
@@ -162,29 +454,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            REQUEST_PICK_IMAGE -> {
-                try {
-                    val selectedImageUri: Uri? = resultData?.data
-                    val selectedImageBitmap =
-                        MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
-                    processImage(selectedImageBitmap)
-                    //processImage에서 텍스트 인식함
-
-                    if (selectedImageUri != null) {
-                        val selectedImageBitmap =
-                            MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
-                        binding.imageView.setImageBitmap(selectedImageBitmap)
-
-                        val layoutParams = binding.imageView.layoutParams
-                        layoutParams.width = selectedImageBitmap.width * 3
-                        layoutParams.height = selectedImageBitmap.height * 3
-                        binding.imageView.layoutParams = layoutParams
-                    }
-                } catch(e:Exception) {
-                    showToast("이미지가 선택되지 않았습니다.")
-                }
-
-            }
         }
 
     }
@@ -239,24 +508,25 @@ class MainActivity : AppCompatActivity() {
                 val beforeDate = LocalDate.parse(date, dateFormat)
                 val plusMonth = beforeDate.plusMonths(6)
                 val clean = twoArray[i].get(1).toString().replace(".","")
-                if (currentDate >= plusMonth) {
-                    // 6개월 이상
-                    if(clean.toInt().mod(10) >= 5) {
-                        value += clean.toInt().div(10) + 1
-                    } else {
-                        value += clean.toInt().div(10)
-                    }
+                if(!recognizedText7.contains(date)) {
+                    if (currentDate >= plusMonth) {
+                        // 6개월 이상
+                        if(clean.toInt().mod(10) >= 5) {
+                            value += clean.toInt().div(10) + 1
+                        } else {
+                            value += clean.toInt().div(10)
+                        }
 
 
-                } else {
-                    // 6개월 이하
-                    if(clean.toInt().mod(10) >= 5) {
-                        bValue += clean.toInt().div(10) + 1
                     } else {
-                        bValue += clean.toInt().div(10)
+                        // 6개월 이하
+                        if(clean.toInt().mod(10) >= 5) {
+                            bValue += clean.toInt().div(10) + 1
+                        } else {
+                            bValue += clean.toInt().div(10)
+                        }
                     }
                 }
-
             }
             cost = value + bValue + card + avalue
             binding.total.setText(cost.toString())
@@ -306,17 +576,18 @@ class MainActivity : AppCompatActivity() {
                 val recognizedText4 = StringBuilder()
                 val recognizedText5 = StringBuilder()
                 val recognizedText6 = StringBuilder()
-                val recognizedText7 = StringBuilder()
                 val recognizedText8 = StringBuilder()
                 val currentDate = LocalDate.now()
                 val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-                val dateformat = DateTimeFormatter.ofPattern("yy.M.d")
+                val dateformat = DateTimeFormatter.ofPattern("yyyy.M.d")
                 var dmoney = 0
                 var hmoney = 0
                 var omoney = 0
-
-
-
+                value = 0
+                bValue = 0
+                card = 0
+                avalue = 0
+                cost = 0
 
                 for(j in 1..9) {
                     for (i in 1..40) {
@@ -326,8 +597,8 @@ class MainActivity : AppCompatActivity() {
 
                         if(((i >= 27) and (i<=32))and (j == 1)) {
                             if(cellValue != "") {
-                                recognizedText7.append(cellValue).append("\n")
-                                binding.test.text = recognizedText7
+                                recognizedText6.append(cellValue).append("\n")
+                                binding.test.text = recognizedText6
                             }
                         }
 
@@ -336,63 +607,75 @@ class MainActivity : AppCompatActivity() {
                             binding.name.text = "[이름] $cellValue"
                         }
 
-                        // 미성년자 수
                         if ((i == 7) and (j == 2)) {
+                            binding.group.text = "가구원 수 : $cellValue"
+                        }
+
+                        // 미성년자 수
+                        if ((i == 8) and (j == 2)) {
                             if(cellValue.contains("미성년")){
-                                val cell = cellValue.replace("미성년","").trim().replace("명","")
+                                val cell = cellValue.replace("명","").replace("인","").trim()
                                 binding.baby.text = "[특이] 미성년 자녀 ${cell}명"
                                 baby = cell
                             } else {
                                 binding.baby.text = "[특이] 미성년 자녀 0명"
                             }
-
-
-                        }
-
-                        if((i == 8) and (j == 2)) {
-                            binding.local.text = "지역 : $cellValue"
                         }
 
                         if((i == 10) and (j == 2)) {
-                            binding.money.text = "본인재산 : $cellValue"
+                            binding.local.text = "지역 : $cellValue"
                         }
 
                         if((i == 11) and (j == 2)) {
-                           binding.moneyn.text = "배우자재산 : $cellValue"
+                            binding.work.text = "직업 : $cellValue"
                         }
 
                         if((i == 12) and (j == 2)) {
-                            binding.car.text = "본인차량 : $cellValue"
+                            binding.money.text = "본인재산 : $cellValue"
                         }
-                        if((i == 13 ) and (j == 2)) {
-                            binding.carb.text = "배우자 차량 : $cellValue"
+
+                        if((i == 13) and (j == 2)) {
+                           binding.moneyn.text = "배우자재산 : $cellValue"
                         }
 
                         if((i == 14) and (j == 2)) {
+                            binding.car.text = "본인차량 : $cellValue"
+                        }
+                        if((i == 15) and (j == 2)) {
+                            binding.carb.text = "배우자 차량 : $cellValue"
+                        }
+
+                        if((i == 16) and (j == 2)) {
                             binding.ymoney.text = "본인소득 : $cellValue"
                         }
 
-                        if((i == 15) and (j == 2)) {
+                        if((i == 17) and (j == 2)) {
                             binding.mmoney.text = "배우자소득 : $cellValue"
                         }
 
-                        if((i == 18) and (j == 2)) {
-                            binding.before.text = "채무조정이력 : $cellValue"
-                        }
-
-                        if((i == 19) and (j == 2)) {
-                            binding.use.text = "대출사용처 : $cellValue"
-                        }
-
                         if((i == 20) and (j == 2)) {
-                            binding.check.text = "특이사항 : $cellValue"
+                            binding.before.text = "채무조정이력 : $cellValue"
+                            if(cellValue.contains("2020") || cellValue.contains("2021") ||cellValue.contains("2022") ||cellValue.contains("2023") ||cellValue.contains("2024")) {
+                                binding.before.text = "[특이] 5년내 면책이력"
+                                korea = "O"
+                            } else {
+                                binding.before.text = "채무조정이력 : $cellValue"
+                            }
                         }
 
                         if((i == 21) and (j == 2)) {
+                            binding.use.text = "대출사용처 : $cellValue"
+                        }
+
+                        if((i == 22) and (j == 2)) {
+                            binding.check.text = "연체기록 : $cellValue"
+                        }
+
+                        if((i == 23) and (j == 2)) {
                             binding.unable.text = "장애여부 : $cellValue"
                         }
 
-                        if((i == 38) and (j == 4)) {
+                        if((i == 29) and (j == 6)) {
                             if (cell != null) {
                                 val drawing = (cell.sheet as XSSFSheet).createDrawingPatriarch()
                                 val picture = drawing.shapes.firstOrNull { it is XSSFPicture } as XSSFPicture?
@@ -402,8 +685,8 @@ class MainActivity : AppCompatActivity() {
                                         val ext = pictureData.mimeType.split("/").last()
                                         val imageData = pictureData.data
                                         val uniqueFileName = "${System.currentTimeMillis()}.$ext"
-                                        val imagePath = "/storage/emulated/0/Download/$uniqueFileName" // 이미지를 저장할 경로
-                                        val outputFile = File(imagePath)
+                                        var imagePath = "/storage/emulated/0/Pictures/$uniqueFileName" // 이미지를 저장할 경로
+                                        var outputFile = File(imagePath)
 
                                         try {
                                             val fileOutputStream = FileOutputStream(outputFile)
@@ -420,6 +703,7 @@ class MainActivity : AppCompatActivity() {
                                                     val imageView = binding.imageview
                                                     if (bitmap != null) {
                                                         imageView.setImageBitmap(bitmap)
+                                                        processImage(bitmap)
                                                     } else {
                                                         // 비트맵이 null인 경우에 대한 처리 (예: 디폴트 이미지 설정 등)
                                                     }
@@ -442,7 +726,7 @@ class MainActivity : AppCompatActivity() {
 
 
                         // 60세 이상 부모 여부
-                        if((i == 22) and (j == 5)) {
+                        if((i == 24) and (j == 5)) {
                             val boovalue = cell?.booleanCellValue
                             if(boovalue == true) {
                                 binding.parent.text = "[특이] 60세 이상 부모 O"
@@ -451,35 +735,55 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i >= 27) and (i<=32))and (j == 2)) {
+                        if((i == 25) and (j == 5)) {
+                            val boovalue = cell?.booleanCellValue
+                            if(boovalue == true) {
+                                binding.bae.text = "[특이] 배우자 모르게"
+                            } else {
+                                binding.bae.text = "[특이]"
+                            }
+                        }
+
+                        if(((i >= 29) and (i<=38))and (j == 2)) {
                             if(cellValue != "") {
                                 card = cellValue.replace("만", "").toDouble().toInt()
-                                recognizedText8.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
-                                binding.ccost.text = recognizedText8
+                                recognizedText.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
+                                binding.ccost.text = recognizedText
                             }
                         }
 
-                        if(((i>=5) and (i <= 14)) and (j==6)) {
+                        if(((i>=3) and (i <= 25)) and (j==6)) {
                             if(cellValue !="") {
-                                recognizedText.append(cellValue).append("\n")
-                                binding.bname.text = recognizedText
-                            }
-
-                        }
-
-                        if(((i>=25) and (i<=37)) and (j==6)) {
-                            if(cellValue !="") {
-                                recognizedText4.append(cellValue).append("\n")
-                                binding.pname.text = recognizedText4
-                            }
-                        }
-
-                        if(((i>=5) and (i <= 14)) and (j==7)) {
-                            if(cellValue !="") {
-                                recognizedText2.append(cellValue).append("\n")
-                                binding.bco.text = recognizedText2
-
                                 val cells = row?.getCell(j+1)
+                                val cellValues = getCellValue(cells)
+                                if(cellValue.contains("한국주택") && (cellValues.contains("담보") || cellValues.contains("신차"))) {
+                                    korea = "O"
+                                } else {
+                                    for(a in 3..22) {
+                                        val rowd = sheet.getRow(a)
+                                        val celld = rowd?.getCell(j)
+                                        val cellValued = getCellValue(celld)
+                                        val cellds = rowd?.getCell(j+1)
+                                        val cellValueds = getCellValue(cellds)
+                                        if((cellValue == cellValued) &&
+                                            ((cellValues.contains("신용") && (cellValueds.contains("담보") || cellValueds.contains("신차")))
+                                                    || (cellValueds.contains("신용") && (cellValues.contains("담보") || cellValues.contains("신차"))))) {
+                                            korea = "O"
+                                        }
+                                    }
+                                }
+                                recognizedText2.append(cellValue).append("\n")
+                                binding.bname.text = recognizedText2
+                            }
+
+                        }
+
+                        if(((i>=3) and (i <= 25)) and (j==7)) {
+                            if(cellValue !="") {
+                                recognizedText3.append(cellValue).append("\n")
+                                binding.bco.text = recognizedText3
+
+                                val cells = row?.getCell(j+2)
                                 val cellValues = getCellValue(cells)
                                 if(cellValue.contains("차량담보") || cellValue.contains("차담보")) {
                                     dmoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
@@ -495,53 +799,49 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=25) and (i<=37)) and (j==7)) {
+                        if(((i>=3) and (i<=25)) and (j==8)) {
                             if(cellValue !="") {
-                                recognizedText5.append(cellValue).append("\n")
-                                binding.pco.text = recognizedText5
+                                recognizedText4.append(cellValue).append("\n")
+                                binding.pco.text = recognizedText4
                                 try {
                                     val beforeDate = LocalDate.parse(cellValue, dateFormat)
+                                    recognizedText7.append(cellValue).append("\n")
                                     val plusMonth = beforeDate.plusMonths(6)
                                     val cells = row?.getCell(j+1)
                                     val cellValues = getCellValue(cells)
+                                        if(currentDate >= plusMonth) {
+                                            value += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                        } else {
+                                            bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                        }
 
-                                    if(currentDate >= plusMonth) {
-                                        value += cellValues.replace(",","").replace("만","").toDouble().toInt()
-                                    } else {
-                                        bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
-                                    }
+
                                 } catch(e:Exception) {
                                     val beforeDate = LocalDate.parse(cellValue, dateformat)
-                                    val plusMonth = beforeDate.plusMonths(6)
+                                    val newBeforeDate = LocalDate.parse(beforeDate.format(dateFormat),dateFormat)
+                                    recognizedText7.append(beforeDate.format(dateFormat)).append("\n")
+                                    val plusMonth = newBeforeDate.plusMonths(6)
                                     val cells = row?.getCell(j+1)
                                     val cellValues = getCellValue(cells)
 
-                                    if(currentDate >= plusMonth) {
-                                        value += cellValues.replace(",","").replace("만","").toDouble().toInt()
-                                    } else {
-                                        bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
-                                    }
+                                        if(currentDate >= plusMonth) {
+                                            value += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                        } else {
+                                            bValue += cellValues.replace(",","").replace("만","").toDouble().toInt()
+                                        }
                                 }
 
 
                             }
                         }
 
-                        if(((i>=5) and (i <= 14)) and (j==8)) {
+                        if(((i>=3) and (i <= 25)) and (j==9)) {
                             if(cellValue !="") {
-                                recognizedText3.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
-                                binding.bmon.text = recognizedText3
+                                recognizedText5.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("만원\n")
+                                binding.bmon.text = recognizedText5
                             }
                         }
 
-
-
-                        if(((i>=25) and (i<=37)) and (j==8)) {
-                            if(cellValue !="") {
-                                recognizedText6.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("\n")
-                                binding.pmon.text = recognizedText6
-                            }
-                        }
                     }
                 }
 
@@ -573,8 +873,6 @@ class MainActivity : AppCompatActivity() {
             showToast("텍스트가 클립보드에 복사되었습니다.")
         }
 
-        val pickPhotoIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(pickPhotoIntent, REQUEST_PICK_IMAGE)
     }
 
     private fun getCellValue(cell: Cell?): String {
@@ -605,11 +903,15 @@ class MainActivity : AppCompatActivity() {
         val name = binding.name.text.toString()
         val tip1 = binding.baby.text.toString()
         val tip2 = binding.parent.text.toString()
-        val tip3 = binding.money.text.toString()
-        val longT = binding.car.text.toString()
-        val earn = binding.carb.text.toString()
+        val tip3 = binding.bae.text.toString()
+        var longT = binding.before.text.toString()
+        if(!binding.before.text.contains("특이")) {
+           longT = "[특이]"
+        }
+
+        val bae2 = binding.bae2.text.toString()
         val ymoney = binding.ymoney.text.toString()
-        val mmoney = binding.mmoney.text.toString()
+        val testing = binding.testing.text.toString()
         val test1 = binding.test1.text
         val test2 = binding.test2.text
         val card = binding.card.text
@@ -617,7 +919,7 @@ class MainActivity : AppCompatActivity() {
         val dat = binding.dat.text
         val je = binding.je.text
 
-        return "$name\n\n$card\n$dat\n$je\n\n$co\n$tip1\n$tip2\n[특이]\n[특이]\n[특이]\n\n$test1\n$test2\n\n[진단]\n[진단]"
+        return "$name\n\n$card\n$dat\n$je\n\n$co\n$tip1\n$tip2\n$tip3\n$bae2\n$longT\n\n$test1\n$test2\n\n$testing\n[진단]"
     }
 
     private fun showToast(message: String) {
