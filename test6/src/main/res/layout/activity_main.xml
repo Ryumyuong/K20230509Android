@@ -172,6 +172,14 @@
             android:layout_marginBottom="10dp"
             />
         <TextView
+            android:id="@+id/some"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="10dp"
+            />
+        <TextView
             android:id="@+id/testing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -189,6 +197,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:ellipsize="end"
+            android:layout_marginTop="10dp"
             android:text="[대출과목]"
             android:layout_marginBottom="10dp"
             />
@@ -216,7 +225,7 @@
                 android:id="@+id/pco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:ellipsize="end"
                 android:layout_marginRight="10dp"
                 />
@@ -224,7 +233,7 @@
                 android:id="@+id/bmon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:ellipsize="end"
                 />
         </LinearLayout>
@@ -245,7 +254,7 @@
                 android:id="@+id/ccost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:ellipsize="end"
                 android:layout_marginRight="10dp"
                 />
@@ -305,10 +314,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="재산시세"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="주택시세         : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/mhouse"
                 android:layout_width="200dp"
@@ -323,10 +337,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="주택담보"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="주택담보         : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/bhouse"
                 android:layout_width="200dp"
@@ -341,10 +360,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="차량시세 "/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="차량시세         : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/mcar"
                 android:layout_width="200dp"
@@ -359,10 +383,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="차량담보"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="차량담보         : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/bcar"
                 android:layout_width="200dp"
@@ -377,10 +406,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="기타담보"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="기타담보         : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/bill"
                 android:layout_width="200dp"
@@ -395,10 +429,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="연봉"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="연봉                : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/moneyy"
                 android:layout_width="200dp"
@@ -413,10 +452,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="월급"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="월급                 : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/moneym"
                 android:layout_width="200dp"
@@ -431,10 +475,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="총 채무"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="총 채무            : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/total"
                 android:layout_width="200dp"
@@ -449,10 +498,15 @@
             android:paddingLeft="20dp"
             >
             <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="6개월 내 채무"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="6개월 내 채무 : "/>
+                android:text=":"/>
             <EditText
                 android:id="@+id/btotal"
                 android:layout_width="200dp"
