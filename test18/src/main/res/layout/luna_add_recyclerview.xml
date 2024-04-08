@@ -9,29 +9,47 @@
     android:layout_gravity=""
     android:background="@drawable/actions"
     >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="보유루나 "
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#FD9F17"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textColor="#7D7D7D"
+            android:textSize="10sp"/>
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,12 +64,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/actions"
                 android:layout_marginRight="10dp"/>
-            <TextView
+
+            <ImageView
                 android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#008000"
-                android:text="루나추가"/>
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/lunaadd" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,12 +83,12 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/actions"
                 android:layout_marginRight="10dp"/>
-            <TextView
+            <ImageView
                 android:id="@+id/min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ff0000"
-                android:text="루나삭제"/>
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/lunadel"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -22,20 +22,18 @@ class LunaAdd : AppCompatActivity() {
         binding = ActivityLunaAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.Toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.Toolbar.title = "루나 추가"
 
         val networkService = (applicationContext as MyApplication).networkService
 
         var pageNumber = 1
         var pageSize = 10
 
-        binding.before.isInvisible = true
 
             binding.before.setOnClickListener {
-                pageNumber = pageNumber.minus(1)
-                if(pageNumber!=1) {
+                if(!binding.before.background.equals(R.drawable.prev)) {
+                    pageNumber = pageNumber.minus(1)
+                    binding.next.setImageResource(R.drawable.nexton)
                     val userCall = networkService.userList(pageNumber, pageSize)
 
                     userCall.enqueue(object : Callback<UserList> {
@@ -45,7 +43,6 @@ class LunaAdd : AppCompatActivity() {
                             binding.LunaAddRecyclerView.adapter = adapter
                             binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
                             binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
-                            binding.next.isInvisible = false
                             adapter.notifyDataSetChanged()
                         }
 
@@ -54,57 +51,43 @@ class LunaAdd : AppCompatActivity() {
                         }
 
                     })
-                } else {
-                    val userCall = networkService.userList(pageNumber, pageSize)
-
-                    userCall.enqueue(object : Callback<UserList> {
-                        override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
-                            var item = response.body()?.items
-                            adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
-                            binding.LunaAddRecyclerView.adapter = adapter
-                            binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
-                            binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
-                            binding.next.isInvisible = false
-                            binding.before.isInvisible = true
-                            adapter.notifyDataSetChanged()
-                        }
-
-                        override fun onFailure(call: Call<UserList>, t: Throwable) {
-                            call.cancel()
-                        }
-
-                    })
-
+                    if(pageNumber==1) {
+                        binding.before.setImageResource(R.drawable.prev)
+                    }
                 }
+
 
 
             }
 
         binding.next.setOnClickListener {
-            binding.before.isInvisible = false
-            pageNumber = pageNumber.plus(1)
+            if(!binding.next.background.equals(R.drawable.next)) {
+                binding.before.setImageResource(R.drawable.prevon)
+                pageNumber = pageNumber.plus(1)
 
-            val userCall = networkService.userList(pageNumber, pageSize)
+                val userCall = networkService.userList(pageNumber, pageSize)
 
-            userCall.enqueue(object : Callback<UserList> {
-                override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
-                    var item = response.body()?.items
-                    adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
-                    binding.LunaAddRecyclerView.adapter = adapter
-                    binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
-                    binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
-                    if(item?.count()!! <10) {
-                        binding.next.isInvisible = true
+                userCall.enqueue(object : Callback<UserList> {
+                    override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
+                        var item = response.body()?.items
+                        adapter = MyLunaAddAdapter(this@LunaAdd, item,networkService)
+                        binding.LunaAddRecyclerView.adapter = adapter
+                        binding.LunaAddRecyclerView.layoutManager = LinearLayoutManager(this@LunaAdd)
+                        binding.LunaAddRecyclerView.addItemDecoration(DividerItemDecoration(this@LunaAdd, LinearLayoutManager.VERTICAL))
+                        if(item?.count()!! <10) {
+                            binding.next.setImageResource(R.drawable.next)
+                        }
+                        adapter.notifyDataSetChanged()
+
                     }
-                    adapter.notifyDataSetChanged()
 
-                }
+                    override fun onFailure(call: Call<UserList>, t: Throwable) {
+                        call.cancel()
+                    }
 
-                override fun onFailure(call: Call<UserList>, t: Throwable) {
-                    call.cancel()
-                }
+                })
+            }
 
-            })
         }
 
         val userCall = networkService.userList(pageNumber, pageSize)

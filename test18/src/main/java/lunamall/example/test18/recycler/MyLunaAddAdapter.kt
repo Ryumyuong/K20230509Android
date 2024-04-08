@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -18,8 +19,8 @@ import retrofit2.Response
 
 
 class MyLunaAddViewHolder(val binding: LunaAddRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-    val button1: MaterialTextView = itemView.findViewById(R.id.add)
-    val button2: MaterialTextView = itemView.findViewById(R.id.min)
+    val button1: ImageView = itemView.findViewById(R.id.add)
+    val button2: ImageView = itemView.findViewById(R.id.min)
 }
 
 class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -31,9 +32,9 @@ class MyLunaAddAdapter(val context: Context, datas: MutableList<User>?, val netw
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyLunaAddViewHolder).binding
         val user = userData?.get(position)
-        binding.name.text = "이름 : " + user?.userId
+        binding.name.text = user?.userId
         binding.phone.text = user?.phone
-        binding.price.text = user?.money.toString() + " 루나"
+        binding.price.text = user?.money.toString() + "P"
 
         holder.button1.setOnClickListener {
             val money = binding.addLuna.text.toString().toIntOrNull()//입력값

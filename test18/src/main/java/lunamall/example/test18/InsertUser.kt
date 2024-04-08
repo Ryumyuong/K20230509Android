@@ -23,9 +23,7 @@ class InsertUser : AppCompatActivity() {
             binding = ActivityInsertUserBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
-            binding.toolbar.title = "회원 등록"
 
         binding.insertProduct.setOnClickListener {
             val id = binding.id.text.toString()

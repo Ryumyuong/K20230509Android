@@ -23,11 +23,10 @@ class MyUserAdapter(val context: Context, datas: MutableList<User>?): RecyclerVi
         val binding = (holder as MyUserViewHolder).binding
         val user = userData?.get(position)
         binding.vip.text = user?.vip
-        binding.userId.text = "이름 : " + user?.userId
-        binding.money.text = "루나 포인트 : " + user?.money.toString()
+        binding.userId.text = user?.userId
+        binding.money.text = user?.money.toString() + "P"
         binding.phone.text = user?.phone
         binding.address.text = user?.address
-        binding.money.paintFlags = binding.money.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         binding.money.setOnClickListener {
             val intent = Intent(context, LunaActivity::class.java)
