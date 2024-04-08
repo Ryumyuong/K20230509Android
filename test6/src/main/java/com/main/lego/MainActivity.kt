@@ -1191,7 +1191,7 @@ class MainActivity : AppCompatActivity() {
                                 if(cellValue.contains("차량담보") || cellValue.contains("차담보")) {
                                     dmoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
                                     binding.bcar.setText(dmoney.toString())
-                                } else if(cellValue.contains("주택담보")){
+                                } else if(cellValue.contains("주택담보") || cellValue.contains("집담보")){
                                     hmoney += cellValues.replace(",","").replace("만","").toDouble().toInt()
                                     binding.bhouse.setText(hmoney.toString())
                                 } else if(cellValue.contains("신차")) {
