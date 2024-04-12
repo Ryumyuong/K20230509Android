@@ -25,6 +25,10 @@ class InsertUser : AppCompatActivity() {
 
             supportActionBar?.setDisplayShowTitleEnabled(false)
 
+            var userId = ""
+            val preferences = getSharedPreferences("login", MODE_PRIVATE)
+            val username = preferences.getString("username", userId)
+
         binding.insertProduct.setOnClickListener {
             val id = binding.id.text.toString()
             val password = binding.password.text.toString()
@@ -74,9 +78,6 @@ class InsertUser : AppCompatActivity() {
             })
         }
 
-
-
-
         binding.vip.setOnClickListener{
             val items = arrayOf("일반 회원", "VIP", "VVIP")
 
@@ -90,6 +91,55 @@ class InsertUser : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
+
+            binding.home.setOnClickListener{
+                if(username.equals("")) {
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                }else {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            binding.cart.setOnClickListener {
+                if(username.equals("")) {
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
+                    val intent = Intent(this, InsertProduct::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, CartActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            binding.list.setOnClickListener {
+                if(username.equals("")) {
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                    val intent = Intent(this, UserListActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, LunaActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            binding.profile.setOnClickListener {
+                if(username.equals("")) {
+                    val intent = Intent(this, Login::class.java)
+                    startActivity(intent)
+                }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                    val intent = Intent(this, LoginAdmin::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, LoginDetail::class.java)
+                    startActivity(intent)
+                }
+            }
 
     }
 }

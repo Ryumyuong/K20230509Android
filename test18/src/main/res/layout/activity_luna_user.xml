@@ -5,156 +5,144 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LunaUserActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFAC07"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="0dp" />
+        android:text="루나전환"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:padding="50dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="30dp"
+            android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="도도포인트"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="루나포인트"/>
+
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="30dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="도도포인트 : "/>
-                <EditText
-                    android:id="@+id/dodo"
-                    android:padding="5dp"
-                    android:background="@drawable/actions"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:layout_marginRight="20dp"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:text="=&gt;"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="루나포인트 : "/>
-                <TextView
-                    android:id="@+id/luna"
-                    android:padding="5dp"
-                    android:background="@drawable/actions"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="루나포인트 : "/>
-                <EditText
-                    android:id="@+id/Luna"
-                    android:padding="5dp"
-                    android:background="@drawable/actions"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:text="=&gt;"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginRight="20dp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="도도포인트 : "/>
-                <TextView
-                    android:id="@+id/DoDo"
-                    android:padding="5dp"
-                    android:background="@drawable/actions"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="30dp">
+        <EditText
+            android:id="@+id/dodo"
+            android:padding="5dp"
+            android:background="@drawable/actions"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/right"/>
+        <TextView
+            android:id="@+id/luna"
+            android:padding="5dp"
+            android:background="@drawable/actions"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <Button
+
+    <ImageView
         android:id="@+id/addLuna"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#4CAF50"
-        android:text="계산 하기" />
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/calcul" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="30dp"
-        android:layout_marginTop="60dp">
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_marginTop="100dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_margin="25dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="전환할 루나 : "/>
+                android:text="전환할 루나"/>
             <EditText
                 android:id="@+id/lunaAdd"
                 android:padding="5dp"
                 android:background="@drawable/actions"
-                android:layout_width="150dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/change"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/change"/>
+
+
+    <ImageView
+        android:id="@+id/bottommenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#00BCD4"
-        android:text="루나 전환 신청" />
+        android:layout_height="68dp"
+        android:layout_marginTop="90dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/box" />
 
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="-60dp"
+        android:background="@drawable/home" />
 
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/cart" />
+
+    <ImageView
+        android:id="@+id/list"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/listlight" />
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/profile" />
 </LinearLayout>

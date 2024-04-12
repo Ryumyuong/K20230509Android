@@ -6,97 +6,97 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="lunamall.example.test18.InsertProduct">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFAC07"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="0dp" />
+        android:text="물품 등록"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="50dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="50dp"
-        android:layout_marginTop="100dp"
         android:gravity="center">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="카테고리 : "/>
+                android:text="카테고리"/>
         <TextView
             android:id="@+id/category"
             android:padding="5dp"
-            android:layout_width="150dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:text="카테고리 선택하기"
             android:background="@drawable/actions"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="제품명 : "/>
+                android:text="제품명"/>
             <EditText
                 android:id="@+id/name"
                 android:padding="5dp"
                 android:background="@drawable/actions"
-                android:layout_width="150dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="가격 : "/>
+                android:text="가격"/>
             <EditText
                 android:id="@+id/price"
                 android:padding="5dp"
                 android:background="@drawable/actions"
-                android:layout_width="150dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="참고 링크 : "/>
+                android:text="참고 링크"/>
             <EditText
                 android:id="@+id/description"
                 android:padding="5dp"
                 android:background="@drawable/actions"
-                android:layout_width="150dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginBottom="20dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="이미지 : "/>
+                android:text="이미지"/>
             <TextView
                 android:id="@+id/image"
                 android:padding="5dp"
@@ -109,18 +109,61 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/file"
+                android:background="@drawable/findimage"
                 />
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/insertProduct"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/inproductbtn"/>
+
+    <ImageView
+        android:id="@+id/bottommenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="#4CAF50"
-        android:text="물품 등록" />
+        android:layout_height="68dp"
+        android:layout_marginTop="125dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/box" />
+
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="-60dp"
+        android:background="@drawable/home" />
+
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/inproductlight" />
+
+    <ImageView
+        android:id="@+id/list"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/memberlist" />
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/profile" />
 
 
 </LinearLayout>

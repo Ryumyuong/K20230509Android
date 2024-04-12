@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,8 @@ import retrofit2.Response
 
 
 class UserListViewHolder(val binding: UserListRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-    val update: TextView = binding.update
-    val delete: TextView = binding.delete
+    val update: ImageView = binding.update
+    val delete: ImageView = binding.delete
 }
 
 class UserListAdapter(val context: Context, datas: MutableList<User>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -36,7 +37,7 @@ class UserListAdapter(val context: Context, datas: MutableList<User>?, val netwo
         val user = userList?.get(position)
         binding.vip.text = user?.vip.toString()
         binding.userId.text = user?.userId.toString()
-        binding.money.text = user?.money.toString() + " 루나"
+        binding.money.text = user?.money.toString() + "P"
         binding.phone.text = user?.phone.toString()
         binding.address.text = user?.address.toString()
 

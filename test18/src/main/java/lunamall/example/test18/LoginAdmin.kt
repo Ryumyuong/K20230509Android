@@ -77,7 +77,6 @@ class LoginAdmin : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         binding.home.setOnClickListener{
             if(username.equals("")) {
                 val intent = Intent(this, Login::class.java)

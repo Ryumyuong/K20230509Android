@@ -21,13 +21,10 @@ class LunaUserActivity : AppCompatActivity() {
         binding = ActivityLunaUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "루나 전환"
 
         binding.luna.text = intent.getIntExtra("luna",0).toString()
 
-        binding.DoDo.text = intent.getIntExtra("dodo",0).toString()
 
         var userId = ""
         val preferences = getSharedPreferences("login", MODE_PRIVATE)
@@ -35,15 +32,12 @@ class LunaUserActivity : AppCompatActivity() {
 
         binding.addLuna.setOnClickListener {
             val dodo = binding.dodo.text.toString().toIntOrNull()
-            val runa = binding.Luna.text.toString().toIntOrNull()
-            if((dodo == null) and (runa == null)) {
+            if(dodo == null) {
                 Toast.makeText(this,"계산하실 포인트를 입력하세요",Toast.LENGTH_LONG).show()
             }else {
                 val luna = (dodo?.times(4) ?: 0) /1000
-                val dod =  runa?.times(250) ?: 0
                 val intent = Intent(this, LunaUserActivity::class.java)
                 intent.putExtra("luna",luna)
-                intent.putExtra("dodo",dod)
                 startActivity(intent)
             }
 
@@ -81,6 +75,55 @@ class LunaUserActivity : AppCompatActivity() {
                     })
             } else {
                 Toast.makeText(this,"전환 신청할 루나를 입력하세요",Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.home.setOnClickListener{
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.cart.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경") {
+                val intent = Intent(this, InsertProduct::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.list.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, UserListActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LunaActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.profile.setOnClickListener {
+            if(username.equals("")) {
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+            }else if(username=="admin" || username =="류지희" || username == "고혜영" || username == "정진경"){
+                val intent = Intent(this, LoginAdmin::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LoginDetail::class.java)
+                startActivity(intent)
             }
         }
 

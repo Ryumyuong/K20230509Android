@@ -6,65 +6,104 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UserListActivity">
-    <androidx.appcompat.widget.Toolbar
+    <TextView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFAC07"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteX="0dp" />
+        android:text="회원 목록"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="30dp"
+        android:gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/btn"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_margin="10dp"/>
+        android:layout_above="@id/btn"
+        android:layout_below="@id/toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
     <LinearLayout
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@+id/bottommenu"
+        android:layout_above="@id/bottommenu"
         android:padding="20dp">
 
-        <Button
+        <ImageView
             android:id="@+id/before"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#00BCD4"
-            android:text="before" />
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:background="@drawable/prev" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <Button
+        <ImageView
             android:id="@+id/next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#2196F3"
-            android:text="next" />
-    </LinearLayout>
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:background="@drawable/nexton"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/bottommenu"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="#FF9800"
-        app:itemIconTint="#000000"
-        app:labelVisibilityMode="unlabeled"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:layout_height="68dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/box"
+            />
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="-370dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inproduct" />
+
+        <ImageView
+            android:id="@+id/list"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/memberlistlight" />
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/profile" />
+    </LinearLayout>
 
 
 </RelativeLayout>

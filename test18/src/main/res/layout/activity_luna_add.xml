@@ -9,11 +9,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="루나추가"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="61dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/LunaAddRecyclerView"
@@ -79,7 +81,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="130dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/cart"
+        android:background="@drawable/inproduct"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/bottommenu" />
 
@@ -90,7 +92,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="230dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/list"
+        android:background="@drawable/memberlist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
