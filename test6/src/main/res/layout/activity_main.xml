@@ -19,6 +19,14 @@
         android:background="@drawable/head"
         android:layout_height="150dp"
         android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/buttonSelectFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#4CAF50"
+            android:text="파일 선택하기" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,9 +41,22 @@
             android:ellipsize="end"
             android:layout_marginBottom="10dp"
             />
-
         <TextView
-            android:id="@+id/group"
+            android:id="@+id/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/dat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -43,6 +64,13 @@
             android:layout_marginBottom="10dp"
             />
 
+        <TextView
+            android:id="@+id/co"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
         <TextView
             android:id="@+id/baby"
             android:layout_width="wrap_content"
@@ -53,6 +81,13 @@
 
         <TextView
             android:id="@+id/parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -73,6 +108,55 @@
             android:textSize="15sp"
             android:ellipsize="end"
             />
+        <TextView
+            android:id="@+id/before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/half"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/test1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="10dp"
+            />
+        <TextView
+            android:id="@+id/testing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="50dp"
+            />
+
+        <TextView
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:layout_marginBottom="10dp"
+            />
 
         <TextView
             android:id="@+id/local"
@@ -87,19 +171,18 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:ellipsize="end"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             />
-
         <TextView
-            android:id="@+id/money"
+            android:id="@+id/moneyn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:ellipsize="end"
-
+            android:layout_marginBottom="10dp"
             />
         <TextView
-            android:id="@+id/moneyn"
+            android:id="@+id/mmoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -115,39 +198,6 @@
             />
         <TextView
             android:id="@+id/carb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/ymoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/mmoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/before"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -173,14 +223,6 @@
             />
         <TextView
             android:id="@+id/some"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/testing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -260,38 +302,8 @@
                 />
         </LinearLayout>
 
-
-
         <TextView
-            android:id="@+id/test1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/test2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/dat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/je"
+            android:id="@+id/dda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -299,7 +311,14 @@
             />
 
         <TextView
-            android:id="@+id/co"
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/checking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -522,14 +541,6 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="#FF5722"
             android:text="계산하기" />
-
-    <Button
-        android:id="@+id/buttonSelectFile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#4CAF50"
-        android:text="파일 선택하기" />
 
     <Button
         android:id="@+id/copy"
