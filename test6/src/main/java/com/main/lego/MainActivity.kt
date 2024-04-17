@@ -559,33 +559,13 @@ class MainActivity : AppCompatActivity() {
         val half = binding.bmon.text.split("\n")
 
         for(a in 0.. half.size-1) {
-            if(half[a].replace("만","").toInt() > (value + bValue)/2) {
-                binding.half.text = "[특이] 과반수"
+            if(half[a]!="") {
+                if(half[a].replace("만","").toInt() > (value + bValue)/2) {
+                    binding.half.text = "[특이] 과반수"
+                }
             }
+
         }
-
-        val aacost = binding.test2.text.split(" ")
-        var jangcos = aacost[1].replace("만","").toInt()
-
-        if(binding.half.text.contains("과반수")) {
-
-            if(jangcos.mod(10) < 5) {
-                jangcos -= jangcos.mod(10) + 5
-                binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
-            } else {
-                jangcos -= jangcos.mod(10) + 10
-                binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
-            }
-        } else {
-            if(jangcos.mod(10) < 5) {
-                jangcos -= jangcos.mod(10)
-                binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
-            } else {
-                jangcos -= jangcos.mod(10) + 5
-                binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
-            }
-        }
-
 
         val dam =
             binding.bhouse.text.toString().toDouble().toInt() + binding.bcar.text.toString()
@@ -614,6 +594,29 @@ class MainActivity : AppCompatActivity() {
             binding.test2.text = "[장기] ${dat/96}만 8년납"
         } else {
             binding.test2.text = "[장기] ${acost}만 ${year}년납"
+        }
+
+        val aacost = binding.test2.text.split(" ")
+        var jangcos = aacost[1].replace("만","").toInt()
+
+        if(binding.half.text.contains("과반수")) {
+
+                if(jangcos.mod(10) < 5) {
+                    jangcos -= jangcos.mod(10) - 5
+                    binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
+                } else {
+                    jangcos -= jangcos.mod(10) - 10
+                    binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
+                }
+        } else {
+                if(jangcos.mod(10) < 5) {
+                    jangcos -= jangcos.mod(10)
+                    binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
+                } else {
+                    jangcos -= jangcos.mod(10) - 5
+                    binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
+                }
+
         }
 
 
@@ -871,7 +874,7 @@ class MainActivity : AppCompatActivity() {
         }
         val dan = binding.test1.text.toString().replace("[단기]","").replace("만 3~5년납","").trim()
         try {
-            if((dan.toInt() > 0) and (dan.toInt() < acost)) {
+            if((dan.toInt() > 0) and (dan.toInt() < jangcos)) {
                 binding.testing.text = "[진단] 개인회생"
             }
         }catch (e:Exception) {
@@ -933,20 +936,22 @@ class MainActivity : AppCompatActivity() {
                 val recognizedText = StringBuilder()
                 val recognizedText2 = StringBuilder()
                 val recognizedText3 = StringBuilder()
-                val recognizedText4 = StringBuilder()
-                val recognizedText5 = StringBuilder()
                 val recognizedText6 = StringBuilder()
                 val recognizedText8 = StringBuilder()
                 val recognizedText9 = StringBuilder()
+                val recognizedText10 = StringBuilder()
+                val recognizedText11 = StringBuilder()
+                val recognizedText12 = StringBuilder()
+
 
 
                 for(j in 1..9) {
-                    for (i in 1..40) {
+                    for (i in 1..81) {
                         val row = sheet.getRow(i)
                         val cell = row?.getCell(j)
                         val cellValue = getCellValue(cell)
 
-                        if(((i >= 34) and (i<=43))and (j == 1)) {
+                        if(((i >= 38) and (i<=47))and (j == 1)) {
                             if(cellValue != "") {
                                 recognizedText6.append(cellValue).append("\n")
                                 binding.test.text = recognizedText6
@@ -1143,7 +1148,7 @@ class MainActivity : AppCompatActivity() {
 
                         }
 
-                        if((i == 34) and (j == 5)) {
+                        if((i == 38) and (j == 5)) {
                             if (cell != null) {
                                 val drawing = (cell.sheet as XSSFSheet).createDrawingPatriarch()
                                 val picture = drawing.shapes.firstOrNull { it is XSSFPicture } as XSSFPicture?
@@ -1194,7 +1199,7 @@ class MainActivity : AppCompatActivity() {
 
 
                         // 60세 이상 부모 여부
-                        if((i == 29) and (j == 4)) {
+                        if((i == 79) and (j == 2)) {
                             val boovalue = cell?.booleanCellValue
                             if(boovalue == true) {
                                 binding.parent.text = "[특이] 60세 이상 부모 O"
@@ -1231,7 +1236,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if((i == 30) and (j == 4)) {
+                        if((i == 80) and (j == 2)) {
                             val boovalue = cell?.booleanCellValue
                             if(boovalue == true) {
                                 binding.bae.text = "[특이] 배우자 모르게"
@@ -1239,7 +1244,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i >= 34) and (i<=43))and (j == 2)) {
+                        if(((i >= 38) and (i<=47))and (j == 2)) {
                             if(cellValue != "") {
                                 card += cellValue.replace("만", "").toDouble().toInt()
                                 recognizedText.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("만\n")
@@ -1247,7 +1252,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i <= 26)) and (j==5)) {
+                        if(((i>=3) and (i <= 28)) and (j==5)) {
                             if(cellValue !="") {
                                 val cells = row?.getCell(j+1)
                                 val cellValues = getCellValue(cells)
@@ -1255,7 +1260,7 @@ class MainActivity : AppCompatActivity() {
                                     korea = "O"
 
                                 } else {
-                                    for(a in 3..26) {
+                                    for(a in 3..28) {
                                         val rowd = sheet.getRow(a)
                                         val celld = rowd?.getCell(j)
                                         val cellValued = getCellValue(celld)
@@ -1274,14 +1279,35 @@ class MainActivity : AppCompatActivity() {
 
                         }
 
-                        if((i>=28) and (i <= 30) and (j==5)) {
+                        if((i>=33) and (i <= 35) and (j==5)) {
                             if(cellValue != "") {
                                 recognizedText8.append(cellValue).append("\n")
-                                binding.dda.text = "따로변제\n$recognizedText8"
+                                binding.dda1.text = "$recognizedText8"
                             }
                         }
 
-                        if(((i>=3) and (i <= 26)) and (j==6)) {
+                        if((i>=33) and (i <= 35) and (j==6)) {
+                            if(cellValue != "") {
+                                recognizedText10.append(cellValue).append("\n")
+                                binding.dda2.text = "$recognizedText10"
+                            }
+                        }
+
+                        if((i>=33) and (i <= 35) and (j==7)) {
+                            if(cellValue != "") {
+                                recognizedText11.append(cellValue).append("\n")
+                                binding.dda3.text = "${recognizedText11}일"
+                            }
+                        }
+
+                        if((i>=33) and (i <= 35) and (j==8)) {
+                            if(cellValue != "") {
+                                recognizedText12.append(cellValue).append("\n")
+                                binding.dda4.text = "${recognizedText12}"
+                            }
+                        }
+
+                        if(((i>=3) and (i <= 28)) and (j==6)) {
                             if(cellValue !="") {
                                 recognizedText3.append(cellValue).append("\n")
                                 binding.bco.text = recognizedText3
@@ -1302,7 +1328,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i<=26)) and (j==7)) {
+                        if(((i>=3) and (i<=28)) and (j==7)) {
                             if(cellValue !="") {
                                 val cellValued = cellValue.replace("-",".").replace("/",".")
                                 recognizedText4.append(cellValued).append("일\n")
@@ -1371,7 +1397,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i <= 26)) and (j==8)) {
+                        if(((i>=3) and (i <= 28)) and (j==8)) {
                             if(cellValue !="") {
                                 recognizedText5.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("만\n")
                                 binding.bmon.text = recognizedText5
@@ -1379,7 +1405,7 @@ class MainActivity : AppCompatActivity() {
                                 val cells = row?.getCell(j-3)
                                 val cellValues = getCellValue(cells)
 
-                                for(a in 3..26) {
+                                for(a in 3..28) {
                                     if(i != a) {
                                         val rowd = sheet.getRow(a)
                                         val cell1 = rowd?.getCell(j-3)
@@ -1688,14 +1714,7 @@ class MainActivity : AppCompatActivity() {
                 } else if (binding.check.text == "[연체기록] 6개월 이상") {
                     binding.testing.text = "[진단] 단순워크"
                 }
-                val dan = binding.test1.text.toString().replace("[단기]","").replace("만 3~5년납","").trim()
-                try {
-                    if((dan.toInt() > 0) and (dan.toInt() < acost)) {
-                        binding.testing.text = "[진단] 개인회생"
-                    }
-                }catch (e:Exception) {
 
-                }
                 binding.money.text = "[재산] ${cos-dam}"
 
                 if(binding.before.text == "[특이] 5년내 면책이력") {
@@ -1707,20 +1726,32 @@ class MainActivity : AppCompatActivity() {
                 if(binding.half.text.contains("과반수")) {
 
                     if(jangcos.mod(10) < 5) {
-                        jangcos -= jangcos.mod(10) + 5
+                        jangcos -= jangcos.mod(10) - 5
                         binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
                     } else {
-                        jangcos -= jangcos.mod(10) + 10
+                        jangcos -= jangcos.mod(10) - 10
                         binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
                     }
                 } else {
+
                     if(jangcos.mod(10) < 5) {
                         jangcos -= jangcos.mod(10)
                         binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
                     } else {
-                        jangcos -= jangcos.mod(10) + 5
+
+                        jangcos -= jangcos.mod(10) - 5
                         binding.test2.text = "[장기] ${jangcos}만 ${aacost[2]}"
                     }
+
+                }
+
+                val dan = binding.test1.text.toString().replace("[단기]","").replace("만 3~5년납","").trim()
+                try {
+                    if((dan.toInt() > 0) and (dan.toInt() < jangcos)) {
+                        binding.testing.text = "[진단] 개인회생"
+                    }
+                }catch (e:Exception) {
+
                 }
 
                 binding.total.setText(cost.toString())
