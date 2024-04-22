@@ -1,11 +1,19 @@
 package lunamall.example.test18
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
@@ -29,6 +37,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private val ALARM_PERMISSION_REQUEST_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        checkAlarmPermission()
 
         val tabLayout = binding.Tabs
 
@@ -173,6 +184,58 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun checkAlarmPermission() {
+        val notificationManager = NotificationManagerCompat.from(this)
+        if (!notificationManager.areNotificationsEnabled()) {
+            Log.d("lmj","알람을 허용하세요")
+            showAlarmPermissionDialog()
+        } else {
+            Log.d("lmj","알람이 허용되었습니다.")
+        }
+    }
+
+    private fun showAlarmPermissionDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("알람 권한 요청")
+        dialogBuilder.setMessage("알람을 설정하여 관련 소식을 받아보세요.")
+        dialogBuilder.setPositiveButton("동의") { dialog, which ->
+            // 사용자가 동의를 클릭하면 알람 권한을 요청합니다.
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf("com.android.alarm.permission.SET_ALARM"),
+                ALARM_PERMISSION_REQUEST_CODE
+            )
+            val intent = Intent().apply {
+                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.fromParts("package", packageName, null)
+            }
+
+            startActivity(intent)
+
+            dialog.dismiss()
+        }
+        dialogBuilder.setNegativeButton("거부") { dialog, which ->
+            dialog.dismiss()
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d("lmj", "Request code: ${PackageManager.PERMISSION_GRANTED}")
+        if (requestCode == ALARM_PERMISSION_REQUEST_CODE) {
+            val notificationManager = NotificationManagerCompat.from(this)
+            if (notificationManager.areNotificationsEnabled()) {
+                Toast.makeText(this, "알람 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 알람 권한이 거부됨
+                Log.d("lmj", "Requesting alarm permission3")
+                Toast.makeText(this, "알람 권한이 거부되었습니다.${grantResults[0]}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     class PagerAdapter(activity: MainActivity): FragmentStateAdapter(activity){

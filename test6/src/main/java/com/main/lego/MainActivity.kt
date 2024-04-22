@@ -76,6 +76,62 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        binding.buttonclear.setOnClickListener {
+            recognizedText4.setLength(0)
+            recognizedText5.setLength(0)
+
+
+            binding.name.text = ""
+            binding.card.text = ""
+            binding.dat.text = ""
+            binding.money.text = ""
+            binding.co.text = ""
+            binding.baby.text = ""
+            binding.parent.text = ""
+            binding.use.text = ""
+            binding.bae.text = ""
+            binding.bae2.text = ""
+            binding.before.text = ""
+            binding.half.text = ""
+            binding.test1.text = ""
+            binding.test2.text = ""
+            binding.testing.text = ""
+            binding.group.text = ""
+            binding.local.text = ""
+            binding.work.text = ""
+            binding.moneyn.text = ""
+            binding.mmoney.text = ""
+            binding.car.text = ""
+            binding.carb.text = ""
+            binding.check.text = ""
+            binding.mun.text = ""
+            binding.unable.text = ""
+            binding.some.text = ""
+            binding.bname.text = ""
+            binding.bco.text = ""
+            binding.pco.text = ""
+            binding.bmon.text = ""
+            binding.test.text = ""
+            binding.ccost.text = ""
+            binding.dda1.text = ""
+            binding.dda2.text = ""
+            binding.dda3.text = ""
+            binding.dda4.text = ""
+            binding.more.text = ""
+            binding.imageview.setImageResource(0)
+            binding.checking.text = ""
+
+            binding.mhouse.setText("0")
+            binding.bhouse.setText("0")
+            binding.mcar.setText("0")
+            binding.bcar.setText("0")
+            binding.bill.setText("0")
+            binding.moneyy.setText("0")
+            binding.moneym.setText("0")
+            binding.total.setText("0")
+            binding.btotal.setText("0")
+        }
+
         binding.cost.setOnClickListener {
             try {
                     binding.money.text = "[재산] ${binding.mhouse.text}"
@@ -85,6 +141,8 @@ class MainActivity : AppCompatActivity() {
                         .toDouble().toInt() + binding.bill.text.toString().toDouble().toInt()
                 val cos =
                     binding.mhouse.text.toString().toDouble().toInt()
+
+                val hdam = binding.bhouse.text.toString().toDouble().toInt()
                 val dat = cost - dam
                 binding.dat.text = "[대상] $dat"
                 if (binding.bhouse.text.toString() != "") {
@@ -182,17 +240,17 @@ class MainActivity : AppCompatActivity() {
                     }
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 13200 > dat) {
+                            if ((cos - hdam) - 13200 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 16500 > dat) {
+                            if ((cos - hdam) - 16500 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 19800 > dat) {
+                            if ((cos - hdam) - 19800 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -203,17 +261,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 11600 > dat) {
+                            if ((cos - hdam) - 11600 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 14500 > dat) {
+                            if ((cos - hdam) - 14500 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 17400 > dat) {
+                            if ((cos - hdam) - 17400 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -223,34 +281,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6800 > dat) {
+                            if ((cos - hdam) - 6800 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500 > dat) {
+                            if ((cos - hdam) - 8500 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 10200 > dat) {
+                            if ((cos - hdam) - 10200 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6000 > dat) {
+                            if ((cos - hdam) - 6000 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 7500 > dat) {
+                            if ((cos - hdam) - 7500 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 9000 > dat) {
+                            if ((cos - hdam) - 9000 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -265,17 +323,17 @@ class MainActivity : AppCompatActivity() {
 
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 13200 > dat) {
+                            if ((cos - hdam) - 13200 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 16500 > dat) {
+                            if ((cos - hdam) - 16500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 19800 > dat) {
+                            if ((cos - hdam) - 19800 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -285,17 +343,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 11600 > dat) {
+                            if ((cos - hdam) - 11600 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 14500 > dat) {
+                            if ((cos - hdam) - 14500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 17400 > dat) {
+                            if ((cos - hdam) - 17400 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -305,34 +363,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6800 > dat) {
+                            if ((cos - hdam) - 6800 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500 > dat) {
+                            if ((cos - hdam) - 8500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 10200 > dat) {
+                            if ((cos - hdam) - 10200 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6000 > dat) {
+                            if ((cos - hdam) - 6000 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 7500 > dat) {
+                            if ((cos - hdam) - 7500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 9000 > dat) {
+                            if ((cos - hdam) - 9000 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -347,17 +405,17 @@ class MainActivity : AppCompatActivity() {
 
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 13200 > dat) {
+                            if ((cos - hdam) - 13200 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 16500 > dat) {
+                            if ((cos - hdam) - 16500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 19800 > dat) {
+                            if ((cos - hdam) - 19800 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -368,17 +426,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 11600 > dat) {
+                            if ((cos - hdam) - 11600 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) -4500 > dat) {
+                            if ((cos - hdam) -4500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 17400 > dat) {
+                            if ((cos - hdam) - 17400 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -388,34 +446,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6800 > dat) {
+                            if ((cos - hdam) - 6800 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500 > dat) {
+                            if ((cos - hdam) - 8500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 10200 > dat) {
+                            if ((cos - hdam) - 10200 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6000 > dat) {
+                            if ((cos - hdam) - 6000 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 7500 > dat) {
+                            if ((cos - hdam) - 7500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 9000 > dat) {
+                            if ((cos - hdam) - 9000 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -483,6 +541,7 @@ class MainActivity : AppCompatActivity() {
         val currentDate = LocalDate.now()
 
         val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+//            val recognizedText20 = StringBuilder()
 
 
         var blockText = textBlocks[0].text
@@ -494,10 +553,13 @@ class MainActivity : AppCompatActivity() {
 
 
             for (text in listText) {
-                val date = text.replace(",", ".")
+                val date = text.replace(",", ".").replace(" ","")
                 val fourText = date.take(4)
+//                recognizedText20.append(date).append("\n")
+//                binding.checking.text = recognizedText20
 
                 try {
+
                     if(fourText.contains(".")) {
                         twoArray[rows].add(date)
                         rows++
@@ -508,6 +570,9 @@ class MainActivity : AppCompatActivity() {
                             val ddate = date.replace(" ",".")
                             array.add(ddate)
                             twoArray.add(array)
+                        } else if(fourText.toInt() > 99){
+                            twoArray[rows].add(date)
+                            rows++
                         }
                     }
 
@@ -515,11 +580,13 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
+
             for(i in 0 until twoArray.size) {
                 val date = twoArray[i].get(0).toString()
                 val beforeDate = LocalDate.parse(date, dateFormat)
                 val plusMonth = beforeDate.plusMonths(6)
                 val clean = twoArray[i].get(1).toString().replace(".","")
+
 
                 if(!recognizedText4.contains(date)) {
                     recognizedText4.append(date).append("일").append("\n")
@@ -570,6 +637,7 @@ class MainActivity : AppCompatActivity() {
         val dam =
             binding.bhouse.text.toString().toDouble().toInt() + binding.bcar.text.toString()
                 .toDouble().toInt() + binding.bill.text.toString().toDouble().toInt()
+        val hdam = binding.bhouse.text.toString().toDouble().toInt()
         val dat = cost - dam
         val year = round(dat / acost / 12.0)
         val cos =
@@ -630,17 +698,17 @@ class MainActivity : AppCompatActivity() {
             }
             if (local.contains("서울")) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam - 13200) > dat) {
+                    if ((cos - hdam - 13200) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam - 16500) > dat) {
+                    if ((cos - hdam - 16500) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam - 19800) > dat) {
+                    if ((cos - hdam - 19800) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -651,17 +719,17 @@ class MainActivity : AppCompatActivity() {
                 )
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam - 11600) > dat) {
+                    if ((cos - hdam - 11600) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam - 14500) > dat) {
+                    if ((cos - hdam - 14500) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam - 17400) > dat) {
+                    if ((cos - hdam - 17400) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -671,34 +739,34 @@ class MainActivity : AppCompatActivity() {
                 ) || local.contains("평택")
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam - 6800) > dat) {
+                    if ((cos - hdam - 6800) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 8500> dat) {
+                    if ((cos - hdam) - 8500> dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) -10200 > dat) {
+                    if ((cos - hdam) -10200 > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 }
             } else {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam - 6000) > dat) {
+                    if ((cos - hdam - 6000) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam - 7500) > dat) {
+                    if ((cos - hdam - 7500) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam - 9000) > dat) {
+                    if ((cos - hdam - 9000) > dat) {
                         binding.testing.text = "[진단] 신유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -713,17 +781,17 @@ class MainActivity : AppCompatActivity() {
 
             if (local.contains("서울")) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 13200 > dat) {
+                    if ((cos - hdam) - 13200 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 16500> dat) {
+                    if ((cos - hdam) - 16500> dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 19800 > dat) {
+                    if ((cos - hdam) - 19800 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -733,17 +801,17 @@ class MainActivity : AppCompatActivity() {
                 )
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 11600 > dat) {
+                    if ((cos - hdam) - 11600 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 14500 > dat) {
+                    if ((cos - hdam) - 14500 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 17400> dat) {
+                    if ((cos - hdam) - 17400> dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -753,34 +821,34 @@ class MainActivity : AppCompatActivity() {
                 ) || local.contains("평택")
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 6800 > dat) {
+                    if ((cos - hdam) - 6800 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 8500 > dat) {
+                    if ((cos - hdam) - 8500 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 10200 > dat) {
+                    if ((cos - hdam) - 10200 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 }
             } else {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 6000 > dat) {
+                    if ((cos - hdam) - 6000 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 7500 > dat) {
+                    if ((cos - hdam) - 7500 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 9000 > dat) {
+                    if ((cos - hdam) - 9000 > dat) {
                         binding.testing.text = "[진단] 프유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -795,17 +863,17 @@ class MainActivity : AppCompatActivity() {
 
             if (local.contains("서울")) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 13200 > dat) {
+                    if ((cos - hdam) - 13200 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 16500 > dat) {
+                    if ((cos - hdam) - 16500 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 19800 > dat) {
+                    if ((cos - hdam) - 19800 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -816,17 +884,17 @@ class MainActivity : AppCompatActivity() {
                 )
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 11600 > dat) {
+                    if ((cos - hdam) - 11600 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 14500 > dat) {
+                    if ((cos - hdam) - 14500 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 17400 > dat) {
+                    if ((cos - hdam) - 17400 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -836,34 +904,34 @@ class MainActivity : AppCompatActivity() {
                 ) || local.contains("평택")
             ) {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 6800 > dat) {
+                    if ((cos - hdam) - 6800 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 8500 > dat) {
+                    if ((cos - hdam) - 8500 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 10200 > dat) {
+                    if ((cos - hdam) - 10200 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 }
             } else {
                 if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                    if ((cos - dam) - 6000 > dat) {
+                    if ((cos - hdam) - 6000 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("3")) {
-                    if ((cos - dam) - 7500 > dat) {
+                    if ((cos - hdam) - 7500 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
                 } else if (binding.group.text.contains("4")) {
-                    if ((cos - dam) - 9000 > dat) {
+                    if ((cos - hdam) - 9000 > dat) {
                         binding.testing.text = "[진단] 유워"
                         binding.bae2.text = "[특이] 재산초과"
                     }
@@ -880,7 +948,7 @@ class MainActivity : AppCompatActivity() {
         }catch (e:Exception) {
 
         }
-        binding.money.text = "[재산] ${cos-dam}"
+        binding.money.text = "[재산] ${cos-hdam}"
 
         if(binding.before.text == "[특이] 5년내 면책이력") {
             binding.test1.text = "[단기] 면책이력 불가"
@@ -915,7 +983,7 @@ class MainActivity : AppCompatActivity() {
             val inputStream: InputStream? = uri?.let { contentResolver.openInputStream(it) }
             if (inputStream != null) {
                 val workbook: Workbook = XSSFWorkbook(inputStream)
-                val sheet: Sheet = workbook.getSheetAt(0)
+                val sheet: Sheet = workbook.getSheetAt(1)
 
 
 //                val rowIndex = 1 첫 번째 행의 인덱스 (0부터 시작)
@@ -932,11 +1000,11 @@ class MainActivity : AppCompatActivity() {
                 bValue = 0
                 card = 0
                 cost = 0
-                val recognizedText7 = StringBuilder()
                 val recognizedText = StringBuilder()
                 val recognizedText2 = StringBuilder()
                 val recognizedText3 = StringBuilder()
                 val recognizedText6 = StringBuilder()
+                val recognizedText7 = StringBuilder()
                 val recognizedText8 = StringBuilder()
                 val recognizedText9 = StringBuilder()
                 val recognizedText10 = StringBuilder()
@@ -945,13 +1013,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                for(j in 1..9) {
-                    for (i in 1..81) {
+                for(j in 1..4) {
+                    for (i in 1..202) {
                         val row = sheet.getRow(i)
                         val cell = row?.getCell(j)
                         val cellValue = getCellValue(cell)
 
-                        if(((i >= 38) and (i<=47))and (j == 1)) {
+                        if(((i >= 55) and (i<=64))and (j == 1)) {
                             if(cellValue != "") {
                                 recognizedText6.append(cellValue).append("\n")
                                 binding.test.text = recognizedText6
@@ -964,29 +1032,41 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if ((i == 7) and (j == 2)) {
-                            binding.group.text = "[가구원] ${cellValue.toDouble().toInt()}"
+                            try {
+                                if (cellValue != "") {
+                                    binding.group.text = "[가구원] ${cellValue.toDouble().toInt()}"
+                                }
+                            } catch (e:Exception) {
+
+                            }
+
                         }
 
                         // 미성년자 수
                         if ((i == 8) and (j == 2)) {
-                            if(cellValue!=""){
-                                val cell = cellValue.replace("명","").replace("인","").trim().toDouble().toInt().toString()
-                                binding.baby.text = "[특이] 미성년 자녀 ${cell}명"
-                                baby = cell
-                                if (baby == "0") {
+                            try {
+                                if (cellValue != "") {
+                                    val cell = cellValue.replace("명", "").replace("인", "").trim()
+                                        .toDouble().toInt().toString()
+                                    binding.baby.text = "[특이] 미성년 자녀 ${cell}명"
+                                    baby = cell
+                                    if (baby == "0") {
+                                        baby = "135"
+                                    } else if (baby == "1") {
+                                        baby = "220"
+                                    } else if (baby == "2") {
+                                        baby = "285"
+                                    } else if (baby == "3") {
+                                        baby = "245"
+                                    } else if (baby == "4") {
+                                        baby = "400"
+                                    }
+                                } else {
+                                    binding.baby.text = "[특이] 미성년 자녀 0명"
                                     baby = "135"
-                                } else if (baby == "1") {
-                                    baby = "220"
-                                } else if (baby == "2") {
-                                    baby = "285"
-                                } else if (baby == "3") {
-                                    baby = "245"
-                                } else if (baby == "4") {
-                                    baby = "400"
                                 }
-                            } else {
+                            } catch (e:Exception) {
                                 binding.baby.text = "[특이] 미성년 자녀 0명"
-                                baby="135"
                             }
                         }
 
@@ -999,43 +1079,99 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if((i == 12) and (j == 2)) {
-                            if(cellValue!="") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
-                                binding.money.text = "$ccellValue"
-                            } else {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    binding.money.text = "[재산] $ccellValue"
+                                    binding.mhouse.setText("$ccellValue")
+                                } else {
+                                    binding.money.text = "0"
+                                }
+                            } catch (e:Exception) {
                                 binding.money.text = "0"
                             }
                         }
 
                         if((i == 13) and (j == 2)) {
-                            if(cellValue !="") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
-                                binding.moneyn.text = "[배우자재산] $ccellValue"
-                            } else {
-                                binding.moneyn.text = "[배우자재산] 0"
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val moneyn = money - ccellValue
+                                    binding.money.text = "[재산] $moneyn"
+                                    binding.bhouse.setText("$ccellValue")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
                             }
                         }
+
                         if((i == 14) and (j == 2)) {
-                            if(cellValue != "") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
-                                val money = binding.money.text.toString().toInt()
-                                val moneyn = binding.moneyn.text.toString().replace("[배우자재산] ","").toInt()
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val moneya = money + ccellValue
+                                    val mhouse = binding.mhouse.text.toString().toDouble().toInt()
+                                    binding.money.text = "[재산] $moneya"
+                                    binding.mhouse.setText("${ccellValue + mhouse}")
+                                } else {
 
-                                binding.money.text = "[재산] ${(money + moneyn/2) - ccellValue}"
-                                binding.mhouse.setText("${(money + moneyn/2)}")
-                                binding.bhouse.setText("$ccellValue")
-                            } else {
-                                val money = binding.money.text.toString().toInt()
-                                val moneyn = binding.moneyn.text.toString().replace("[배우자재산] ","").toInt()
+                                }
+                            } catch (e:Exception) {
 
-                                binding.money.text = "[재산] ${(money + moneyn/2)}"
-                                binding.mhouse.setText("${(money + moneyn/2)}")
-                                binding.bhouse.setText("0")
                             }
-
                         }
 
                         if((i == 15) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val moneyn = money - ccellValue
+                                    val bhouse = binding.bhouse.text.toString().toDouble().toInt()
+                                    binding.money.text = "[재산] $moneyn"
+                                    binding.bhouse.setText("${bhouse + ccellValue}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 16) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val moneya = money + ccellValue
+                                    val mhouse = binding.mhouse.text.toString().toDouble().toInt()
+                                    binding.money.text = "[재산] $moneya"
+                                    binding.mhouse.setText("${ccellValue + mhouse}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 17) and (j == 2)) {
                             try {
                                 if(cellValue !="") {
                                     val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
@@ -1049,97 +1185,77 @@ class MainActivity : AppCompatActivity() {
                             }catch (e:Exception) {
                                 binding.car.text = "[본인차량] $cellValue"
                             }
-
-                        }
-                        if((i == 16) and (j == 2)) {
-                            try {
-                                if(cellValue != "") {
-                                    val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
-                                    binding.carb.text = "[배우자 차량] $ccellValue"
-                                    val car = binding.mcar.text.toString().toInt()
-                                    binding.mcar.setText("${car + ccellValue/2}")
-                                } else {
-                                    binding.carb.text = "[배우자 차량] 0"
-                                }
-                            } catch(e:Exception) {
-                                binding.carb.text = "[배우자 차량] $cellValue"
-                            }
-                        }
-
-                        if((i == 17) and (j == 2)) {
-                            if(cellValue != "" ) {
-                                val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
-                                binding.bcar.setText("$ccellValue")
-                            }
                         }
 
                         if((i == 18) and (j == 2)) {
-                            if(cellValue != "") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").replace("월","").trim().toDouble().toInt()
-                                binding.moneym.setText("$ccellValue")
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    binding.bcar.setText("$ccellValue")
+                                }
+                            } catch(e:Exception) {
+
                             }
                         }
 
                         if((i == 19) and (j == 2)) {
-                            if(cellValue != "") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").replace("연","").trim().toDouble().toInt()
-                                    binding.moneyy.setText("${ccellValue}")
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").replace("월", "")
+                                            .trim().toDouble().toInt()
+                                    binding.moneym.setText("$ccellValue")
+                                }
+                            } catch(e:Exception) {
 
                             }
                         }
 
                         if((i == 20) and (j == 2)) {
                             if(cellValue != "") {
-                                val ccellValue = cellValue.replace("만","").replace("억","").replace("월","").trim().toDouble().toInt()
-                                binding.mmoney.text = "[배우자소득] $ccellValue"
-                            }
-                        }
-
-                        if((i == 21) and (j == 2)) {
-                            if(cellValue != "") {
                                 val ccellValue = cellValue.replace("만","").replace("억","").replace("연","").trim().toDouble().toInt()
+                                    binding.moneyy.setText("$ccellValue")
 
-                                if(binding.mmoney.text.toString().replace("[배우자소득] ","").toInt() < ccellValue*0.8/12) {
-                                    binding.mmoney.text = "[배우자소득] ${ccellValue*0.8/12}"
-                                }
                             }
                         }
 
-                        if((i == 24) and (j == 2)) {
+                        if((i == 23) and (j == 2)) {
                             if(cellValue != "") {
-                                binding.before.text = "[채무조정이력] $cellValue"
+                                binding.mun.text = "[채무조정이력] $cellValue"
                                 if(cellValue.contains("2020") || cellValue.contains("2021") ||cellValue.contains("2022") ||cellValue.contains("2023") ||cellValue.contains("2024")) {
                                     binding.before.text = "[특이] 5년내 면책이력"
                                     korea = "O"
-                                } else {
-                                    binding.before.text = "[채무조정이력] $cellValue"
                                 }
+                            } else {
+                                binding.mun.text = "[채무조정이력] 없음"
                             }
 
                         }
 
-                        if((i == 25) and (j == 2)) {
+                        if((i == 24) and (j == 2)) {
                             if(cellValue != "") {
                                 binding.use.text = "[특이] $cellValue"
                             }
 
                         }
 
-                        if((i == 26) and (j == 2)) {
+                        if((i == 25) and (j == 2)) {
                             if(cellValue != "") {
                                 binding.check.text = "[연체기록] $cellValue"
                             }
 
                         }
 
-                        if((i == 27) and (j == 2)) {
+                        if((i == 26) and (j == 2)) {
                             if(cellValue != "") {
                                 binding.unable.text = "[장애여부] $cellValue"
                             }
 
                         }
 
-                        if((i == 28) and (j == 2)) {
+                        if((i == 27) and (j == 2)) {
                             if(cellValue !="") {
                                 binding.some.text = "[특이사항] $cellValue"
                             } else {
@@ -1148,7 +1264,149 @@ class MainActivity : AppCompatActivity() {
 
                         }
 
-                        if((i == 38) and (j == 5)) {
+                        if((i == 32) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    binding.moneyn.text = "[배우자재산] $ccellValue"
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val mhouse = binding.mhouse.text.toString().toDouble().toInt()
+
+                                    binding.money.text = "[재산] ${money + ccellValue / 2}"
+                                    binding.mhouse.setText("${mhouse + ccellValue / 2}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 33) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    val moneyn = binding.moneyn.text.toString().replace("[배우자재산] ","").toDouble().toInt()
+                                    binding.moneyn.text = "[배우자재산] ${moneyn - ccellValue}"
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+
+                                    binding.money.text = "[재산] ${money - ccellValue / 2}"
+                                    binding.bhouse.setText("${money + ccellValue / 2}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 34) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    val moneyn = binding.moneyn.text.toString().replace("[배우자재산] ","").toDouble().toInt()
+                                    binding.moneyn.text = "[배우자재산] ${moneyn + ccellValue}"
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+                                    val mhouse = binding.mhouse.text.toString().toDouble().toInt()
+
+                                    binding.money.text = "[재산] ${money + ccellValue / 2}"
+                                    binding.mhouse.setText("${mhouse + ccellValue / 2}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 35) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").trim()
+                                            .toDouble().toInt()
+                                    val moneyn = binding.moneyn.text.toString().replace("[배우자재산] ","").toDouble().toInt()
+                                    binding.moneyn.text = "[배우자재산] ${moneyn - ccellValue}"
+                                    val money = binding.money.text.toString().replace("[재산] ","").toDouble().toInt()
+
+                                    binding.money.text = "[재산] ${money - ccellValue / 2}"
+                                    binding.bhouse.setText("${money + ccellValue / 2}")
+                                } else {
+
+                                }
+                            } catch (e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 36) and (j == 2)) {
+                            try {
+                                if(cellValue != "") {
+                                    val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
+                                    binding.carb.text = "[배우자차량] $ccellValue"
+                                    val car = binding.mcar.text.toString().toDouble().toInt()
+                                    binding.mcar.setText("${car + ccellValue/2}")
+                                } else {
+                                    binding.carb.text = "[배우자차량] 0"
+                                }
+                            } catch(e:Exception) {
+                                binding.carb.text = "[배우자 차량] $cellValue"
+                            }
+                        }
+
+                        if((i == 37) and (j == 2)) {
+                            try {
+                                if(cellValue != "") {
+                                    val ccellValue = cellValue.replace("만","").replace("억","").trim().toDouble().toInt()
+                                    val car = binding.carb.text.toString().replace("[배우자차량] ","").toDouble().toInt()
+                                    binding.bcar.setText("${car + ccellValue/2}")
+                                } else {
+
+                                }
+                            } catch(e:Exception) {
+
+                            }
+                        }
+
+
+                        if((i == 38) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").replace("월", "")
+                                            .trim().toDouble().toInt()
+                                    binding.mmoney.text = "[배우자소득] $ccellValue"
+                                }
+                            } catch(e:Exception) {
+                                binding.mmoney.text = "[배우자소득] 없음"
+                            }
+                        }
+
+                        if((i == 39) and (j == 2)) {
+                            try {
+                                if (cellValue != "") {
+                                    val ccellValue =
+                                        cellValue.replace("만", "").replace("억", "").replace("연", "")
+                                            .trim().toDouble().toInt()
+
+                                    if (binding.mmoney.text.toString().replace("[배우자소득] ", "")
+                                            .toInt() < ccellValue * 0.8 / 12
+                                    ) {
+                                        binding.mmoney.text = "[배우자소득] ${ccellValue * 0.8 / 12}"
+                                    }
+                                }
+                            } catch(e:Exception) {
+
+                            }
+                        }
+
+                        if((i == 43) and (j == 1)) {
                             if (cell != null) {
                                 val drawing = (cell.sheet as XSSFSheet).createDrawingPatriarch()
                                 val picture = drawing.shapes.firstOrNull { it is XSSFPicture } as XSSFPicture?
@@ -1199,7 +1457,7 @@ class MainActivity : AppCompatActivity() {
 
 
                         // 60세 이상 부모 여부
-                        if((i == 79) and (j == 2)) {
+                        if((i == 199) and (j == 2)) {
                             val boovalue = cell?.booleanCellValue
                             if(boovalue == true) {
                                 binding.parent.text = "[특이] 60세 이상 부모 O"
@@ -1236,7 +1494,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if((i == 80) and (j == 2)) {
+                        if((i == 200) and (j == 2)) {
                             val boovalue = cell?.booleanCellValue
                             if(boovalue == true) {
                                 binding.bae.text = "[특이] 배우자 모르게"
@@ -1244,7 +1502,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i >= 38) and (i<=47))and (j == 2)) {
+                        if(((i >= 55) and (i<=64))and (j == 2)) {
                             if(cellValue != "") {
                                 card += cellValue.replace("만", "").toDouble().toInt()
                                 recognizedText.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("만\n")
@@ -1252,7 +1510,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i <= 28)) and (j==5)) {
+                        if(((i>=68) and (i <= 93)) and (j==1)) {
                             if(cellValue !="") {
                                 val cells = row?.getCell(j+1)
                                 val cellValues = getCellValue(cells)
@@ -1260,7 +1518,7 @@ class MainActivity : AppCompatActivity() {
                                     korea = "O"
 
                                 } else {
-                                    for(a in 3..28) {
+                                    for(a in 68..93) {
                                         val rowd = sheet.getRow(a)
                                         val celld = rowd?.getCell(j)
                                         val cellValued = getCellValue(celld)
@@ -1279,35 +1537,35 @@ class MainActivity : AppCompatActivity() {
 
                         }
 
-                        if((i>=33) and (i <= 35) and (j==5)) {
+                        if((i>=97) and (i <= 99) and (j==1)) {
                             if(cellValue != "") {
                                 recognizedText8.append(cellValue).append("\n")
                                 binding.dda1.text = "$recognizedText8"
                             }
                         }
 
-                        if((i>=33) and (i <= 35) and (j==6)) {
+                        if((i>=97) and (i <= 99) and (j==2)) {
                             if(cellValue != "") {
                                 recognizedText10.append(cellValue).append("\n")
                                 binding.dda2.text = "$recognizedText10"
                             }
                         }
 
-                        if((i>=33) and (i <= 35) and (j==7)) {
+                        if((i>=97) and (i <= 99) and (j==3)) {
                             if(cellValue != "") {
                                 recognizedText11.append(cellValue).append("\n")
                                 binding.dda3.text = "${recognizedText11}일"
                             }
                         }
 
-                        if((i>=33) and (i <= 35) and (j==8)) {
+                        if((i>=97) and (i <= 99) and (j==4)) {
                             if(cellValue != "") {
                                 recognizedText12.append(cellValue).append("\n")
-                                binding.dda4.text = "${recognizedText12}"
+                                binding.dda4.text = "$recognizedText12"
                             }
                         }
 
-                        if(((i>=3) and (i <= 28)) and (j==6)) {
+                        if(((i>=68) and (i <= 93)) and (j==2)) {
                             if(cellValue !="") {
                                 recognizedText3.append(cellValue).append("\n")
                                 binding.bco.text = recognizedText3
@@ -1328,7 +1586,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i<=28)) and (j==7)) {
+                        if(((i>=68) and (i <= 93)) and (j==3)) {
                             if(cellValue !="") {
                                 val cellValued = cellValue.replace("-",".").replace("/",".")
                                 recognizedText4.append(cellValued).append("일\n")
@@ -1397,7 +1655,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        if(((i>=3) and (i <= 28)) and (j==8)) {
+                        if(((i>=68) and (i <= 93)) and (j==4)) {
                             if(cellValue !="") {
                                 recognizedText5.append(cellValue.replace(",","").replace("만","").toDouble().toInt()).append("만\n")
                                 binding.bmon.text = recognizedText5
@@ -1405,7 +1663,7 @@ class MainActivity : AppCompatActivity() {
                                 val cells = row?.getCell(j-3)
                                 val cellValues = getCellValue(cells)
 
-                                for(a in 3..28) {
+                                for(a in 68..93) {
                                     if(i != a) {
                                         val rowd = sheet.getRow(a)
                                         val cell1 = rowd?.getCell(j-3)
@@ -1435,6 +1693,7 @@ class MainActivity : AppCompatActivity() {
                 val dam =
                     binding.bhouse.text.toString().toDouble().toInt() + binding.bcar.text.toString()
                         .toDouble().toInt() + binding.bill.text.toString().toDouble().toInt()
+                val hdam = binding.bhouse.text.toString().toDouble().toInt()
                 val dat = cost - dam
                 val year = round(dat / acost / 12.0)
                 val cos =
@@ -1472,17 +1731,17 @@ class MainActivity : AppCompatActivity() {
                     }
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam - 13200) > dat) {
+                            if ((cos - hdam - 13200) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam - 16500) > dat) {
+                            if ((cos - hdam - 16500) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam - 19800) > dat) {
+                            if ((cos - hdam - 19800) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1493,17 +1752,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam - 11600) > dat) {
+                            if ((cos - hdam - 11600) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam - 14500) > dat) {
+                            if ((cos - hdam - 14500) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam - 17400) > dat) {
+                            if ((cos - hdam - 17400) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1513,34 +1772,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam - 6800) > dat) {
+                            if ((cos - hdam - 6800) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500> dat) {
+                            if ((cos - hdam) - 8500> dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) -10200 > dat) {
+                            if ((cos - hdam) -10200 > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam - 6000) > dat) {
+                            if ((cos - hdam - 6000) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam - 7500) > dat) {
+                            if ((cos - hdam - 7500) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam - 9000) > dat) {
+                            if ((cos - hdam - 9000) > dat) {
                                 binding.testing.text = "[진단] 신유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1555,17 +1814,17 @@ class MainActivity : AppCompatActivity() {
 
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 13200 > dat) {
+                            if ((cos - hdam) - 13200 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 16500> dat) {
+                            if ((cos - hdam) - 16500> dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 19800 > dat) {
+                            if ((cos - hdam) - 19800 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1575,17 +1834,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 11600 > dat) {
+                            if ((cos - hdam) - 11600 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 14500 > dat) {
+                            if ((cos - hdam) - 14500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 17400> dat) {
+                            if ((cos - hdam) - 17400> dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1595,34 +1854,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6800 > dat) {
+                            if ((cos - hdam) - 6800 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500 > dat) {
+                            if ((cos - hdam) - 8500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 10200 > dat) {
+                            if ((cos - hdam) - 10200 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6000 > dat) {
+                            if ((cos - hdam) - 6000 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 7500 > dat) {
+                            if ((cos - hdam) - 7500 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 9000 > dat) {
+                            if ((cos - hdam) - 9000 > dat) {
                                 binding.testing.text = "[진단] 프유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1637,17 +1896,17 @@ class MainActivity : AppCompatActivity() {
 
                     if (local.contains("서울")) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 13200 > dat) {
+                            if ((cos - hdam) - 13200 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 16500 > dat) {
+                            if ((cos - hdam) - 16500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 19800 > dat) {
+                            if ((cos - hdam) - 19800 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1658,17 +1917,17 @@ class MainActivity : AppCompatActivity() {
                         )
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 11600 > dat) {
+                            if ((cos - hdam) - 11600 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 14500 > dat) {
+                            if ((cos - hdam) - 14500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 17400 > dat) {
+                            if ((cos - hdam) - 17400 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1678,34 +1937,34 @@ class MainActivity : AppCompatActivity() {
                         ) || local.contains("평택")
                     ) {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6800 > dat) {
+                            if ((cos - hdam) - 6800 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 8500 > dat) {
+                            if ((cos - hdam) - 8500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 10200 > dat) {
+                            if ((cos - hdam) - 10200 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         }
                     } else {
                         if (binding.group.text.contains("1") || binding.group.text.contains("2")) {
-                            if ((cos - dam) - 6000 > dat) {
+                            if ((cos - hdam) - 6000 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("3")) {
-                            if ((cos - dam) - 7500 > dat) {
+                            if ((cos - hdam) - 7500 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
                         } else if (binding.group.text.contains("4")) {
-                            if ((cos - dam) - 9000 > dat) {
+                            if ((cos - hdam) - 9000 > dat) {
                                 binding.testing.text = "[진단] 유워"
                                 binding.bae2.text = "[특이] 재산초과"
                             }
@@ -1715,7 +1974,7 @@ class MainActivity : AppCompatActivity() {
                     binding.testing.text = "[진단] 단순워크"
                 }
 
-                binding.money.text = "[재산] ${cos-dam}"
+                binding.money.text = "[재산] ${cos-hdam}"
 
                 if(binding.before.text == "[특이] 5년내 면책이력") {
                     binding.test1.text = "[단기] 면책이력 불가"
