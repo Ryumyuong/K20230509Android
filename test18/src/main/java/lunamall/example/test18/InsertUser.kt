@@ -29,7 +29,7 @@ class InsertUser : AppCompatActivity() {
             val preferences = getSharedPreferences("login", MODE_PRIVATE)
             val username = preferences.getString("username", userId)
 
-        binding.insertProduct.setOnClickListener {
+        binding.insertUser.setOnClickListener {
             val id = binding.id.text.toString()
             val password = binding.password.text.toString()
             val name = binding.name.text.toString()

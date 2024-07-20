@@ -1,5 +1,7 @@
 package lunamall.example.test18.retrofit
 
+import lunamall.example.test18.model.Alarm
+import lunamall.example.test18.model.AlarmList
 import lunamall.example.test18.model.CardList
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CartList
@@ -68,6 +70,8 @@ interface INetworkService {
     fun notiToken(
         @Header("X-CSRF-TOKEN") csrfToken: String?,
         @Query("username") username: String?,
+        @Query("name") name: String?,
+        @Body alarm: Alarm?
     ): Call<Unit>
 
     @POST("luna/main/notificationLunaToken")
@@ -83,8 +87,9 @@ interface INetworkService {
     @POST("luna/main/updateProduct")
     fun updateProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("sname") sname:String?, @Body product: Product?): Call<Unit>
 
-    @POST("luna/main/deleteProduct")
-    fun deleteProduct(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("productName") productName: String?): Call<Unit>
+
+    @POST("luna/main/delete")
+    fun delete(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("id") id: Int?): Call<Unit>
 
     @GET("luna/main/userList")
     fun userList(
@@ -107,12 +112,6 @@ interface INetworkService {
     @POST("luna/main/deleteCart")
     fun deleteCart(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("username") username: String?, @Query("itemName") itemName: String?): Call<Unit>
 
-    @POST("luna/main/delete")
-    fun delete(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("id") id: Int?): Call<Unit>
-
-    @POST("luna/main/deleteUser")
-    fun deleteUser(@Header("X-CSRF-TOKEN") csrfToken: String?, @Query("userId") userId: String?): Call<Unit>
-
     @GET("luna/main/user")
     fun user(@Query("userId") userId: String?): Call<UserList>
 
@@ -134,6 +133,7 @@ interface INetworkService {
     @GET("luna/main/version")
     fun version(): Call<Version>
 
-
+    @GET("luna/main/getAlarm")
+    fun getAlarm(): Call<AlarmList>
 
 }

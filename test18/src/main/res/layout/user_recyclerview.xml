@@ -13,9 +13,8 @@
         android:id="@+id/vip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_marginLeft="24dp"
@@ -26,15 +25,15 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp"
         />
     <LinearLayout
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="10dp"
         android:gravity="left">
         <TextView
             android:layout_width="wrap_content"
@@ -57,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/phone"
@@ -76,7 +76,7 @@
             android:textSize="16sp"
             android:textColorHighlight="@color/purple"
             android:onClick="onMoreClicked"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             />
     </LinearLayout>
 

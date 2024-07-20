@@ -23,7 +23,6 @@ import retrofit2.Response
 
 class UserListViewHolder(val binding: UserListRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
     val update: ImageView = binding.update
-    val delete: ImageView = binding.delete
 }
 
 class UserListAdapter(val context: Context, datas: MutableList<User>?, val networkService: INetworkService): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -45,33 +44,6 @@ class UserListAdapter(val context: Context, datas: MutableList<User>?, val netwo
             val intent = Intent(context, UpdateUser::class.java)
             intent.putExtra("userId", user?.userId.toString())
             context.startActivity(intent)
-        }
-
-        holder.delete.setOnClickListener {
-            val csrfCall = networkService.getCsrfToken()
-
-            csrfCall.enqueue(object : Callback<CsrfToken> {
-                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                    val csrfToken = response.body()?.token
-                    val deleteCall = networkService.deleteUser(csrfToken, user?.userId.toString())
-
-                    deleteCall.enqueue(object : Callback<Unit> {
-                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                            Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                            notifyDataSetChanged()
-                        }
-
-                        override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            Log.d("lmj", "실패데이터 : ${t.message}")
-                        }
-                    })
-                }
-
-                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
-                }
-            })
-
         }
     }
 

@@ -7,11 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import lunamall.example.test18.databinding.ActivityOrderMenuBinding
+import lunamall.example.test18.model.Alarm
 import lunamall.example.test18.model.Cart
 import lunamall.example.test18.model.CartList
 import lunamall.example.test18.model.CsrfToken
-import lunamall.example.test18.model.InCard
 import lunamall.example.test18.model.InOrder
+import lunamall.example.test18.model.OrderList
 import lunamall.example.test18.model.UserList
 import lunamall.example.test18.recycler.OrderMenuAdapter
 import retrofit2.Call
@@ -134,25 +135,43 @@ class OrderMenu : AppCompatActivity() {
                             var item = response.body()?.items
                             if (total != null) {
                                 if(item?.get(0)?.money?:0 >= binding.total2.text.toString().toInt()) {
-                                    Log.d("lmj", "select : $selectedNumber")
                                     val order = InOrder(username, binding.tel.text.toString(), binding.add.text.toString(), binding.inquire.text.toString(), selectedNumber, total.toInt())
                                     val orderCall = networkService.order(csrfToken, order, binding.plan.text.toString(), binding.total2.text.toString().toInt())
                                     orderCall.enqueue(object : Callback<InOrder> {
                                         override fun onResponse(call: Call<InOrder>, response: Response<InOrder>) {
-                                            val notiTokenCall = networkService.notiToken(csrfToken, username)
+                                            val orderCall = networkService.orderList(username,1,10)
 
-                                            notiTokenCall.enqueue(object : Callback<Unit> {
-                                                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                                            orderCall.enqueue(object : Callback<OrderList> {
+                                                override fun onResponse(call: Call<OrderList>, response: Response<OrderList>) {
+                                                    var item = response.body()?.items
+                                                    val name = item?.get(0)?.order_menu
+                                                    val price = item?.get(0)?.order_price.toString()
+                                                    val alarm = Alarm("", username,name,price)
+
+
+                                                    val notiTokenCall = networkService.notiToken(csrfToken, username, name, alarm)
+
+                                                    notiTokenCall.enqueue(object : Callback<Unit> {
+                                                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                                                        }
+
+                                                        override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                                            call.cancel()
+                                                        }
+                                                    })
+                                                    Toast.makeText(this@OrderMenu, "주문이 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                                                    val intent = Intent(this@OrderMenu, OrderActivity::class.java)
+                                                    startActivity(intent)
 
                                                 }
 
-                                                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                                override fun onFailure(call: Call<OrderList>, t: Throwable) {
                                                     call.cancel()
                                                 }
+
                                             })
-                                            Toast.makeText(this@OrderMenu, "주문이 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                                            val intent = Intent(this@OrderMenu, OrderActivity::class.java)
-                                            startActivity(intent)
+
                                         }
 
                                         override fun onFailure(call: Call<InOrder>, t: Throwable) {

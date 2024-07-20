@@ -48,6 +48,11 @@ class LoginAdmin : AppCompatActivity() {
 
         })
 
+        binding.alarm.setOnClickListener {
+            val intent = Intent(this, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.card.setOnClickListener {
             val intent = Intent(this, CardActivity::class.java)
             startActivity(intent)

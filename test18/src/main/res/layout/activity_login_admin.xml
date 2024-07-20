@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="LoginAdmin">
 
+    <ImageView
+        android:id="@+id/alarm"
+        android:layout_width="55dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/alarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,7 +161,7 @@
     <ImageView
         android:id="@+id/bottommenu"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="90dp"
         android:layout_gravity="bottom"
         android:background="@drawable/box"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,49 +169,56 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/home"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/home"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/cart"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="130dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/inproduct"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bottommenu" />
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/home" />
 
-    <ImageView
-        android:id="@+id/list"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="230dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/memberlist"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/inproduct" />
 
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="330dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/profilelight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/userlist" />
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/profilelight" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

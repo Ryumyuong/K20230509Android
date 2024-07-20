@@ -34,9 +34,7 @@ class UpdateProduct : AppCompatActivity() {
         binding = ActivityUpdateProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = "물품 수정"
 
         val name = intent.getStringExtra("productName")
 

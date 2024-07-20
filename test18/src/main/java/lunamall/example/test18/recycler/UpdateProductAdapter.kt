@@ -50,33 +50,6 @@ class UpdateProductAdapter(val context:Context, datas: MutableList<Product>?, va
             context.startActivity(intent)
         }
 
-        holder.button2.setOnClickListener {
-            val csrfCall = networkService.getCsrfToken()
-
-            csrfCall.enqueue(object : Callback<CsrfToken> {
-                override fun onResponse(call: Call<CsrfToken>, response: Response<CsrfToken>) {
-                    val csrfToken = response.body()?.token
-
-                    val deleteCall = networkService.deleteProduct(csrfToken,waiting?.s_name)
-
-                   deleteCall.enqueue(object : Callback<Unit> {
-                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                            Toast.makeText(context,"물품이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                            notifyDataSetChanged()
-                        }
-
-                        override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            call.cancel()
-                        }
-                    })
-                }
-
-                override fun onFailure(call: Call<CsrfToken>, t: Throwable) {
-                    Log.d("lmj", "실패토큰 : ${t.message}")
-                }
-            })
-        }
-
         val urlImg = waiting?.s_fileName
 
         if (urlImg != null) {

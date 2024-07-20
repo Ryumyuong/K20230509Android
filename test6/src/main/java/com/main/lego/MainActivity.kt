@@ -983,7 +983,7 @@ class MainActivity : AppCompatActivity() {
             val inputStream: InputStream? = uri?.let { contentResolver.openInputStream(it) }
             if (inputStream != null) {
                 val workbook: Workbook = XSSFWorkbook(inputStream)
-                val sheet: Sheet = workbook.getSheetAt(1)
+                val sheet: Sheet = workbook.getSheetAt(0)
 
 
 //                val rowIndex = 1 첫 번째 행의 인덱스 (0부터 시작)
@@ -1203,10 +1203,17 @@ class MainActivity : AppCompatActivity() {
                         if((i == 19) and (j == 2)) {
                             try {
                                 if (cellValue != "") {
-                                    val ccellValue =
-                                        cellValue.replace("만", "").replace("억", "").replace("월", "")
-                                            .trim().toDouble().toInt()
-                                    binding.moneym.setText("$ccellValue")
+                                    if(cellValue.contains("~")) {
+                                        val data = cellValue.trim().split("~")
+                                        val ddata = data[1].replace("만", "").replace("억", "").replace("월", "").replace("평균","").toDouble().toInt()
+                                        binding.moneym.setText("$ddata")
+                                    } else {
+                                        val ccellValue =
+                                            cellValue.replace("만", "").replace("억", "")
+                                                .replace("월", "").replace("평균", "")
+                                                .trim().toDouble().toInt()
+                                        binding.moneym.setText("$ccellValue")
+                                    }
                                 }
                             } catch(e:Exception) {
 
@@ -1216,8 +1223,7 @@ class MainActivity : AppCompatActivity() {
                         if((i == 20) and (j == 2)) {
                             if(cellValue != "") {
                                 val ccellValue = cellValue.replace("만","").replace("억","").replace("연","").trim().toDouble().toInt()
-                                    binding.moneyy.setText("$ccellValue")
-
+                                binding.moneyy.setText("$ccellValue")
                             }
                         }
 
@@ -1428,8 +1434,17 @@ class MainActivity : AppCompatActivity() {
                                                 val bitmap = BitmapFactory.decodeFile(imagePath)
                                                 if (bitmap != null) {
                                                     val layoutParams = binding.imageview.layoutParams
-                                                    layoutParams.width = bitmap.width * 3
-                                                    layoutParams.height = bitmap.height * 3
+                                                    if (bitmap.width < resources.getDimensionPixelSize(R.dimen.minimum_width)) {
+                                                        layoutParams.width = bitmap.width * 3
+                                                        layoutParams.height = bitmap.height * 3
+                                                    } else if(bitmap.width < resources.getDimensionPixelSize(R.dimen.minimum_width2)) {
+                                                        layoutParams.width = bitmap.width * 2
+                                                        layoutParams.height = bitmap.height * 2
+                                                    }  else {
+                                                        layoutParams.width = bitmap.width
+                                                        layoutParams.height = bitmap.height
+                                                    }
+
                                                     binding.imageview.layoutParams = layoutParams
                                                     val imageView = binding.imageview
                                                     if (bitmap != null) {
@@ -1465,19 +1480,60 @@ class MainActivity : AppCompatActivity() {
                                 binding.parent.text = "[특이] 60세 이상 부모 X"
                             }
                             val moneym = binding.moneym.text.toString().toDouble().toInt()
-                            val moneyy = (binding.moneyy.text.toString().toDouble()*0.8/12).toInt()
+                            var moneyy = binding.moneyy.text.toString().toDouble().toInt()
 
-                            if (moneyy > moneym) {
+                            val real = (moneyy*10-2400)/12
+
+                            val excelResourceId = resources.getIdentifier("earn", "raw", packageName)
+
+                            val inputStreams: InputStream = resources.openRawResource(excelResourceId)
+
+                            val workbooks: Workbook = WorkbookFactory.create(inputStreams)
+                            val sheets: Sheet = workbooks.getSheetAt(0) // 시트 선택
+                            val group = binding.group.text.toString().replace("[가구원]", "").trim().toDouble().toInt()
+                            val babys = binding.baby.text.toString().replace("[특이] 미성년 자녀 ","").replace("명","").trim().toDouble().toInt()
+                            var realmoney = 0
+
+                            for (x in 5..651) {
+                                val rows: Row = sheets.getRow(x) // 행 선택
+                                val cells: Cell = rows.getCell(0) // 셀 선택
+                                val Value = getCellValue(cells).toDoubleOrNull()?.toInt()
+
+                                if (Value != null) {
+                                    if((Value <= real) && (real < Value + 5)) {
+                                        val cellsd: Cell = rows.getCell(group+1)
+                                        var Values = getCellValue(cellsd).toDoubleOrNull()?.toInt()
+                                        if (Values != null) {
+                                            if(babys == 1) {
+                                                Values =- 12500
+                                            } else if(babys == 2) {
+                                                Values =- 29160
+                                            } else if(babys >= 3) {
+                                                Values =- 29160 + (babys-2) * 25000
+                                            }
+
+                                            if(Values < 0) {
+                                                Values = 0
+                                            }
+                                            realmoney = (moneyy*10000/12 - (real*94 + Values*1.1).toInt())/10000
+                                        }
+                                    }
+                                }
+                            }
+
+                            inputStreams.close()
+
+                            if (realmoney > moneym) {
                                 if (binding.parent.text == "[특이] 60세 이상 부모 O") {
-                                    acost = ((moneyy - baby.toInt() - 50) * 2 / 3).toDouble().toInt()
+                                    acost = ((realmoney - baby.toInt() - 50) * 2 / 3).toDouble().toInt()
                                     binding.test2.text = "[장기] ${acost}만"
-                                    binding.test1.text = "[단기] ${moneyy - baby.toInt()}만 3~5년납"
-                                    binding.card.text = "[소득] $moneyy"
+                                    binding.test1.text = "[단기] ${realmoney - baby.toInt()}만 3~5년납"
+                                    binding.card.text = "[소득] $realmoney"
                                 } else {
                                     acost = ((moneyy - baby.toInt()) * 2 / 3).toDouble().toInt()
                                     binding.test2.text = "[장기] ${acost}만"
-                                    binding.test1.text = "[단기] ${moneyy - baby.toInt()}만 3~5년납"
-                                    binding.card.text = "[소득] $moneyy"
+                                    binding.test1.text = "[단기] ${realmoney - baby.toInt()}만 3~5년납"
+                                    binding.card.text = "[소득] $realmoney"
                                 }
                             } else {
                                 if (binding.parent.text == "[특이] 60세 이상 부모 O") {

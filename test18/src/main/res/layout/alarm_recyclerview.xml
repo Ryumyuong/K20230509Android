@@ -31,43 +31,22 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/username"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/order_menu"
+            android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#757575"
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/inquire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#757575"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/price"
+            android:id="@+id/luna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -86,30 +65,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
-        <ImageView
-            android:id="@+id/deliver"
-            android:layout_width="70dp"
-            android:layout_height="28dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/start"
-            android:gravity="right" />
-
-        <ImageView
-            android:id="@+id/complete"
-            android:layout_width="70dp"
-            android:layout_height="28dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/complete"
-            android:gravity="right" />
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="70dp"
-            android:layout_height="28dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/back"
-            android:gravity="right" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,14 +1,7 @@
 <!-- res/layout/activity_intro.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/startlogo">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/startlogo"
-        android:scaleType="centerInside"
-        android:layout_centerInParent="true"/>
-
-</RelativeLayout>
+</LinearLayout>

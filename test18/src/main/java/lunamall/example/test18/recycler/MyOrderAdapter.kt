@@ -40,6 +40,7 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
         binding.phone.text = order?.phone.toString()
         binding.address.text = order?.address.toString()
         binding.orderMenu.text = order?.order_menu.toString()
+        binding.inquire.text = order?.inquire.toString()
         binding.price.text = order?.order_price.toString() + " 루나"
 
         var isClickable1 = true
@@ -145,8 +146,6 @@ class MyOrderAdapter(val context: Context, datas: MutableList<Order>?, val netwo
                 }
             })
         }
-
-
     }
 
     override fun getItemCount(): Int {

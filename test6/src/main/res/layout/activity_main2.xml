@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,11 +14,15 @@
         android:orientation="vertical">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:background="@drawable/head"
-        android:layout_height="150dp"
-        android:layout_marginBottom="20dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:background="@drawable/head"
+            android:layout_height="150dp"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:id="@+id/test3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/buttonSelectFile"
@@ -28,380 +32,147 @@
             android:backgroundTint="#4CAF50"
             android:text="파일 선택하기" />
 
-        <Button
-            android:id="@+id/buttonclear"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="#56ECFF"
-            android:text="내용 초기화" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/actions"
-        android:padding="20dp">
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/card2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/card3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-
-        <TextView
-            android:id="@+id/dat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/co"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/baby"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-
-        <TextView
-            android:id="@+id/parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/use"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-
-        <TextView
-            android:id="@+id/bae"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/bae2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/before"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-
-        <TextView
-            android:id="@+id/half"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/test1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/test2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/testing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="50dp"
-            />
-
-        <TextView
-            android:id="@+id/group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/local"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/work"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/moneyn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/mmoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/car"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/carb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-
-        <TextView
-            android:id="@+id/check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/mun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/unable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:id="@+id/some"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            />
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:ellipsize="end"
-            android:layout_marginTop="10dp"
-            android:text="[대출과목]"
-            android:layout_marginBottom="10dp"
-            />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="@drawable/actions"
+            android:padding="20dp">
             <TextView
-                android:id="@+id/bname"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:ellipsize="end"
-                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 />
             <TextView
-                android:id="@+id/bco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/pco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/bmon"
+                android:id="@+id/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:ellipsize="end"
                 />
+
+            <TextView
+                android:id="@+id/dat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:layout_marginBottom="10dp"
+                />
+
+            <TextView
+                android:id="@+id/co"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/baby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/bae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/bae2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/before"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/half"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:layout_marginBottom="10dp"
+                />
+
+            <TextView
+                android:id="@+id/test1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                />
+            <TextView
+                android:id="@+id/test2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:id="@+id/testing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:ellipsize="end"
+                android:layout_marginBottom="50dp"
+                />`
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
+            <ImageView
+                android:id="@+id/testimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/testimage2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:ellipsize="end"
-            android:layout_marginTop="10dp"
-            android:text="[카드]"
-            android:layout_marginBottom="10dp"
-            />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/ccost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-        </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:ellipsize="end"
-            android:layout_marginTop="10dp"
-            android:text="[따로변제]"
-            android:layout_marginBottom="10dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/dda1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/dda2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/dda3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                />
-            <TextView
-                android:id="@+id/dda4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:ellipsize="end"
-                />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-        <TextView
-            android:id="@+id/checking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:ellipsize="end"
-            />
-
-    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -618,12 +389,12 @@
             android:backgroundTint="#FF5722"
             android:text="계산하기" />
 
-    <Button
-        android:id="@+id/copy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#03A9F4"
-        android:text="복사하기" />
+        <Button
+            android:id="@+id/copy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#03A9F4"
+            android:text="복사하기" />
     </LinearLayout>
 
 </ScrollView>

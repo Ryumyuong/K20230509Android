@@ -124,46 +124,59 @@
     <ImageView
         android:id="@+id/bottommenu"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="100dp"
         android:layout_marginTop="125dp"
         android:layout_gravity="bottom"
         android:background="@drawable/box" />
 
-    <ImageView
-        android:id="@+id/home"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="-60dp"
-        android:background="@drawable/home" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="-85dp"
+        android:layout_gravity="bottom">
 
-    <ImageView
-        android:id="@+id/cart"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="-50dp"
-        android:background="@drawable/inproductlight" />
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/home"
+            android:layout_gravity="bottom"/>
 
-    <ImageView
-        android:id="@+id/list"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="-50dp"
-        android:background="@drawable/memberlist" />
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inproductlight"
+            android:layout_gravity="bottom"/>
 
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="330dp"
-        android:layout_marginTop="-50dp"
-        android:background="@drawable/profile" />
+        <ImageView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/userlist"
+            android:layout_gravity="bottom"/>
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/profile"
+            android:layout_gravity="bottom"/>
+    </LinearLayout>
 
 
 </LinearLayout>
